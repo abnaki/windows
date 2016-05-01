@@ -4,7 +4,7 @@ using System.Reflection;
 
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Abnaki Way Components")]
-[assembly: AssemblyCopyright("Copyright © Abnaki Way Components 2016")]
+[assembly: AssemblyCopyright("Copyright © 2016 Abnaki Way Components")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

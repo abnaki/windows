@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{3E040846-2AF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{C0B16CE9-2B2D-4144-B03F-14F9B0D62E23}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Software", "Software", "{8D08CBBD-4CB3-49B6-80BB-D808971B0D5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApplication", "Library\Software\WpfApplication\WpfApplication.csproj", "{3D6F0FBC-FCBB-4EA2-A139-CF0C86604CF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +24,10 @@ Global
 		{0EBFE08A-F0B1-4530-990B-1A890FB60F3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EBFE08A-F0B1-4530-990B-1A890FB60F3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EBFE08A-F0B1-4530-990B-1A890FB60F3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D6F0FBC-FCBB-4EA2-A139-CF0C86604CF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D6F0FBC-FCBB-4EA2-A139-CF0C86604CF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D6F0FBC-FCBB-4EA2-A139-CF0C86604CF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D6F0FBC-FCBB-4EA2-A139-CF0C86604CF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -27,5 +35,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{0EBFE08A-F0B1-4530-990B-1A890FB60F3B} = {3E040846-2AF4-43BE-BF5F-3ACE7C754126}
 		{3E040846-2AF4-43BE-BF5F-3ACE7C754126} = {FEE6E293-424C-4DE8-8647-55E0F1139D7B}
+		{8D08CBBD-4CB3-49B6-80BB-D808971B0D5F} = {C0B16CE9-2B2D-4144-B03F-14F9B0D62E23}
+		{3D6F0FBC-FCBB-4EA2-A139-CF0C86604CF4} = {8D08CBBD-4CB3-49B6-80BB-D808971B0D5F}
 	EndGlobalSection
 EndGlobal
