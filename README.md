@@ -1,8 +1,8 @@
 
 Abnaki Way Components
 
-Small framework for .NET Windows applications, providing useful
-necessities and conventions.  C# and Visual Studio 2013 projects.
+Small framework for Windows applications developed in C#, .NET 4.5, Visual Studio 2013.  Provides useful
+necessities and conventions.
 
 Users are expected to build Abnaki's source code.  Perhaps reference Abnaki's
 project file(s) within your solution.  No binaries here.  Not on NuGet.
