@@ -24,5 +24,12 @@ namespace Ex01_Hello
         {
             InitializeComponent();
         }
+
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+
+            // Abnaki.Windows.Software.Wpf.Notifier.Notify("You hit " + e.Key);
+        }
     }
 }
