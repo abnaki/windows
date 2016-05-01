@@ -5,8 +5,16 @@ using System.Windows;
 
 namespace Abnaki.Windows.Software.Wpf
 {
+    /// <summary>
+    /// UI notifications
+    /// </summary>
     public class Notifier
     {
+        public static void Notify(string message)
+        {
+            MessageBox.Show(Application.Current.MainWindow, message, "Note", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
         public static void Error(string message)
         {
             MessageBox.Show(Application.Current.MainWindow, message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
