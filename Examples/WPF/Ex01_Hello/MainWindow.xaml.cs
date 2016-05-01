@@ -30,6 +30,13 @@ namespace Ex01_Hello
             base.OnKeyUp(e);
 
             // Abnaki.Windows.Software.Wpf.Notifier.Notify("You hit " + e.Key);
+
+            if ( e.Key == Key.X )
+            {
+                throw new ApplicationException("Demo exception because you hit " + e.Key);
+                // will be caught by Abnaki code, not crash.
+            }
+
         }
     }
 }
