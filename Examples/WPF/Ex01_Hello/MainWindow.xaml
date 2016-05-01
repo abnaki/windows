@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Ex01_Hello.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Hello" Height="350" Width="525">
     <Grid>
         
     </Grid>
