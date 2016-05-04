@@ -39,6 +39,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -101,6 +102,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Library\Commonality\Commonality.csproj">
+      <Project>{2c290af1-de15-4b75-8774-c4196f1e213d}</Project>
+      <Name>Commonality</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Library\Software\WpfApplication\WpfApplication.csproj">
       <Project>{3d6f0fbc-fcbb-4ea2-a139-cf0c86604cf4}</Project>
       <Name>WpfApplication</Name>
