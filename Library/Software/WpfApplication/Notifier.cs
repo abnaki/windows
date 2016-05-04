@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows;
 
 namespace Abnaki.Windows.Software.Wpf
@@ -22,7 +21,7 @@ namespace Abnaki.Windows.Software.Wpf
 
         public static void Error(Exception ex)
         {
-            Debug.WriteLine(ex);
+            Abnaki.Windows.Log.Exception(ex);
 
             Error(ex.Message);
 
