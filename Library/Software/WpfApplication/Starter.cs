@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Diagnostics;
 
 namespace Abnaki.Windows.Software.Wpf
 {
@@ -24,9 +25,15 @@ namespace Abnaki.Windows.Software.Wpf
             where Tapp : System.Windows.Application, new()
             where Twin : System.Windows.Window, new()
         {
-            // will want to log some info
+            //Process proc = System.Diagnostics.Process.GetCurrentProcess();
+            //ProcessStartInfo pistart = proc.StartInfo; // no use
+
+            var starta = System.Reflection.Assembly.GetEntryAssembly();
+            Log.Comment("Start", starta.Location);
+            Log.Comment("Version", starta.GetName().Version);
 
             Tapp app = new Tapp();
+
             app.DispatcherUnhandledException += Current_DispatcherUnhandledException;
 
             Twin mw = new Twin();
