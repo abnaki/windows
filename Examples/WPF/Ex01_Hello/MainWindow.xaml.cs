@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 
 namespace Ex01_Hello
 {
@@ -24,35 +23,9 @@ namespace Ex01_Hello
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = new ViewModels.VmMain();
         }
 
-        protected override void OnKeyUp(KeyEventArgs e)
-        {
-            base.OnKeyUp(e);
-
-            // Abnaki.Windows.Software.Wpf.Notifier.Notify("You hit " + e.Key);
-
-            switch (e.Key)
-            {
-                case Key.S:
-                    using ( SaveFileDialog dialog = new SaveFileDialog() )
-                    {
-                        dialog.Filter = "XML|.xml";
-                        dialog.DefaultExt = ".xml";
-                        dialog.Title = "Save Log File";
-
-                        if (  dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK )
-                        {
-                            Abnaki.Windows.Log.Write(dialog.FileName);
-                        }
-                    }
-                    break;
-
-                case Key.X:
-                    throw new ApplicationException("Demo exception because you hit " + e.Key);
-                // will be caught by Abnaki code, not crash.
-            }
-
-        }
     }
 }
