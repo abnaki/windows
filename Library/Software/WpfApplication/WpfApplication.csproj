@@ -42,6 +42,7 @@
     <Compile Include="..\..\..\Abnaki.Windows.AssemblyInfo.cs">
       <Link>Abnaki.Windows.AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AbnakiViewModel.cs" />
     <Compile Include="Notifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Starter.cs" />
