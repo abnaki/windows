@@ -14,7 +14,8 @@ namespace Ex01_Hello
         [STAThread]
         public static int Main(string[] args)
         {
-            return Abnaki.Windows.Software.Wpf.Starter.Start<App, MainWindow>(args);
+            return Abnaki.Windows.Software.Wpf.Starter.Start<System.Windows.Application, MainWindow>(args);
+            // return Abnaki.Windows.Software.Wpf.Starter.Start<App, MainWindow>(args); // App has nothing remarkable
 
         }
     }
