@@ -10,6 +10,12 @@ namespace Abnaki.Windows.Software.Wpf
     /// </summary>
     public class AbnakiViewModel : INotifyPropertyChanged
     {
+        public AbnakiViewModel()
+        {
+            SubscribeEvents();
+        }
+
+        // maybe replace with Fody
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
         {
             add
@@ -20,6 +26,14 @@ namespace Abnaki.Windows.Software.Wpf
             {
                 //throw new NotImplementedException();
             }
+        }
+
+        /// <summary>
+        /// Add methods of this to MessageTube.Subscribe() per type T
+        /// </summary>
+        protected virtual void SubscribeEvents()
+        {
+
         }
     }
 }
