@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Abnaki.Windows.Software.Wpf;
+
 namespace Ex01_Hello
 {
     /// <summary>
@@ -25,6 +27,26 @@ namespace Ex01_Hello
             InitializeComponent();
 
             DataContext = new ViewModels.VmMain();
+
+            bus = new ViewModels.VmButtonBus();
+        }
+
+        enum ButtonKey { Throw, SaveLog, TestMessage };
+        
+        // will promote some of this
+        ViewModels.VmButtonBus bus;
+
+        /// <summary>
+        /// Button Click is wired to this method and each Button CommandParameter
+        /// is the string of an enum value
+        /// </summary>
+        void HandleButton(Object sender, RoutedEventArgs e)
+        {
+            Button bu = (Button)sender;
+            //object x = bu.CommandParameter;
+            var m = new ViewModels.VmButtonBus.ButtonMessage<ButtonKey>(Convert.ToString(bu.CommandParameter));
+           
+            MessageTube.Publish<ViewModels.VmButtonBus.ButtonMessage>(m);
         }
 
     }
