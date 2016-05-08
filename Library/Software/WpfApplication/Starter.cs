@@ -35,6 +35,8 @@ namespace Abnaki.Windows.Software.Wpf
             Log.Comment("Version", starta.GetName().Version);
             Log.Comment("Operating System", Environment.OSVersion);
 
+            System.AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
+
             Tapp app = new Tapp();
 
             app.DispatcherUnhandledException += Current_DispatcherUnhandledException;
@@ -43,12 +45,35 @@ namespace Abnaki.Windows.Software.Wpf
             return app.Run(mw);
         }
 
+        static void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
+        {
+            string filepath = null;
+            if ( args.LoadedAssembly.IsDynamic )
+            {
+                // no file
+            }
+            else
+            {
+                filepath = args.LoadedAssembly.Location;
+            }
+
+            Log.FileInfo(filepath, "Load " + args.LoadedAssembly.GetName());
+        }
+
         private static void Current_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            Notifier.Error(e.Exception);
-
-            e.Handled = true; // but main window could have died, leaving app hanging
-
+            try  // of all code, must be particularly robust
+            {
+                Notifier.Error(e.Exception);
+            }
+            catch ( Exception ex )
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                e.Handled = true; // but main window could have died, leaving app hanging
+            }
         }
 
 
