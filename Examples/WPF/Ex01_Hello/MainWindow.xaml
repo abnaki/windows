@@ -3,13 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Hello" Height="350" Width="525">
     <Grid>
-        <Grid HorizontalAlignment="Left" Height="89" Margin="49,66,0,0" VerticalAlignment="Top" Width="168">
+        <Grid HorizontalAlignment="Left" Height="89" Margin="49,69,0,0" VerticalAlignment="Top" Width="168">
             <Grid.RowDefinitions>
+                <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Button Content="_Throw Exception" HorizontalAlignment="Left" Margin="19,10,0,0" VerticalAlignment="Top" Width="102" Command="{Binding CmdThrowException}"/>
-            <Button Command="{Binding CmdSaveLog}" Content="_Save Logfile" HorizontalAlignment="Left" Margin="19,10.2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
+            <Button Command="{Binding CmdSaveLog}" Content="_Save Logfile" HorizontalAlignment="Left" Margin="19,4.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
+            <Button Click="HandleButton" CommandParameter="TestMessage" Content="_Message" HorizontalAlignment="Left" Margin="19,6.8,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75"/>
         </Grid>
 
     </Grid>
