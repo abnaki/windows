@@ -42,10 +42,15 @@ namespace Ex01_Hello
         /// </summary>
         void HandleButton(Object sender, RoutedEventArgs e)
         {
+            HandleButton<ButtonKey>(sender, e);
+        }
+
+        void HandleButton<Tenum>(Object sender, RoutedEventArgs e)
+        {
             Button bu = (Button)sender;
-            //object x = bu.CommandParameter;
-            var m = new ViewModels.VmButtonBus.ButtonMessage<ButtonKey>(Convert.ToString(bu.CommandParameter));
-           
+            //object x = bu.CommandParameter; // contains string
+            var m = new ViewModels.VmButtonBus.ButtonMessage<Tenum>(Convert.ToString(bu.CommandParameter));
+
             MessageTube.Publish<ViewModels.VmButtonBus.ButtonMessage>(m);
         }
 
