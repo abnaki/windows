@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Abnaki.Windows.Software.Wpf;
+using Abnaki.Windows.Software.Wpf.Menu;
 
 namespace Ex01_Hello
 {
@@ -28,30 +29,20 @@ namespace Ex01_Hello
 
             DataContext = new ViewModels.VmMain();
 
-            bus = new ViewModels.VmButtonBus();
+            bus = new ExButtonBus(); 
         }
 
-        enum ButtonKey { Throw, SaveLog, TestMessage };
-        
-        // will promote some of this
-        ViewModels.VmButtonBus bus;
+        ExButtonBus bus;
 
         /// <summary>
-        /// Button Click is wired to this method and each Button CommandParameter
-        /// is the string of an enum value
+        /// Button Click is wired to this method.
+        /// Note that MessageTube is used, 
+        /// and this.bus is not necessarily the sole subscriber to the button.
+        /// Loose couping is intended.
         /// </summary>
         void HandleButton(Object sender, RoutedEventArgs e)
         {
-            HandleButton<ButtonKey>(sender, e);
-        }
-
-        void HandleButton<Tenum>(Object sender, RoutedEventArgs e)
-        {
-            Button bu = (Button)sender;
-            //object x = bu.CommandParameter; // contains string
-            var m = new ViewModels.VmButtonBus.ButtonMessage<Tenum>(Convert.ToString(bu.CommandParameter));
-
-            MessageTube.Publish<ViewModels.VmButtonBus.ButtonMessage>(m);
+            ButtonBus<ButtonKey>.HandleButton(sender, e);
         }
 
     }
