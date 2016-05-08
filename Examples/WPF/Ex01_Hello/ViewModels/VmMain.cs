@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using Abnaki.Windows.Software.Wpf;
 
 namespace Ex01_Hello.ViewModels
 {
-    class VmMain : Abnaki.Windows.Software.Wpf.AbnakiViewModel
+    class VmMain : AbnakiViewModel
     {
         public VmMain()
         {
