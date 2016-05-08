@@ -42,10 +42,25 @@ namespace Abnaki.Windows
             AddEntry(e);
         }
 
+        public static void FileInfo(string filepath, string comment = null)
+        {
+            FileInfo fi = string.IsNullOrEmpty(filepath) ? null : new FileInfo(filepath);
+            FileInfo(fi, comment);
+        }
+
+        public static void FileInfo(FileInfo fi, string comment = null)
+        {
+            EntryFile e = new EntryFile(fi, comment);
+            AddEntry(e);
+        }
+
         static void AddEntry(Entry e)
         {
-            e.Number = entries.Count;
-            entries.Add(e);
+            lock (entries)
+            {
+                e.Number = entries.Count;
+                entries.Add(e);
+            }
         }
 
         public static void Write(string filename)
@@ -62,6 +77,7 @@ namespace Abnaki.Windows
                     Type[] subtypes = new Type[] { 
                             typeof(Entry), 
                             typeof(EntryException), 
+                            typeof(EntryFile),
                             typeof(EntryObj) };
 
                     XmlSerializer srlz = new XmlSerializer(entries.GetType(), subtypes);
@@ -100,6 +116,92 @@ namespace Abnaki.Windows
         {
             public string Object { get; set; }
 
+        }
+
+        public class EntryFile : Entry
+        {
+            public EntryFile(FileInfo fi, string comment = null)
+            {
+                Comment = comment;
+                File = fi;
+            }
+
+            public EntryFile() // serializ.
+            {
+
+            }
+
+            [XmlIgnore]
+            public FileInfo File { get; private set; }
+
+            public string FullName
+            {
+                get
+                {
+                    if (this.File == null)
+                        return null;
+                    else
+                        return this.File.FullName;
+                }
+                set
+                {
+                    this.File = (value == null) ? null : new FileInfo(value);
+                }
+            }
+
+            /// <summary>
+            /// bytes, thousand-delimited
+            /// </summary>
+            public string Length
+            {
+                get
+                {
+                    if (this.File == null)
+                        return null;
+                    else
+                        return this.File.Length.ToString("N0", System.Globalization.NumberFormatInfo.InvariantInfo);
+                }
+                set
+                {  // exists only to be able to serialize
+                    Debug.WriteLine("You must only set File or FullName.");
+                }
+            }
+
+            /// <summary>
+            /// Universal
+            /// </summary>
+            public DateTime? DateMod
+            {
+                get
+                {
+                    if (this.File == null)
+                        return null;
+                    else
+                        return this.File.LastWriteTimeUtc;
+                }
+                set
+                {  // exists only to be able to serialize
+                    Debug.WriteLine("You must only set File or FullName.");
+                }
+            }
+
+            public string Version
+            {
+                get
+                {
+                    if (this.File == null)
+                        return null;
+
+                    FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(this.FullName);
+                    return fvi.FileVersion;
+                }
+                set
+                {  // exists only to be able to serialize
+                    Debug.WriteLine("You must only set File or FullName.");
+                }
+            }
+
+                
         }
 
         public class EntryException : Entry
