@@ -32,25 +32,54 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             InitializeComponent();
         }
 
-        public void AddCommand(object key, string label, bool? defaultCheck = null)
+        public void AddCommand<Tkey>(Tkey key, string label, bool? defaultCheck = null)
         {
-            AddMenuItem(this.RootMenu, key, label, defaultCheck);
+            MenuItem item = AddMenuItem(key, label, defaultCheck);
+
+            item.Click += ItemClick<Tkey>;
         }
 
-        public void AddCommandChild(object parentKey, object childKey, string label, bool? defaultCheck = null)
+        public void AddCommandChild<Tkey>(object parentKey, Tkey childKey, string label, bool? defaultCheck = null)
+        {
+            MenuItem item = AddItemChild(parentKey, childKey, label, defaultCheck);
+
+            item.Click += ItemClick<Tkey>;
+        }
+
+        void ItemClick<Tkey>(object sender, RoutedEventArgs e)
+        {
+            MenuItem item = (MenuItem)sender;
+            Tkey key = (Tkey)item.Tag;
+            bool? isChecked = item.IsCheckable ? (bool?)item.IsChecked : (bool?)null;
+            ButtonBus<Tkey>.Handle(key, isChecked);
+        }
+
+        MenuItem AddMenuItem(object key, string label, bool? defaultCheck)
+        {
+            return AddMenuItem(this.RootMenu, key, label, defaultCheck);
+        }
+
+        MenuItem AddItemChild(object parentKey, object childKey, string label, bool? defaultCheck)
         {
             MenuItem parentItem = this.RootMenu.Items.Cast<MenuItem>().First(item => parentKey.Equals(item.Tag));
 
-            AddMenuItem(parentItem, childKey, label, defaultCheck);
+            return AddMenuItem(parentItem, childKey, label, defaultCheck);
         }
 
-        void AddMenuItem(ItemsControl container, object key, string label, bool? defaultCheck = null)
+        MenuItem AddMenuItem(ItemsControl container, object key, string label, bool? defaultCheck)
         {
             MenuItem item = new MenuItem();
             item.Header = label;
             item.Tag = key;
+
+            item.IsCheckable = defaultCheck.HasValue;
+            if (defaultCheck.HasValue)
+                item.IsChecked = defaultCheck.Value;
+
             container.Items.Add(item);
+            return item;
         }
+
     }
 
 }
