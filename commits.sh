@@ -81,8 +81,6 @@ git add Examples/WPF/Ex01_Hello/ExButtonBus.cs && git rm Examples/WPF/Ex01_Hello
 
 ~/bin/gitcommit 'Does not need App class' Examples/WPF/Ex01_Hello/Ex01_Hello.csproj
 
-tail:
-
 git add Examples/WPF/Ex02_Menu/App.config
 git add Examples/WPF/Ex02_Menu/App.xaml
 git add Examples/WPF/Ex02_Menu/App.xaml.cs
@@ -96,6 +94,8 @@ git add Examples/WPF/Ex02_Menu/Properties/Settings.Designer.cs
 git add Examples/WPF/Ex02_Menu/Properties/Settings.settings
 ~/bin/gitcommit '+Ex02_Menu' Abnaki.Windows.sln
 
+
+tail:
 
 echo About to do something... && sleep 4
 
