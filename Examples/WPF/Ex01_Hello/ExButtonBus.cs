@@ -11,7 +11,7 @@ namespace Ex01_Hello
     /// </summary>
     class ExButtonBus : ButtonBus<ButtonKey>
     {
-        protected override void HandleButton(ButtonMessage m)
+        protected override void HandleButton(ButtonMessage<ButtonKey> m)
         {
             base.HandleButton(m);
             Debug.WriteLine(m);
