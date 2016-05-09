@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Menu="clr-namespace:Abnaki.Windows.Software.Wpf.Menu;assembly=Abnaki.Windows.Software.Wpf" x:Class="Ex02_Menu.MainWindow"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Example 2" Height="350" Width="525">
 
         <Menu:MainMenu Name="ExTopMenu" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
 
