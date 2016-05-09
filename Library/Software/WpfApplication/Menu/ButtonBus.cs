@@ -28,9 +28,10 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             MessageTube.Publish<ButtonMessage>(m);
         }
 
-        public static void Handle(Tenum key)
+        public static void Handle(Tenum key, bool? isChecked)
         {
             var m = new ButtonMessage<Tenum>(key);
+            m.Checked = isChecked;
 
             MessageTube.Publish<ButtonMessage>(m);
         }
