@@ -1,0 +1,13 @@
+D:\keep\code\windows\Library\Software\WpfApplication\bin\Debug\Abnaki.Windows.Software.Wpf.dll
+D:\keep\code\windows\Library\Software\WpfApplication\bin\Debug\Abnaki.Windows.Software.Wpf.pdb
+D:\keep\code\windows\Library\Software\WpfApplication\bin\Debug\Abnaki.Windows.Foundation.Commonality.dll
+D:\keep\code\windows\Library\Software\WpfApplication\bin\Debug\Abnaki.Windows.Foundation.Commonality.pdb
+D:\keep\code\windows\Library\Software\WpfApplication\obj\Debug\WpfApplication.csprojResolveAssemblyReference.cache
+D:\keep\code\windows\Library\Software\WpfApplication\obj\Debug\Abnaki.Windows.Software.Wpf.dll
+D:\keep\code\windows\Library\Software\WpfApplication\obj\Debug\Abnaki.Windows.Software.Wpf.pdb
+D:\keep\code\windows\Library\Software\WpfApplication\bin\Debug\Prism.dll
+D:\keep\code\windows\Library\Software\WpfApplication\bin\Debug\Prism.xml
+D:\keep\code\windows\Library\Software\WpfApplication\obj\Debug\Menu\MainMenu.baml
+D:\keep\code\windows\Library\Software\WpfApplication\obj\Debug\Menu\MainMenu.g.cs
+D:\keep\code\windows\Library\Software\WpfApplication\obj\Debug\Abnaki.Windows.Software.Wpf_MarkupCompile.cache
+D:\keep\code\windows\Library\Software\WpfApplication\obj\Debug\Abnaki.Windows.Software.Wpf.g.resources
