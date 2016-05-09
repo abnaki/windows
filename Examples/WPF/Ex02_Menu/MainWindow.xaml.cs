@@ -23,6 +23,16 @@ namespace Ex02_Menu
         public MainWindow()
         {
             InitializeComponent();
+
+            PopulateMenu();
+        }
+
+        void PopulateMenu()
+        {
+            this.ExTopMenu.AddCommand(TopMenuKey.File, "_File");
+            this.ExTopMenu.AddCommand(TopMenuKey.Help, "_Help");
+
+            this.ExTopMenu.AddCommandChild(TopMenuKey.File, SubMenuKey.Exit, "E_xit");
         }
     }
 }
