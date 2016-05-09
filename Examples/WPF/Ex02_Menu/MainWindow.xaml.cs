@@ -25,7 +25,11 @@ namespace Ex02_Menu
             InitializeComponent();
 
             PopulateMenu();
+
+            bus = new ExButtonBus();
         }
+
+        ExButtonBus bus;
 
         void PopulateMenu()
         {
