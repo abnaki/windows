@@ -34,9 +34,12 @@ namespace Ex02_Menu
         void PopulateMenu()
         {
             this.ExTopMenu.AddCommand(TopMenuKey.File, "_File");
+            this.ExTopMenu.AddCommand(TopMenuKey.Option, "_Option");
             this.ExTopMenu.AddCommand(TopMenuKey.Help, "_Help");
 
             this.ExTopMenu.AddCommandChild(TopMenuKey.File, SubMenuKey.Exit, "E_xit");
+
+            this.ExTopMenu.AddCommandChild(TopMenuKey.Option, SubMenuKey.Mayo, "_Mayo", false);
         }
     }
 }
