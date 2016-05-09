@@ -11,11 +11,23 @@ namespace Abnaki.Windows.Software.Wpf
     public class Starter
     {
         /// <summary>
+        /// Starts Application having Twindow.
+        /// Does not need any subclass of Application.
+        /// Also see other Start overload.
+        /// </summary>
+        /// <typeparam name="Twindow">class of window
+        /// </typeparam>
+        public static int Start<Twindow>(string[] args)
+            where Twindow : System.Windows.Window, new()
+        {
+            return Start<Twindow, System.Windows.Application>(args);
+        }
+
+        /// <summary>
         /// Starts Application having Twindow as first thing user sees.
         /// </summary>
         /// <typeparam name="Tapp">System.Windows.Application, or subclass if necessary</typeparam>
         /// <typeparam name="Twindow">class of window</typeparam>
-        /// <param name="args"></param>
         /// <example>
         /// <code>
         /// [STAThread]
@@ -23,7 +35,7 @@ namespace Abnaki.Windows.Software.Wpf
         /// {  return Starter.Start<YourApp,YourWin>(args); }
         /// </code>
         /// </example>
-        public static int Start<Tapp, Twindow>(string[] args)
+        public static int Start<Twindow, Tapp>(string[] args)
             where Tapp : System.Windows.Application, new()
             where Twindow : System.Windows.Window, new()
         {
