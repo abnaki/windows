@@ -3,11 +3,13 @@
     enum TopMenuKey
     {
         File,
+        Option,
         Help
     }
 
     enum SubMenuKey
     {
+        Mayo,
         Exit
     }
 }
