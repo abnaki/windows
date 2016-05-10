@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Abnaki.Windows.Software.Wpf.Menu;
 using TopMenuKey = Abnaki.Windows.Software.Wpf.Ultimate.TopMenuKey;
 
+
 namespace Ex02_Menu
 {
     /// <summary>
@@ -33,7 +34,7 @@ namespace Ex02_Menu
 
             //Debug.WriteLine(m);
 
-            switch (m.Key)
+            switch ( m.Key )
             {
                 case SubMenuKey.Exit:
                     System.Windows.Application.Current.Shutdown();  // crude
