@@ -17,10 +17,10 @@ namespace Abnaki.Windows.Software.Wpf
         /// </summary>
         /// <typeparam name="Twindow">class of window
         /// </typeparam>
-        public static int Start<Twindow>(string[] args)
+        public static int Start<Twindow>(string[] args, Func<Twindow> initWindow = null)
             where Twindow : System.Windows.Window, new()
         {
-            return Start<Twindow, System.Windows.Application>(args);
+            return Start<Twindow, System.Windows.Application>(args, initWindow);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Abnaki.Windows.Software.Wpf
         /// {  return Starter.Start<YourApp,YourWin>(args); }
         /// </code>
         /// </example>
-        public static int Start<Twindow, Tapp>(string[] args)
+        public static int Start<Twindow, Tapp>(string[] args, Func<Twindow> initWindow = null)
             where Tapp : System.Windows.Application, new()
             where Twindow : System.Windows.Window, new()
         {
@@ -53,7 +53,12 @@ namespace Abnaki.Windows.Software.Wpf
 
             app.DispatcherUnhandledException += Current_DispatcherUnhandledException;
 
-            Twindow mw = new Twindow();
+            Twindow mw;
+            if (initWindow == null)
+                mw = new Twindow();
+            else
+                mw = initWindow();
+
             return app.Run(mw);
         }
 

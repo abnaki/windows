@@ -10,7 +10,6 @@ namespace Abnaki.Windows.Software.Wpf.Menu
     /// <summary>
     /// Controller base class
     /// </summary>
-    /// </summary>
     /// <typeparam name="Tenum">designed for related buttons
     /// </typeparam>
     public class ButtonBus<Tenum>

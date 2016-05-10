@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Abnaki.Windows.Software.Wpf.Ultimate;
+
 namespace Ex02_Menu
 {
     /// <summary>
@@ -24,22 +26,10 @@ namespace Ex02_Menu
         {
             InitializeComponent();
 
-            PopulateMenu();
-
-            bus = new ExButtonBus();
+            bus = new ExButtonBus(this.ExTopMenu);
         }
 
         ExButtonBus bus;
 
-        void PopulateMenu()
-        {
-            this.ExTopMenu.AddCommand(TopMenuKey.File, "_File");
-            this.ExTopMenu.AddCommand(TopMenuKey.Option, "_Option");
-            this.ExTopMenu.AddCommand(TopMenuKey.Help, "_Help");
-
-            this.ExTopMenu.AddCommandChild(TopMenuKey.File, SubMenuKey.Exit, "E_xit");
-
-            this.ExTopMenu.AddCommandChild(TopMenuKey.Option, SubMenuKey.Mayo, "_Mayo", false);
-        }
     }
 }

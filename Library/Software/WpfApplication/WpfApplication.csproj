@@ -45,7 +45,13 @@
     <Compile Include="..\..\..\Abnaki.Windows.AssemblyInfo.cs">
       <Link>Abnaki.Windows.AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AbnakiViewModel.cs" />
+    <Compile Include="Ultimate\Enums.cs" />
+    <Compile Include="Ultimate\MainMenuBus.cs" />
+    <Compile Include="Ultimate\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ultimate\UltimateStarter.cs" />
+    <Compile Include="ViewModels\AbnakiViewModel.cs" />
     <Compile Include="Menu\ButtonBus.cs" />
     <Compile Include="Menu\ButtonMessage.cs" />
     <Compile Include="Menu\MainMenu.xaml.cs">
@@ -69,6 +75,10 @@
     <Page Include="Menu\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ultimate\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

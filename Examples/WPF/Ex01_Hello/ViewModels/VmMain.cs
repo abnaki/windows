@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using Abnaki.Windows.Software.Wpf;
+using Abnaki.Windows.Software.Wpf.ViewModels;
 
 namespace Ex01_Hello.ViewModels
 {

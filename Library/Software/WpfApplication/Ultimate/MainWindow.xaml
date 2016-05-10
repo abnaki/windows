@@ -1,0 +1,11 @@
+﻿<Window x:Class="Abnaki.Windows.Software.Wpf.Ultimate.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:menu="clr-namespace:Abnaki.Windows.Software.Wpf.Menu"
+        Title="Main" Height="300" Width="500">
+    <StackPanel Orientation="Vertical">
+        <menu:MainMenu x:Name="TopMenu" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+        <StackPanel Name="ClientPanel" Orientation="Vertical"/>
+        <StatusBar />
+    </StackPanel>
+</Window>
