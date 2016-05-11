@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 
-namespace Abnaki.Windows.Software.Wpf
+namespace Abnaki.Windows.Software.Wpf.Diplomat
 {
     /// <summary>
     /// UI notifications
