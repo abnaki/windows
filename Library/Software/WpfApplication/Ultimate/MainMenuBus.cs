@@ -15,6 +15,9 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             menu.AddCommand(TopMenuKey.Help, "_Help");
 
             menu.AddCommandChild(TopMenuKey.File, SubMenuKey.FileExit, "E_xit");
+
+            menu.AddCommandChild(TopMenuKey.Help, SubMenuKey.HelpTroubleshoot, "_Troubleshoot",  
+                toolTip: "Provides information and files for you to seek help or report issues.");
         }
 
         protected override void HandleButton(ButtonMessage<SubMenuKey> m)
@@ -27,6 +30,16 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
                 case SubMenuKey.FileExit:
                     // will want confirmation and preliminaries/housekeeping
                     System.Windows.Application.Current.Shutdown();
+                    break;
+
+                case SubMenuKey.HelpTroubleshoot:
+                    // crude.  may want a generalized or plugin control, not messageboxes
+                    bool saved = Diplomat.Troubleshooter.DialogSaveLog();
+                    if (saved)
+                    {
+                        string msg = "Completed saving file.\n" + "To communicate an issue with the software author,\n" + "please upload it as instructed.";
+                        Diplomat.Notifier.Notify(msg);
+                    }
                     break;
 
             }
