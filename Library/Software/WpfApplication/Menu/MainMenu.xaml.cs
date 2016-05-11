@@ -32,18 +32,24 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             InitializeComponent();
         }
 
-        public void AddCommand<Tkey>(Tkey key, string label, bool? defaultCheck = null)
+        public void AddCommand<Tkey>(Tkey key, string label, bool? defaultCheck = null, string toolTip = null)
         {
             MenuItem item = AddMenuItem(key, label, defaultCheck);
 
-            item.Click += ItemClick<Tkey>;
+            CompleteItem<Tkey>(item, toolTip);
         }
 
-        public void AddCommandChild<Tkey>(object parentKey, Tkey childKey, string label, bool? defaultCheck = null)
+        public void AddCommandChild<Tkey>(object parentKey, Tkey childKey, string label, bool? defaultCheck = null, string toolTip = null)
         {
             MenuItem item = AddItemChild(parentKey, childKey, label, defaultCheck);
 
+            CompleteItem<Tkey>(item, toolTip);
+        }
+
+        void CompleteItem<Tkey>(MenuItem item, string toolTip)
+        {
             item.Click += ItemClick<Tkey>;
+            item.ToolTip = toolTip;
         }
 
         void ItemClick<Tkey>(object sender, RoutedEventArgs e)
