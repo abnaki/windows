@@ -4,8 +4,8 @@
         xmlns:menu="clr-namespace:Abnaki.Windows.Software.Wpf.Menu"
         Title="Main" Height="300" Width="500">
     <StackPanel Orientation="Vertical">
-        <menu:MainMenu x:Name="TopMenu" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+        <menu:MainMenu x:Name="TopMenu" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top"/>
         <StackPanel Name="ClientPanel" Orientation="Vertical"/>
-        <StatusBar />
+        <!-- StatusBar VerticalAlignment="Bottom" Height="20" -->
     </StackPanel>
 </Window>
