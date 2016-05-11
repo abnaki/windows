@@ -81,7 +81,7 @@ namespace Abnaki.Windows.Software.Wpf
         {
             try  // of all code, must be particularly robust
             {
-                Notifier.Error(e.Exception);
+                Diplomat.Notifier.Error(e.Exception);
             }
             catch ( Exception ex )
             {
