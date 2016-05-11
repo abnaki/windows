@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 
 namespace Ex01_Hello.Commands
 {
@@ -15,18 +14,7 @@ namespace Ex01_Hello.Commands
 
         public void Execute(object parameter)
         {
-            using (SaveFileDialog dialog = new SaveFileDialog())
-            {
-                dialog.Filter = "XML|.xml";
-                dialog.DefaultExt = ".xml";
-                dialog.Title = "Save Log File";
-
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    Abnaki.Windows.Log.Write(dialog.FileName);
-                }
-            }
-
+            Abnaki.Windows.Software.Wpf.Diplomat.Troubleshooter.DialogSaveLog();
         }
     }
 }
