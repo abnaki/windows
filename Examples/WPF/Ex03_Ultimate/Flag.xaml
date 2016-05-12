@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="Ex03_Ultimate.Flag"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="230">
+    <StackPanel>
+        <!-- Netherlands flag -->
+        <Rectangle HorizontalAlignment="Stretch" Width="Auto" Height="50" Fill="Red"></Rectangle>
+        <Rectangle HorizontalAlignment="Stretch" Width="Auto" Height="50" Fill="White"></Rectangle>
+        <Rectangle HorizontalAlignment="Stretch" Width="Auto" Height="50" Fill="Blue"></Rectangle>
+    </StackPanel>
+</UserControl>
