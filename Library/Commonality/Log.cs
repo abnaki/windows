@@ -40,6 +40,9 @@ namespace Abnaki.Windows
 
             EntryException e = new EntryException(ex, comment);
             AddEntry(e);
+
+            if (ex.InnerException != null)
+                Exception(ex.InnerException);
         }
 
         public static void FileInfo(string filepath, string comment = null)
