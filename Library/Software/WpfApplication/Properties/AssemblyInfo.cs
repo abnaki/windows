@@ -1,4 +1,4 @@
 ﻿using System.Reflection;
 
-[assembly: AssemblyTitle("WpfApplication")]
+[assembly: AssemblyTitle("Abnaki.Windows.Software.Wpf.Application")]
 [assembly: AssemblyDescription("")]
