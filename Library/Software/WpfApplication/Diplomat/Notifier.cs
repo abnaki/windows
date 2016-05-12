@@ -23,9 +23,16 @@ namespace Abnaki.Windows.Software.Wpf.Diplomat
         {
             Abnaki.Windows.Log.Exception(ex);
 
-            Error(ex.Message);
+            Error(CumulativeMessage(ex));
 
         }
 
+        static string CumulativeMessage(Exception ex)
+        {
+            if (ex.InnerException == null)
+                return ex.Message;
+            else
+                return ex.Message + Environment.NewLine + CumulativeMessage(ex.InnerException);
+        }
     }
 }
