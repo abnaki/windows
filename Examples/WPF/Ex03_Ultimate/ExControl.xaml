@@ -1,14 +1,26 @@
-﻿<UserControl x:Class="Ex03_Ultimate.ExControl"
+﻿<UserControl xmlns:Ex03_Ultimate="clr-namespace:Ex03_Ultimate" 
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:PreferredControls="clr-namespace:Abnaki.Windows.Software.Wpf.PreferredControls;assembly=Abnaki.Windows.Software.Wpf.PreferredControls" xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock" x:Class="Ex03_Ultimate.ExControl" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel>
-        <!-- Netherlands flag -->
-        <Rectangle HorizontalAlignment="Stretch" Width="Auto" Height="50" Fill="Red"></Rectangle>
-        <Rectangle HorizontalAlignment="Stretch" Width="Auto" Height="50" Fill="White"></Rectangle>
-        <Rectangle HorizontalAlignment="Stretch" Width="Auto" Height="50" Fill="Blue"></Rectangle>
-    </StackPanel>
+    <xcad:DockingManager >
+        <xcad:LayoutRoot>
+            <xcad:LayoutRoot.LeftSide>
+                <xcad:LayoutAnchorSide>
+                    <xcad:LayoutAnchorGroup>
+                        <xcad:LayoutAnchorable ContentId="pflag" Title="Flag">
+                            <Ex03_Ultimate:Flag />
+                        </xcad:LayoutAnchorable>
+                    </xcad:LayoutAnchorGroup>
+                </xcad:LayoutAnchorSide>
+            </xcad:LayoutRoot.LeftSide>
+        </xcad:LayoutRoot>
+    </xcad:DockingManager>
+
+
+
+
 </UserControl>
