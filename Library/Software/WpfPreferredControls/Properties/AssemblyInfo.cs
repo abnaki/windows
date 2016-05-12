@@ -1,4 +1,4 @@
 ﻿using System.Reflection;
 
-[assembly: AssemblyTitle("WpfPreferredControls")]
+[assembly: AssemblyTitle("Abnaki.Windows.Software.Wpf.PreferredControls")]
 [assembly: AssemblyDescription("")]
