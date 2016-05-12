@@ -41,25 +41,32 @@ namespace Abnaki.Windows.Software.Wpf
         {
             //Process proc = System.Diagnostics.Process.GetCurrentProcess();
             //ProcessStartInfo pistart = proc.StartInfo; // no use
+            try
+            {
+                var starta = System.Reflection.Assembly.GetEntryAssembly();
+                Log.Comment("Start", starta.Location);
+                Log.Comment("Version", starta.GetName().Version);
+                Log.Comment("Operating System", Environment.OSVersion);
 
-            var starta = System.Reflection.Assembly.GetEntryAssembly();
-            Log.Comment("Start", starta.Location);
-            Log.Comment("Version", starta.GetName().Version);
-            Log.Comment("Operating System", Environment.OSVersion);
+                System.AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
 
-            System.AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
+                Tapp app = new Tapp();
 
-            Tapp app = new Tapp();
+                app.DispatcherUnhandledException += Current_DispatcherUnhandledException;
 
-            app.DispatcherUnhandledException += Current_DispatcherUnhandledException;
+                Twindow mw;
+                if (initWindow == null)
+                    mw = new Twindow();
+                else
+                    mw = initWindow();
 
-            Twindow mw;
-            if (initWindow == null)
-                mw = new Twindow();
-            else
-                mw = initWindow();
-
-            return app.Run(mw);
+                return app.Run(mw);
+            }
+            catch ( Exception ex )
+            {
+                Diplomat.Notifier.Error(ex);
+            }
+            return 1; // failed
         }
 
         static void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
