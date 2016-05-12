@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:menu="clr-namespace:Abnaki.Windows.Software.Wpf.Menu"
         Title="Main" Height="300" Width="500">
-    <StackPanel Orientation="Vertical">
-        <menu:MainMenu x:Name="TopMenu" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top"/>
-        <StackPanel Name="ClientPanel" Orientation="Vertical"/>
+    <DockPanel>
+        <menu:MainMenu DockPanel.Dock="Top" x:Name="TopMenu" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top"/>
+        <DockPanel DockPanel.Dock="Bottom" Name="ClientPanel"/>
         <!-- StatusBar VerticalAlignment="Bottom" Height="20" -->
-    </StackPanel>
+    </DockPanel>
 </Window>
