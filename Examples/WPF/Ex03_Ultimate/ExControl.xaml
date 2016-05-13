@@ -8,7 +8,7 @@
              xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <xcad:DockingManager >
+    <xcad:DockingManager Name="Docky">
         <xcad:DockingManager.Theme>
             <!-- Aero is good basis to start with, as opposed to Generic, considering user environment colors -->
             <xcad:AeroTheme />
