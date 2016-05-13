@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Abnaki.Windows.Software.Wpf.PreferredControls;
+
 namespace Ex03_Ultimate
 {
     /// <summary>
@@ -23,6 +25,8 @@ namespace Ex03_Ultimate
         public ExControl()
         {
             InitializeComponent();
+
+            Extensions.StronglyRecommendedDefaults(this.Docky);
         }
     }
 }
