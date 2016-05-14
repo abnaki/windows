@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 
 using Abnaki.Windows.Software.Wpf.Menu;
+using Abnaki.Windows.Software.Wpf.Profile;
 
 namespace Abnaki.Windows.Software.Wpf.Ultimate
 {
@@ -25,7 +26,8 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
     /// MS does not support inheriting XAML properly across assemblies.  XAML is used for this class,
     /// and you will not have a subclass.   You can use public functionality.  Also see UltimateStarter.
     /// </remarks>
-    public sealed partial class MainWindow : Window
+    public sealed partial class MainWindow : Window,
+        Abnaki.Windows.GUI.IWindow
     {
         public MainWindow()
         {
@@ -38,9 +40,22 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
 
         MainMenuBus mainMenub;
 
-        public void SetMainControl(System.Windows.UIElement c)
+        public event Action<FileInfo> SavingLayout;
+
+        public event Action<FileInfo> RestoringLayout;
+
+
+        public void SetMainControl(Abnaki.Windows.GUI.IMainControl c)
         {
-            this.ClientPanel.Children.Add(c);
+            var element = (System.Windows.UIElement)c;
+            this.ClientPanel.Children.Add(element);
+
+            Abnaki.Windows.Software.Wpf.PreferredControls.Extensions.CompleteSetupOfInterfaces(this, c.DockingSystem);
+        }
+
+        static FileInfo LayoutFileInfo()
+        {
+            return Preference.ClassPrefsFile<MainWindow>("Layout");
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
@@ -53,7 +68,12 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             {
                 SaveBounds();
 
-                // save dock layout file
+                var h = SavingLayout;
+                if ( h != null )
+                {
+                    FileInfo fi = LayoutFileInfo();
+                    h(fi);
+                }
             }
             catch (Exception ex)
             {
@@ -69,7 +89,13 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
                 // note, in OnInitialized(), WindowState does not necessarily maximize on proper screen, so handle Loaded.
                 changed = ReloadBounds();
 
-                // open dock layout file
+                var h = RestoringLayout;
+                if ( h != null )
+                {
+                    FileInfo fi = LayoutFileInfo();
+                    h(fi);
+                }
+
             }
             catch (Exception ex)
             {
@@ -129,5 +155,6 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             public Rect Bounds { get; set; }
             public WindowState State { get; set; }
         }
+
     }
 }
