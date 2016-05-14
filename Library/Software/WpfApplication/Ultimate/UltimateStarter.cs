@@ -9,7 +9,7 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
     /// <typeparam name="Tcontrol">
     /// </typeparam>
     public class UltimateStarter<Tcontrol>
-        where Tcontrol : System.Windows.UIElement, new()
+        where Tcontrol : System.Windows.UIElement, Abnaki.Windows.GUI.IMainControl, new()
     {
         public static int Start(string[] args)
         {
