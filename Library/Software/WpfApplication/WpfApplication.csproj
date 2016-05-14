@@ -40,13 +40,19 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Serialization" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WpfScreenHelper">
+      <HintPath>..\..\..\packages\WpfScreenHelper.0.3.0.0\lib\net40\WpfScreenHelper.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\Abnaki.Windows.AssemblyInfo.cs">
       <Link>Abnaki.Windows.AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Diplomat\Troubleshooter.cs" />
+    <Compile Include="Profile\Preference.cs" />
     <Compile Include="Ultimate\Enums.cs" />
     <Compile Include="Ultimate\MainMenuBus.cs" />
     <Compile Include="Ultimate\MainWindow.xaml.cs">
