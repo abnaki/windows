@@ -1,0 +1,6 @@
+﻿
+These interfaces may be needed by multiple dependent projects.
+There will be no downside to placing them here because they should contain very fundamental types,
+and not bulk up the dependencies of Commonality.
+The advantage is that they can be referenced by multiple other GUI-related projects, 
+and not need additional projects and inter-project references.
