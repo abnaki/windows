@@ -36,8 +36,6 @@ namespace Abnaki.Windows
 
         public static void Exception(Exception ex, string comment = null)
         {
-            Debug.WriteLine(ex);
-
             EntryException e = new EntryException(ex, comment);
             AddEntry(e);
 
@@ -63,6 +61,8 @@ namespace Abnaki.Windows
             {
                 e.Number = entries.Count;
                 entries.Add(e);
+
+                Debug.WriteLine(e.DebuggingMessage());
             }
         }
 
@@ -113,6 +113,15 @@ namespace Abnaki.Windows
             /// </summary>
             public string Scope { get; set; }
 
+            internal virtual string DebuggingMessage()
+            {
+                return this.ToString();
+            }
+
+            public override string ToString()
+            {
+                return Comment;
+            }
         }
 
         public class EntryObj : Entry
@@ -226,6 +235,11 @@ namespace Abnaki.Windows
             // will be parsed into more sophisticated classes, System.Diagnostics.StackTrace
             
             public string ExceptionStack { get; set; }
+
+            internal override string DebuggingMessage()
+            {
+                return string.Join(Environment.NewLine, base.ToString(), ExceptionMessage, ExceptionStack);
+            }
         }
     }
 }
