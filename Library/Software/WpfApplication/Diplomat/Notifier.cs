@@ -19,6 +19,9 @@ namespace Abnaki.Windows.Software.Wpf.Diplomat
             MessageBox.Show(Application.Current.MainWindow, message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
+        /// <summary>
+        /// Log and show to user
+        /// </summary>
         public static void Error(Exception ex)
         {
             Abnaki.Windows.Log.Exception(ex);
