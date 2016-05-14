@@ -45,9 +45,18 @@ namespace Abnaki.Windows.Software.Wpf.Profile
             return sb;
         }
 
-        static FileInfo ClassPrefsFile<T>()
+        /// <summary>
+        /// </summary>
+        /// <typeparam name="T">type of most-responsible consumer class</typeparam>
+        /// <param name="qualifier">can distinguish or clarify a special purpose file; be sure it's valid within filenames</param>
+        /// <returns></returns>
+        public static FileInfo ClassPrefsFile<T>(string qualifier = null)
         {
-            string filename = typeof(T).FullName + ".xml";
+            string filename = typeof(T).FullName;
+            if (qualifier != null)
+                filename += "." + qualifier;
+
+            filename += ".xml";
 
             return AbnakiFile.CombinedFilePath(PrefsDir(), filename);
         }
