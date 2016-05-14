@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Diagnostics;
 
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
+using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
 namespace Abnaki.Windows.Software.Wpf.PreferredControls
 {
@@ -12,13 +14,34 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls
     {
         // will extend DockingManager publicly
 
+        static void CompleteSetup(this DockingManager dman, Abnaki.Windows.GUI.IWindow mainWindow)
+        {
+            StronglyRecommendedDefaults(dman);
+
+            mainWindow.SavingLayout += fi => SerializeLayout(dman, fi);
+            mainWindow.RestoringLayout += fi => DeserializeLayout(dman, fi);
+
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="mainWindow"></param>
+        /// <param name="dockingSystem"></param>
+        /// <remarks>Do not want to pollute all dependent projects with references to Xceed and make replacement difficult.
+        /// </remarks>
+        public static void CompleteSetupOfInterfaces(Abnaki.Windows.GUI.IWindow mainWindow, object dockingSystem)
+        {
+            DockingManager dman = (DockingManager)dockingSystem;
+            CompleteSetup(dman, mainWindow);
+        }
+
         public static void StronglyRecommendedDefaults(this DockingManager dman)
         {
-            
             foreach (ILayoutElement element in dman.Layout.Children )
             {
                 SetStronglyRecommendedDefaults(element);
             }
+
         }
 
         static void SetStronglyRecommendedDefaults(ILayoutElement element)
@@ -59,5 +82,23 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls
         {
             anch.CanHide = false;  // if true, you would need some way to restore it to the screen
         }
+
+        static System.Text.Encoding LayoutEncoding = System.Text.Encoding.UTF8;
+
+        public static void SerializeLayout(this DockingManager dman, FileInfo fi)
+        {
+            var serializer = new XmlLayoutSerializer(dman);
+            serializer.Serialize(fi.FullName);
+        }
+
+        public static void DeserializeLayout(this DockingManager dman, FileInfo fi)
+        {
+            if (fi.Exists)
+            {
+                var serializer = new XmlLayoutSerializer(dman);
+                serializer.Deserialize(fi.FullName);
+            }
+        }
+
     }
 }
