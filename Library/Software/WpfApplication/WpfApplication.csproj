@@ -75,6 +75,10 @@
       <Project>{2c290af1-de15-4b75-8774-c4196f1e213d}</Project>
       <Name>Commonality</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WpfPreferredControls\WpfPreferredControls.csproj">
+      <Project>{c3c851a0-99cc-4295-b4f6-5085cfd5fd83}</Project>
+      <Name>WpfPreferredControls</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
