@@ -20,13 +20,16 @@ namespace Ex03_Ultimate
     /// <summary>
     /// Interaction logic for ExControl.xaml
     /// </summary>
-    public partial class ExControl : UserControl
+    public partial class ExControl : UserControl, Abnaki.Windows.GUI.IMainControl
     {
         public ExControl()
         {
             InitializeComponent();
+        }
 
-            Extensions.StronglyRecommendedDefaults(this.Docky);
+        public object DockingSystem
+        {
+            get { return this.Docky; }
         }
     }
 }
