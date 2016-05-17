@@ -113,6 +113,9 @@ namespace Abnaki.Windows
             /// </summary>
             public string Scope { get; set; }
 
+            /// <summary>
+            /// May be much more verbose than ToString()
+            /// </summary>
             internal virtual string DebuggingMessage()
             {
                 return this.ToString();
@@ -128,6 +131,10 @@ namespace Abnaki.Windows
         {
             public string Object { get; set; }
 
+            public override string ToString()
+            {
+                return base.ToString() + " " + this.Object;
+            }
         }
 
         public class EntryFile : Entry
