@@ -31,5 +31,12 @@ namespace Ex03_Ultimate
         {
             get { return this.Docky; }
         }
+
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+
+            Abnaki.Windows.Software.Wpf.Diag.Design.DebugAncestry(this.Flag); // demo, no effect
+        }
     }
 }
