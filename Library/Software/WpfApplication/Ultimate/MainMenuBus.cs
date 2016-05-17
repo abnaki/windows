@@ -33,11 +33,12 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
                     break;
 
                 case SubMenuKey.HelpTroubleshoot:
-                    // crude.  may want a generalized or plugin control, not messageboxes
+                    // crude.  may want a generalized or plugin control, not messageboxes.
+                    // Some users will upload wrong file and you will spend time discovering the confusion.
                     bool saved = Diplomat.Troubleshooter.DialogSaveLog();
                     if (saved)
                     {
-                        string msg = "Completed saving file.\n" + "To communicate an issue with the software author,\n" + "please upload it as instructed.";
+                        string msg = "Completed saving file.\n" + "To communicate an issue with the software author,\n" + "please upload this file, as directed.";
                         Diplomat.Notifier.Notify(msg);
                     }
                     break;
