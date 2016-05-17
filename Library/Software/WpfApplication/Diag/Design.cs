@@ -28,7 +28,12 @@ namespace Abnaki.Windows.Software.Wpf.Diag
             SubDebugAncestry(parent);
 
             Debug.Indent();
-            Debug.WriteLine(x);
+            Debug.Write(x);
+            if ( x is FrameworkElement )
+            {
+                Debug.Write(", DataContext=" + ((FrameworkElement)x).DataContext);
+            }
+            Debug.WriteLine("");
         }
 
         // no effect
