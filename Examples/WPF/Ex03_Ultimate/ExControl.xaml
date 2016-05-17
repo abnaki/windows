@@ -18,7 +18,7 @@
                 <xcad:LayoutAnchorSide>
                     <xcad:LayoutAnchorGroup>
                         <xcad:LayoutAnchorable ContentId="pflag" Title="Flag">
-                            <Ex03_Ultimate:Flag />
+                            <Ex03_Ultimate:Flag x:Name="Flag" />
                         </xcad:LayoutAnchorable>
                     </xcad:LayoutAnchorGroup>
                 </xcad:LayoutAnchorSide>
