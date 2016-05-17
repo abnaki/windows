@@ -51,6 +51,7 @@
     <Compile Include="..\..\..\Abnaki.Windows.AssemblyInfo.cs">
       <Link>Abnaki.Windows.AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Diag\Design.cs" />
     <Compile Include="Diplomat\Troubleshooter.cs" />
     <Compile Include="Profile\Preference.cs" />
     <Compile Include="Ultimate\Enums.cs" />
