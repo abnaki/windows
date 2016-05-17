@@ -13,7 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using Abnaki.Windows.Software.Wpf.PreferredControls;
+//using Abnaki.Windows.Software.Wpf.PreferredControls;
+using Abnaki.Windows.Software.Wpf.PreferredControls.Grid;
 
 namespace Ex03_Ultimate
 {
@@ -37,6 +38,19 @@ namespace Ex03_Ultimate
             base.OnInitialized(e);
 
             Abnaki.Windows.Software.Wpf.Diag.Design.DebugAncestry(this.Flag); // demo, no effect
+
+            BindExample();
         }
+
+        void BindExample()
+        {
+            ShoppingData ds = new ShoppingData();
+            var vrow = ds.Vendor.AddVendorRow("Kroger");
+            ds.Item.AddItemRow("Butter", vrow, new DateTime(2030, 1, 1), 4);
+            ds.Item.AddItemRow("Eggs", vrow, new DateTime(2030, 1, 5), 12);
+
+            this.Gridc.BindGrid(ds.Item);
+        }
+
     }
 }
