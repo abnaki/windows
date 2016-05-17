@@ -18,8 +18,8 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls
         {
             StronglyRecommendedDefaults(dman);
 
-            mainWindow.SavingLayout += fi => SerializeLayout(dman, fi);
-            mainWindow.RestoringLayout += fi => DeserializeLayout(dman, fi);
+            mainWindow.SavingPanelLayout += fi => SerializeLayout(dman, fi);
+            mainWindow.RestoringPanelLayout += fi => DeserializeLayout(dman, fi);
 
         }
 

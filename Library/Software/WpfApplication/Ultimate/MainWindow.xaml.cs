@@ -40,9 +40,9 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
 
         MainMenuBus mainMenub;
 
-        public event Action<FileInfo> SavingLayout;
+        public event Action<FileInfo> SavingPanelLayout;
 
-        public event Action<FileInfo> RestoringLayout;
+        public event Action<FileInfo> RestoringPanelLayout;
 
 
         public void SetMainControl(Abnaki.Windows.GUI.IMainControl c)
@@ -68,7 +68,7 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             {
                 SaveBounds();
 
-                var h = SavingLayout;
+                var h = SavingPanelLayout;
                 if ( h != null )
                 {
                     FileInfo fi = LayoutFileInfo();
@@ -89,7 +89,7 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
                 // note, in OnInitialized(), WindowState does not necessarily maximize on proper screen, so handle Loaded.
                 changed = ReloadBounds();
 
-                var h = RestoringLayout;
+                var h = RestoringPanelLayout;
                 if ( h != null )
                 {
                     FileInfo fi = LayoutFileInfo();
