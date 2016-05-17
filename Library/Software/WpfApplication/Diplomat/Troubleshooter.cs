@@ -20,7 +20,10 @@ namespace Abnaki.Windows.Software.Wpf.Diplomat
 
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    Abnaki.Windows.Log.Write(dialog.FileName);
+                    using (new WaitCursor())
+                    {
+                        Abnaki.Windows.Log.Write(dialog.FileName);
+                    }
                     saved = true;
                 }
             }
