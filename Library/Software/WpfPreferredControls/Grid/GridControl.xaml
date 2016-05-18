@@ -6,5 +6,5 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="400">
     <!-- GridVm class, Data property is bound -->
-  <xcdg:DataGridControl ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Data}" />
+  <xcdg:DataGridControl Name="Grid" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Data}" MouseDoubleClick="Grid_MouseDoubleClick" EditTriggers="BeginEditCommand, ClickOnCurrentCell, SingleClick, ActivationGesture" />
 </UserControl>
