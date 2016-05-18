@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
+using System.Data;
+
 
 namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 {
@@ -37,6 +40,18 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
         {
             vm = new GridVm(data);
             this.DataContext = vm;
+        }
+
+        private void Grid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // demo
+            Debug.WriteLine("Grid SelectedItems");
+            Debug.Indent();
+            foreach ( DataRow dr in this.Grid.SelectedItems.OfType<DataRow>() )
+            {
+                Debug.WriteLine(dr);
+            }
+            Debug.Unindent();
         }
     }
 }
