@@ -13,8 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-//using Abnaki.Windows.Software.Wpf.PreferredControls;
+using Abnaki.Windows.GUI;
 using Abnaki.Windows.Software.Wpf.PreferredControls.Grid;
+using Abnaki.Windows.Software.Wpf.PreferredControls.Docking;
 
 namespace Ex03_Ultimate
 {
@@ -28,9 +29,11 @@ namespace Ex03_Ultimate
             InitializeComponent();
         }
 
-        public object DockingSystem
+        const int panelVersion = 2;
+
+        public IDockSystem DockingSystem
         {
-            get { return this.Docky; }
+            get { return new AvalonDockSystem(this.Docky, panelVersion); }
         }
 
         protected override void OnInitialized(EventArgs e)
