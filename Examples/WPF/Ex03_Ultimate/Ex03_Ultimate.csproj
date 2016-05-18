@@ -64,6 +64,10 @@
     <Compile Include="..\..\..\Abnaki.Windows.AssemblyInfo.cs">
       <Link>Abnaki.Windows.AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ShoppingData.cs">
+      <DependentUpon>ShoppingData.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ShoppingData.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
