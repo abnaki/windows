@@ -69,6 +69,8 @@
     <Compile Include="..\..\..\Abnaki.Windows.AssemblyInfo.cs">
       <Link>Abnaki.Windows.AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Docking\AvalonDockSystem.cs" />
+    <Compile Include="Docking\Setup.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Grid\GridControl.xaml.cs">
       <DependentUpon>GridControl.xaml</DependentUpon>
