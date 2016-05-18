@@ -50,7 +50,7 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             var element = (System.Windows.UIElement)c;
             this.ClientPanel.Children.Add(element);
 
-            Abnaki.Windows.Software.Wpf.PreferredControls.Extensions.CompleteSetupOfInterfaces(this, c.DockingSystem);
+            Abnaki.Windows.Software.Wpf.PreferredControls.Docking.Setup.CompleteSetupOfInterfaces(this, c.DockingSystem);
         }
 
         static FileInfo LayoutFileInfo()
@@ -89,8 +89,9 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
                 // note, in OnInitialized(), WindowState does not necessarily maximize on proper screen, so handle Loaded.
                 changed = ReloadBounds();
 
+                // need to deal with programmatic new panels
                 var h = RestoringPanelLayout;
-                if ( h != null )
+                if (h != null)
                 {
                     FileInfo fi = LayoutFileInfo();
                     h(fi);
