@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Data;
 
+//using Xceed.Wpf.DataGrid.Views;
+//using Xceed.Wpf.DataGrid;
 
 namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 {
@@ -26,6 +28,13 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
         public GridControl()
         {
             InitializeComponent();
+
+            Debug.WriteLine("Grid.ReadOnly " + this.Grid.ReadOnly);
+
+            //var v = (Xceed.Wpf.DataGrid.Views.TableflowView)this.Grid.View;
+            //v.UseDefaultHeadersFooters = false;
+            //DataTemplate dt = new DataTemplate();
+            //v.FixedHeaders.
         }
 
         GridVm vm;
@@ -52,6 +61,9 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 Debug.WriteLine(dr);
             }
             Debug.Unindent();
+
+            Debug.WriteLine("Grid CurrentItem " + this.Grid.CurrentItem);
+            
         }
     }
 }
