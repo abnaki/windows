@@ -15,5 +15,16 @@
         ScrollViewer.VerticalScrollBarVisibility="Auto"
         ItemsSource="{Binding Data}"
         MouseDoubleClick="Grid_MouseDoubleClick"
-        EditTriggers="BeginEditCommand, ClickOnCurrentCell, SingleClick, ActivationGesture" />
+        EditTriggers="BeginEditCommand, ClickOnCurrentCell, SingleClick, ActivationGesture">
+        <xcdg:DataGridControl.View>
+            <xcdg:TableflowView
+                UseDefaultHeadersFooters="False">
+                <xcdg:TableflowView.FixedHeaders>
+                    <DataTemplate>
+                        <xcdg:ColumnManagerRow />
+                    </DataTemplate>
+                </xcdg:TableflowView.FixedHeaders>
+            </xcdg:TableflowView>
+        </xcdg:DataGridControl.View>
+    </xcdg:DataGridControl>
 </UserControl>
