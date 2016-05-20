@@ -9,7 +9,7 @@
 
     public enum SubMenuKey
     {
-        FileExit,
+        FileExit = 1000, // always last
         HelpTroubleshoot
     }
 
