@@ -14,8 +14,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Abnaki.Windows.GUI;
+using Abnaki.Windows.Software.Wpf;
 using Abnaki.Windows.Software.Wpf.PreferredControls.Grid;
 using Abnaki.Windows.Software.Wpf.PreferredControls.Docking;
+using Abnaki.Windows.Software.Wpf.Ultimate;
+using Abnaki.Windows.Software.Wpf.Menu;
 
 namespace Ex03_Ultimate
 {
@@ -27,6 +30,8 @@ namespace Ex03_Ultimate
         public ExControl()
         {
             InitializeComponent();
+
+            ButtonBus<ExMenuKey>.HookupSubscriber(this.HandleMenuCommand);
         }
 
         const int panelVersion = 2;
@@ -36,13 +41,27 @@ namespace Ex03_Ultimate
             get { return new AvalonDockSystem(this.Docky, panelVersion); }
         }
 
+        public void ConfigureMenu(IMainMenu menu)
+        {
+            menu.AddCommandChild(TopMenuKey.File, ExMenuKey.FileNew, "_New");
+        }
+
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
 
             Abnaki.Windows.Software.Wpf.Diag.Design.DebugAncestry(this.Flag); // demo, no effect
 
-            BindExample();
+        }
+
+        void HandleMenuCommand(ButtonMessage<ExMenuKey> m)
+        {
+            switch (m.Key)
+            {
+                case ExMenuKey.FileNew:
+                    BindExample();
+                    break;
+            }
         }
 
         void BindExample()
@@ -53,6 +72,13 @@ namespace Ex03_Ultimate
             ds.Item.AddItemRow("Eggs", vrow, new DateTime(2030, 1, 5), 12);
 
             this.Gridc.BindGrid(ds.Item);
+
+            IEnumerable<Col> cols = new[]{ 
+                new Col(ds.Item.QuantityColumn), 
+                new Col(ds.Item.NameColumn)
+            };
+
+            this.Gridc.ConfigureColumns(cols);
         }
 
     }
