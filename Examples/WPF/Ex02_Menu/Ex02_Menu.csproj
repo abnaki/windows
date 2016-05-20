@@ -95,6 +95,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Library\Commonality\Commonality.csproj">
+      <Project>{2c290af1-de15-4b75-8774-c4196f1e213d}</Project>
+      <Name>Commonality</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Library\Software\WpfApplication\WpfApplication.csproj">
       <Project>{3D6F0FBC-FCBB-4EA2-A139-CF0C86604CF4}</Project>
       <Name>WpfApplication</Name>
