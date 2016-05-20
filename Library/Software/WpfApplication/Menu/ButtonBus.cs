@@ -35,16 +35,14 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             MessageTube.Publish<ButtonMessage>(m);
         }
 
+        public static void HookupSubscriber(Action<ButtonMessage<Tenum>> act)
+        {
+            MessageTube.Subscribe<ButtonMessage, ButtonMessage<Tenum>>(act);
+        }
 
         public ButtonBus()
         {
-            MessageTube.Subscribe<ButtonMessage>(PrivHandleButton);
-        }
-
-        void PrivHandleButton(ButtonMessage m)
-        {
-            if (m is ButtonMessage<Tenum>)
-                HandleButton(m as ButtonMessage<Tenum>);
+            HookupSubscriber(HandleButton);
         }
 
         protected virtual void HandleButton(ButtonMessage<Tenum> m)
