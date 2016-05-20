@@ -64,6 +64,7 @@
     <Compile Include="..\..\..\Abnaki.Windows.AssemblyInfo.cs">
       <Link>Abnaki.Windows.AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Enums.cs" />
     <Compile Include="ShoppingData.cs">
       <DependentUpon>ShoppingData.xsd</DependentUpon>
       <SubType>Component</SubType>
