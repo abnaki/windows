@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ using System.Diagnostics;
 using System.Data;
 
 //using Xceed.Wpf.DataGrid.Views;
-//using Xceed.Wpf.DataGrid;
+using Xceed.Wpf.DataGrid;
 
 namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 {
@@ -49,6 +50,36 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
         {
             vm = new GridVm(data);
             this.DataContext = vm;
+
+        }
+
+        public void ConfigureColumns(IEnumerable<Col> columns)
+        {
+            //this.Grid.Columns.Clear();
+
+            if (this.Grid.Columns.Count == 0)
+                return;
+
+            int position = 0;
+
+            SortedSet<int> indices = new SortedSet<int>(Enumerable.Range(0, this.Grid.Columns.Count));
+
+            foreach ( Col col in columns )
+            {
+                ColumnBase cb = this.Grid.Columns[col.Field];
+                indices.Remove(cb.Index);
+                cb.Visible = true;
+                cb.Title = col.Caption;
+                cb.VisiblePosition = position++;
+            }
+            
+            // now remaining indices are unspecified columns:  hide.
+            foreach ( int i in indices )
+            {
+                ColumnBase cb = this.Grid.Columns[i];
+                cb.Visible = false;
+            }
+
         }
 
         private void Grid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -56,7 +87,7 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             // demo
             Debug.WriteLine("Grid SelectedItems");
             Debug.Indent();
-            foreach ( DataRow dr in this.Grid.SelectedItems.OfType<DataRow>() )
+            foreach ( var dr in this.Grid.SelectedItems.OfType<System.Data.DataRow>() )
             {
                 Debug.WriteLine(dr);
             }
