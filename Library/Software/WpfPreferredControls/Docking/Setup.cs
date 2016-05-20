@@ -17,11 +17,17 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Docking
     {
         static void CompleteSetup(Abnaki.Windows.GUI.IWindow mainWindow, IDockSystem ds)
         {
-            StronglyRecommendedDefaults((DockingManager)ds.DockSystem);
+            if (ds.DockSystem is DockingManager)
+            {
+                StronglyRecommendedDefaults((DockingManager)ds.DockSystem);
 
-            mainWindow.SavingPanelLayout += fi => SerializeLayout(ds, fi);
-            mainWindow.RestoringPanelLayout += fi => DeserializeLayout(ds, fi);
-
+                mainWindow.SavingPanelLayout += fi => SerializeLayout(ds, fi);
+                mainWindow.RestoringPanelLayout += fi => DeserializeLayout(ds, fi);
+            }
+            else
+            {
+                Log.Comment("DockSystem is not " + typeof(DockingManager).FullName, ds.DockSystem);
+            }
         }
 
         /// <summary>
@@ -32,7 +38,6 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Docking
         /// </remarks>
         public static void CompleteSetupOfInterfaces(Abnaki.Windows.GUI.IWindow mainWindow, IDockSystem dockingSystem)
         {
-            //DockingManager dman = (DockingManager)dockingSystem;
             CompleteSetup(mainWindow, dockingSystem);
         }
 
