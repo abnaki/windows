@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Abnaki.Windows</RootNamespace>
-    <AssemblyName>Abnaki.Windows.Foundation.Commonality</AssemblyName>
+    <AssemblyName>Abnaki.Windows.Commonality</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,7 +43,9 @@
     <Compile Include="AbnakiFile.cs" />
     <Compile Include="GUI\IDockSystem.cs" />
     <Compile Include="GUI\IMainControl.cs" />
+    <Compile Include="GUI\IMainMenu.cs" />
     <Compile Include="GUI\IWindow.cs" />
+    <Compile Include="GUI\MenuSeed.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
