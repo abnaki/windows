@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Abnaki.Windows.GUI;
+
 namespace Abnaki.Windows.Software.Wpf.Menu
 {
     /// <summary>
@@ -25,31 +27,44 @@ namespace Abnaki.Windows.Software.Wpf.Menu
     /// and lets developers avoid time-consuming designer interaction.
     /// In some situations, menu commands are known at run time, not design time.
     /// </remarks>
-    public partial class MainMenu : UserControl
+    public partial class MainMenu : UserControl, IMainMenu
     {
         public MainMenu()
         {
             InitializeComponent();
         }
 
-        public void AddCommand<Tkey>(Tkey key, string label, bool? defaultCheck = null, string toolTip = null)
+        public void AddCommand<Tkey>(MenuSeed<Tkey> seed)
         {
-            MenuItem item = AddMenuItem(key, label, defaultCheck);
+            MenuItem item;
+            if (seed.ParentKey == null)
+                item = AddMenuItem(seed.Key, seed.Label, seed.DefaultCheck);
+            else
+                item = AddItemChild(seed.ParentKey, seed.Key, seed.Label, seed.DefaultCheck);
 
-            CompleteItem<Tkey>(item, toolTip);
+            CompleteItem<Tkey>(item, seed);
         }
 
-        public void AddCommandChild<Tkey>(object parentKey, Tkey childKey, string label, bool? defaultCheck = null, string toolTip = null)
+        public void AddCommand<Tkey>(Tkey key, string label, bool? defaultCheck = null)
         {
-            MenuItem item = AddItemChild(parentKey, childKey, label, defaultCheck);
-
-            CompleteItem<Tkey>(item, toolTip);
+            AddCommand<Tkey>(new MenuSeed<Tkey>(key, label, defaultCheck));
         }
 
-        void CompleteItem<Tkey>(MenuItem item, string toolTip)
+        public void AddCommandChild<Tkey>(object parentKey, Tkey childKey, string label, bool? defaultCheck = null)
+        {
+            AddCommand<Tkey>(new MenuSeed<Tkey>(childKey, label, defaultCheck) { ParentKey = parentKey });
+        }
+
+        void CompleteItem<Tkey>(MenuItem item, MenuSeed<Tkey> seed)
         {
             item.Click += ItemClick<Tkey>;
-            item.ToolTip = toolTip;
+            item.ToolTip = seed.Tooltip;
+
+            if ( seed.Enabled.HasValue )
+                item.IsEnabled = seed.Enabled.Value;
+
+            item.Items.SortDescriptions.Clear();
+            item.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("CommandParameter", System.ComponentModel.ListSortDirection.Ascending));
         }
 
         void ItemClick<Tkey>(object sender, RoutedEventArgs e)
@@ -57,7 +72,11 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             MenuItem item = (MenuItem)sender;
             Tkey key = (Tkey)item.Tag;
             bool? isChecked = item.IsCheckable ? (bool?)item.IsChecked : (bool?)null;
-            ButtonBus<Tkey>.Handle(key, isChecked);
+
+            ButtonBus<Tkey>.Handle(key, isChecked); // the whole point
+
+            e.Handled = true;  // otherwise, tunnels down through MenuItem hierarchy
+            
         }
 
         MenuItem AddMenuItem(object key, string label, bool? defaultCheck)
@@ -67,25 +86,54 @@ namespace Abnaki.Windows.Software.Wpf.Menu
 
         MenuItem AddItemChild(object parentKey, object childKey, string label, bool? defaultCheck)
         {
-            MenuItem parentItem = this.RootMenu.Items.Cast<MenuItem>().First(item => parentKey.Equals(item.Tag));
-
+            MenuItem parentItem = FindItem(parentKey, this.RootMenu.Items);
+             
             return AddMenuItem(parentItem, childKey, label, defaultCheck);
+        }
+
+        MenuItem FindItem(object tag, ItemCollection items)
+        {
+            MenuItem foundItem = items.Cast<MenuItem>().First(item => tag.Equals(item.Tag));
+            if (foundItem == null )
+            { // recurse
+                foreach ( MenuItem item in items )
+                {
+                    foundItem = FindItem(tag, item.Items);
+                    if (foundItem != null)
+                        break;
+                }
+            }
+            return foundItem;
         }
 
         MenuItem AddMenuItem(ItemsControl container, object key, string label, bool? defaultCheck)
         {
             MenuItem item = new MenuItem();
             item.Header = label;
+            //AssignTag(item, key);
             item.Tag = key;
+            AssignIntegerSequence(item, key);
 
             item.IsCheckable = defaultCheck.HasValue;
             if (defaultCheck.HasValue)
                 item.IsChecked = defaultCheck.Value;
 
             container.Items.Add(item);
+
+            if (container.Items.Count > 1)
+            {  // effect of AssignIntegerSequence()
+                container.Items.Refresh();
+            }
+
             return item;
         }
 
+        static void AssignIntegerSequence(MenuItem item, object key)
+        {
+            // Nothing special about CommandParameter; it is an available object field.
+            // (int) required for disparate enums via SortDescriptions.
+            item.CommandParameter = (int)key; 
+        }
     }
 
 }
