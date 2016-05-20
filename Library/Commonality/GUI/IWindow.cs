@@ -6,7 +6,8 @@ using System.IO;
 namespace Abnaki.Windows.GUI
 {
     /// <summary>
-    /// Supports general initialization
+    /// Supports general initialization.
+    /// Not expected to be implemented widely by consumers.
     /// </summary>
     public interface IWindow
     {
