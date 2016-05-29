@@ -50,6 +50,8 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             var element = (System.Windows.UIElement)c;
             this.ClientPanel.Children.Add(element);
 
+            c.ConfigureMenu(this.TopMenu);
+
             Abnaki.Windows.Software.Wpf.PreferredControls.Docking.Setup.CompleteSetupOfInterfaces(this, c.DockingSystem);
         }
 
