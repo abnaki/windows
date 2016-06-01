@@ -79,7 +79,7 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             }
             catch (Exception ex)
             {
-                Log.Exception(ex);
+                AbnakiLog.Exception(ex);
             }
         }
 
@@ -146,7 +146,7 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
                 }
                 else
                 {
-                    Log.Comment(GetType().Name + " disregarded undisplayable bounds " + pref.Bounds);
+                    AbnakiLog.Comment(GetType().Name + " disregarded undisplayable bounds " + pref.Bounds);
                 }
             }
 
