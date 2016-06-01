@@ -17,16 +17,23 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Docking
     {
         static void CompleteSetup(Abnaki.Windows.GUI.IWindow mainWindow, IDockSystem ds)
         {
-            if (ds.DockSystem is DockingManager)
+            if (ds == null)
             {
-                StronglyRecommendedDefaults((DockingManager)ds.DockSystem);
-
-                mainWindow.SavingPanelLayout += fi => SerializeLayout(ds, fi);
-                mainWindow.RestoringPanelLayout += fi => DeserializeLayout(ds, fi);
+                AbnakiLog.Comment("IDockSystem null");
             }
             else
             {
-                Log.Comment("DockSystem is not " + typeof(DockingManager).FullName, ds.DockSystem);
+                if (ds.DockSystem is DockingManager)
+                {
+                    StronglyRecommendedDefaults((DockingManager)ds.DockSystem);
+
+                    mainWindow.SavingPanelLayout += fi => SerializeLayout(ds, fi);
+                    mainWindow.RestoringPanelLayout += fi => DeserializeLayout(ds, fi);
+                }
+                else
+                {
+                    AbnakiLog.Comment("DockSystem is not " + typeof(DockingManager).FullName, ds.DockSystem);
+                }
             }
         }
 
