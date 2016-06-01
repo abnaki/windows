@@ -46,6 +46,13 @@ namespace Ex03_Ultimate
             menu.AddCommandChild(TopMenuKey.File, ExMenuKey.FileNew, "_New");
         }
 
+        public event Action<string> MainTitle;
+
+        public void EmplacedInWindow()
+        {
+            MainTitle("Ultimate Example");
+        }
+
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
