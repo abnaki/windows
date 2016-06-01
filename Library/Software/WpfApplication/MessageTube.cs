@@ -29,6 +29,15 @@ namespace Abnaki.Windows.Software.Wpf
         /// <typeparam name="Tsuper">was associated with Publish</typeparam>
         /// <typeparam name="Tsub">desired subtype</typeparam>
         /// <param name="act"></param>
+        /// <remarks>
+        /// Conversely, if Tsub rather than Tsuper was associated with Publish, 
+        /// to pass a supertype action it is possible to use the other overload,
+        /// i.e. contravariance.
+        /// <code>
+        /// Action<Tsuper> weakact;
+        /// Subscribe<Tsub>(weakact as Action<Tsub>);
+        /// </code>
+        /// </remarks>
         public static void Subscribe<Tsuper,Tsub>(Action<Tsub> act)
             where Tsub : Tsuper
         {
