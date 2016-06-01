@@ -17,6 +17,8 @@ namespace Abnaki.Windows.Software.Wpf.Diplomat
         public static void Error(string message)
         {
             MessageBox.Show(Application.Current.MainWindow, message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // wish to prompt to use Troubleshooter for situation when no menu is available.
         }
 
         /// <summary>
@@ -24,7 +26,7 @@ namespace Abnaki.Windows.Software.Wpf.Diplomat
         /// </summary>
         public static void Error(Exception ex)
         {
-            Abnaki.Windows.Log.Exception(ex);
+            Abnaki.Windows.AbnakiLog.Exception(ex);
 
             Error(CumulativeMessage(ex));
 
