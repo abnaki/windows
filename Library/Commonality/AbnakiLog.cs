@@ -24,7 +24,7 @@ namespace Abnaki.Windows
     /// logging thread, and it could collect astronomical amounts of data (...big files) that aren't very portable
     /// and aren't feasible to diagnose.  Instead, when the utmost detail is needed, debug.
     /// </remarks>
-    public class Log
+    public class AbnakiLog
     {
         static List<Entry> entries = new List<Entry>();
 

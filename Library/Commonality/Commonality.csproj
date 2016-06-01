@@ -46,7 +46,7 @@
     <Compile Include="GUI\IMainMenu.cs" />
     <Compile Include="GUI\IWindow.cs" />
     <Compile Include="GUI\MenuSeed.cs" />
-    <Compile Include="Log.cs" />
+    <Compile Include="AbnakiLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
