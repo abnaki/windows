@@ -22,7 +22,7 @@ namespace Abnaki.Windows.Software.Wpf.Diplomat
                 {
                     using (new WaitCursor())
                     {
-                        Abnaki.Windows.Log.Write(dialog.FileName);
+                        Abnaki.Windows.AbnakiLog.Write(dialog.FileName);
                     }
                     saved = true;
                 }
