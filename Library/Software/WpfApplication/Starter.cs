@@ -44,9 +44,9 @@ namespace Abnaki.Windows.Software.Wpf
             try
             {
                 var starta = System.Reflection.Assembly.GetEntryAssembly();
-                Log.Comment("Start", starta.Location);
-                Log.Comment("Version", starta.GetName().Version);
-                Log.Comment("Operating System", Environment.OSVersion);
+                AbnakiLog.Comment("Start", starta.Location);
+                AbnakiLog.Comment("Version", starta.GetName().Version);
+                AbnakiLog.Comment("Operating System", Environment.OSVersion);
 
                 System.AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
 
@@ -81,7 +81,7 @@ namespace Abnaki.Windows.Software.Wpf
                 filepath = args.LoadedAssembly.Location;
             }
 
-            Log.FileInfo(filepath, "Load " + args.LoadedAssembly.GetName());
+            AbnakiLog.FileInfo(filepath, "Load " + args.LoadedAssembly.GetName());
         }
 
         private static void Current_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
