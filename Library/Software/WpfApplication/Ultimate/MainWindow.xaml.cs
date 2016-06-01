@@ -53,6 +53,10 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             c.ConfigureMenu(this.TopMenu);
 
             Abnaki.Windows.Software.Wpf.PreferredControls.Docking.Setup.CompleteSetupOfInterfaces(this, c.DockingSystem);
+
+            c.MainTitle += title => this.Title = title;
+
+            c.EmplacedInWindow();
         }
 
         static FileInfo LayoutFileInfo()
