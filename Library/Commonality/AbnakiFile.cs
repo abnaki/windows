@@ -76,18 +76,27 @@ namespace Abnaki.Windows
             FindPathDifference(dibase, fi, paths);
             pathParts.Add(CombinedPath(paths, allowRooting: false));
 
-            if ( pathParts.Any(p => ! string.IsNullOrEmpty(p)) )
-                return CombinedPath(pathParts, allowRooting: false);
+            //if ( pathParts.Any(p => ! string.IsNullOrEmpty(p)) )
+            return CombinedPath(pathParts, allowRooting: false); // can be empty
 
-            throw new ApplicationException("Failed in RelativePath of " + fi.FullName + " relative to " + diRelated.FullName);
+            //throw new ApplicationException("Failed in RelativePath of " + fi.FullName + " relative to " + diRelated.FullName);
+        }
+
+        /// <summary>
+        /// Sequence of top-down DirectoryInfo(s), ending in last DirectoryInfo equal to or containing fi.
+        /// </summary>
+        /// <param name="fi"></param>
+        public static IEnumerable<DirectoryInfo> DirectorySequence(FileSystemInfo fi)
+        {
+            List<FileSystemInfo> fpaths = new List<FileSystemInfo>();
+            FindPathDifference(null, fi, fpaths);
+            return fpaths.OfType<DirectoryInfo>();
         }
 
         static DirectoryInfo FindCommonDirectory(FileSystemInfo fi, DirectoryInfo di)
         {
-            List<FileSystemInfo> fpaths = new List<FileSystemInfo>();
-            List<FileSystemInfo> dpaths = new List<FileSystemInfo>();
-            FindPathDifference(null, fi, fpaths);
-            FindPathDifference(null, di, dpaths);
+            List<DirectoryInfo> fpaths = DirectorySequence(fi).ToList();
+            List<DirectoryInfo> dpaths = DirectorySequence(di).ToList();
 
             DirectoryInfo dicommon = null;
 
@@ -96,7 +105,7 @@ namespace Abnaki.Windows
                 if (fpaths[i].FullName != dpaths[i].FullName)
                     break;
 
-                dicommon = (DirectoryInfo)dpaths[i];
+                dicommon = dpaths[i];
             }
 
             return dicommon;
