@@ -24,6 +24,24 @@ namespace Abnaki.Windows.Software.Wpf
         }
 
         /// <summary>
+        /// Uses WaitCursor while handling
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="act">assumed potentially slow
+        /// </param>
+        public static void SubscribeCostly<T>(Action<T> act)
+        {
+            var ps = agg.GetEvent<PubSubEvent<T>>();
+            ps.Subscribe(x =>
+            {
+                using (new WaitCursor())
+                {
+                    act(x);
+                }
+            }, keepSubscriberReferenceAlive: true);
+        }
+
+        /// <summary>
         /// Subscribe to subtype of published event
         /// </summary>
         /// <typeparam name="Tsuper">was associated with Publish</typeparam>
