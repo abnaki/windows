@@ -16,6 +16,8 @@ namespace Abnaki.Windows.Software.Wpf.Profile
     /// </summary>
     public static class Preference
     {
+        public const string FileExtWithoutDot = "xml";
+
         public static DirectoryInfo PrefsDir()
         {
             DirectoryInfo dipref = AbnakiFile.CombinedDirectoryPath(ApplicationProfileDir(), "prefs");
@@ -38,6 +40,13 @@ namespace Abnaki.Windows.Software.Wpf.Profile
             return subdir;
         }
 
+        public static DirectoryInfo ApplicationDefaultDir()
+        {
+            Assembly appa = Assembly.GetEntryAssembly();
+
+            return new DirectoryInfo(Path.GetDirectoryName(appa.Location));
+        }
+
         static StringBuilder Test()
         {
             StringBuilder sb = new StringBuilder();
@@ -46,19 +55,33 @@ namespace Abnaki.Windows.Software.Wpf.Profile
         }
 
         /// <summary>
+        /// In a profile subdirectory
         /// </summary>
         /// <typeparam name="T">type of most-responsible consumer class</typeparam>
         /// <param name="qualifier">can distinguish or clarify a special purpose file; be sure it's valid within filenames</param>
         /// <returns></returns>
         public static FileInfo ClassPrefsFile<T>(string qualifier = null)
         {
+            string filename = ClassPrefsFileOnly<T>(qualifier);
+
+            return AbnakiFile.CombinedFilePath(PrefsDir(), filename);
+        }
+
+        /// <summary>
+        /// Filename only.
+        /// Like ClassPrefsFile() minus directory.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="qualifier"></param>
+        /// <returns></returns>
+        public static string ClassPrefsFileOnly<T>(string qualifier = null)
+        {
             string filename = typeof(T).FullName;
             if (qualifier != null)
                 filename += "." + qualifier;
 
-            filename += ".xml";
-
-            return AbnakiFile.CombinedFilePath(PrefsDir(), filename);
+            filename += "." + FileExtWithoutDot;
+            return filename;
         }
 
         /// <summary>
