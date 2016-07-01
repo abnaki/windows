@@ -13,6 +13,7 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
         {
             menu.AddCommand(TopMenuKey.File, "_File");
             menu.AddCommand(TopMenuKey.Option, "_Option");
+            menu.AddCommand(TopMenuKey.Window, "_Window");
             menu.AddCommand(TopMenuKey.Help, "_Help");
 
             menu.AddCommandChild(TopMenuKey.File, SubMenuKey.FileExit, "E_xit");
@@ -22,6 +23,12 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             Tooltip = "Provides information and files for you to seek help or report issues."};
 
             menu.AddCommand(seed);
+
+            menu.AddCommandChild(TopMenuKey.Window, SubMenuKey.SaveUserPlacement, "Save Placement");
+            menu.AddCommand(new MenuSeed<SubMenuKey>() { ParentKey = TopMenuKey.Window, Key = SubMenuKey.SaveAsPlacement, 
+                Label = "Save Placement As...", DebugOnly = true });
+            menu.AddCommandChild(TopMenuKey.Window, SubMenuKey.ReadUserPlacement, "Restore Own Placement");
+            menu.AddCommandChild(TopMenuKey.Window, SubMenuKey.ReadDefaultPlacement, "Restore Default Placement");
         }
 
         protected override void HandleButton(ButtonMessage<SubMenuKey> m)
