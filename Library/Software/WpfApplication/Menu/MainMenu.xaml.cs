@@ -36,6 +36,12 @@ namespace Abnaki.Windows.Software.Wpf.Menu
 
         public void AddCommand<Tkey>(MenuSeed<Tkey> seed)
         {
+#if DEBUG
+#else
+            if (seed.DebugOnly)
+                return;
+#endif
+
             MenuItem item;
             if (seed.ParentKey == null)
                 item = AddMenuItem(seed.Key, seed.Label, seed.DefaultCheck);
@@ -93,7 +99,7 @@ namespace Abnaki.Windows.Software.Wpf.Menu
 
         MenuItem FindItem(object tag, ItemCollection items)
         {
-            MenuItem foundItem = items.Cast<MenuItem>().First(item => tag.Equals(item.Tag));
+            MenuItem foundItem = items.Cast<MenuItem>().FirstOrDefault(item => tag.Equals(item.Tag));
             if (foundItem == null )
             { // recurse
                 foreach ( MenuItem item in items )
@@ -108,6 +114,9 @@ namespace Abnaki.Windows.Software.Wpf.Menu
 
         MenuItem AddMenuItem(ItemsControl container, object key, string label, bool? defaultCheck)
         {
+            if (container == null)
+                throw new ArgumentException("Null container of menu items for " + key);
+
             MenuItem item = new MenuItem();
             item.Header = label;
             //AssignTag(item, key);
