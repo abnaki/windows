@@ -1,4 +1,4 @@
-# Abnaki Way Components
+# Abnaki Windows Components
 
 Small framework for Windows applications developed in C#, .NET 4.5, Visual Studio 2013.    Provides useful
 necessities and conventions.   Follows MVVM as far as MVVM makes design sense.
