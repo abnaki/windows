@@ -3,8 +3,8 @@
 using System.Reflection;
 
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Abnaki Way Components")]
-[assembly: AssemblyCopyright("Copyright © 2016 Abnaki Way Components")]
+[assembly: AssemblyCompany("Abnaki Light Industry LLC")]
+[assembly: AssemblyCopyright("Copyright © 2016 Abnaki Light Industry LLC")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
