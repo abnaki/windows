@@ -16,6 +16,7 @@ using System.Diagnostics;
 
 using Abnaki.Windows.Software.Wpf.Menu;
 using Abnaki.Windows.Software.Wpf.Profile;
+using Abnaki.Windows.Software.Wpf.NetAid;
 
 namespace Abnaki.Windows.Software.Wpf.Ultimate
 {
@@ -36,6 +37,8 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             this.Loaded += MainWindow_Loaded;
 
             mainMenub = new MainMenuBus(this.TopMenu);
+
+            ButtonBus<SubMenuKey>.HookupSubscriber(HandleMenu);
         }
 
         MainMenuBus mainMenub;
@@ -59,9 +62,48 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             c.EmplacedInWindow();
         }
 
+        void HandleMenu(ButtonMessage<SubMenuKey> m)
+        {
+            FileInfo fi;
+            switch (m.Key)
+            {
+                case SubMenuKey.ReadUserPlacement:
+                    fi = LayoutFileInfo();
+                    InvokeRestoringPanelLayout(fi);
+                    break;
+
+                case SubMenuKey.ReadDefaultPlacement:
+                    fi = AbnakiFile.CombinedFilePath(Preference.ApplicationDefaultDir(),
+                        Preference.ClassPrefsFileOnly<MainWindow>(layoutFileQualifier));
+                    InvokeRestoringPanelLayout(fi);
+                    break;
+
+                case SubMenuKey.SaveUserPlacement:
+                    fi = LayoutFileInfo();
+                    InvokeSavingPanelLayout(fi);
+                    break;
+
+                case SubMenuKey.SaveAsPlacement:
+                    using (var dialog = new System.Windows.Forms.SaveFileDialog() )
+                    {
+                        dialog.SetFilters(Preference.FileExtWithoutDot);
+                        dialog.FileName = Preference.ClassPrefsFileOnly<MainWindow>(layoutFileQualifier); 
+                        dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                        if ( dialog.ShowDialogAndOK() )
+                        {
+                            fi = new FileInfo(dialog.FileName);
+                            InvokeSavingPanelLayout(fi);
+                        }
+                    }
+                    break;
+            }
+        }
+
+        const string layoutFileQualifier = "Layout";
+
         static FileInfo LayoutFileInfo()
         {
-            return Preference.ClassPrefsFile<MainWindow>("Layout");
+            return Preference.ClassPrefsFile<MainWindow>(layoutFileQualifier);
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
@@ -74,12 +116,8 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             {
                 SaveBounds();
 
-                var h = SavingPanelLayout;
-                if ( h != null )
-                {
-                    FileInfo fi = LayoutFileInfo();
-                    h(fi);
-                }
+                FileInfo fi = LayoutFileInfo();
+                InvokeSavingPanelLayout(fi);
             }
             catch (Exception ex)
             {
@@ -95,14 +133,8 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
                 // note, in OnInitialized(), WindowState does not necessarily maximize on proper screen, so handle Loaded.
                 changed = ReloadBounds();
 
-                // need to deal with programmatic new panels
-                var h = RestoringPanelLayout;
-                if (h != null)
-                {
-                    FileInfo fi = LayoutFileInfo();
-                    h(fi);
-                }
-
+                FileInfo fi = LayoutFileInfo();
+                InvokeRestoringPanelLayout(fi);
             }
             catch (Exception ex)
             {
@@ -115,6 +147,27 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
                     // this.Visibility = System.Windows.Visibility.Visible; // ineffective
                     Show();
                 }
+            }
+        }
+
+        void InvokeSavingPanelLayout(FileInfo fi)
+        {
+            var h = SavingPanelLayout;
+            if (h != null)
+                h(fi);
+        }
+
+        void InvokeRestoringPanelLayout(FileInfo fi)
+        {
+            if (fi.Exists)
+            {
+                var h = RestoringPanelLayout;
+                if (h != null)
+                    h(fi);
+            }
+            else
+            {
+                AbnakiLog.FileInfo(fi, "Nonexistent, ignored");
             }
         }
 
