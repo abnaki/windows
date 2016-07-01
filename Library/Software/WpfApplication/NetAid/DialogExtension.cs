@@ -21,7 +21,7 @@ namespace Abnaki.Windows.Software.Wpf.NetAid
             dialog.Filter = string.Join(",",
                 extensions.Select(x => x.ToString().ToUpper() + "|." + x).ToArray());
 
-            dialog.DefaultExt = extensions.First(); // they ignore leading dot
+            dialog.DefaultExt = extensions.First().ToString(); // they ignore leading dot
         }
 
         /// <summary>
