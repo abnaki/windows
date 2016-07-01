@@ -4,13 +4,19 @@
     {
         File,
         Option,
+        Window,
         Help
     }
 
     public enum SubMenuKey
     {
         FileExit = 1000, // always last
-        HelpTroubleshoot
+        HelpTroubleshoot,
+        SaveUserPlacement,
+        SaveAsPlacement,
+        ReadUserPlacement,
+        ReadDefaultPlacement
     }
+
 
 }
