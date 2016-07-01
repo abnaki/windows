@@ -39,5 +39,7 @@ namespace Abnaki.Windows.GUI
         public string Tooltip { get; set; }
 
         public bool? Enabled { get; set; }
+
+        public bool DebugOnly { get; set; }
     }
 }
