@@ -220,6 +220,10 @@ namespace Abnaki.Windows
                 }
             }
 
+            public override string ToString()
+            {
+                return base.ToString() + ", " + this.File;
+            }
                 
         }
 
