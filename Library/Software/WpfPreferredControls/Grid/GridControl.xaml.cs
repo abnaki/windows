@@ -69,7 +69,7 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 ColumnBase cb = this.Grid.Columns[col.Field];
                 indices.Remove(cb.Index);
                 cb.Visible = true;
-                cb.Title = col.Caption;
+                cb.Title = col.Caption ?? col.Field;
                 cb.VisiblePosition = position++;
             }
             
