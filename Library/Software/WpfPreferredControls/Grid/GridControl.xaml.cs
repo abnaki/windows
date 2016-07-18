@@ -40,6 +40,8 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 
         GridVm vm;
 
+        public event Action<object> DoubleClickedRecord;
+
         /// <summary>
         /// Assign data
         /// </summary>
@@ -85,15 +87,19 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
         private void Grid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // demo
-            Debug.WriteLine("Grid SelectedItems");
-            Debug.Indent();
-            foreach ( var dr in this.Grid.SelectedItems.OfType<System.Data.DataRow>() )
-            {
-                Debug.WriteLine(dr);
-            }
-            Debug.Unindent();
+            //Debug.WriteLine("Grid SelectedItems");
+            //Debug.Indent();
+            //foreach ( var dr in this.Grid.SelectedItems.OfType<System.Data.DataRow>() )
+            //{
+            //    Debug.WriteLine(dr);
+            //}
+            //Debug.Unindent();
 
             Debug.WriteLine("Grid CurrentItem " + this.Grid.CurrentItem);
+
+            var hd = DoubleClickedRecord;
+            if (hd != null)
+                hd(this.Grid.CurrentItem);
             
         }
     }
