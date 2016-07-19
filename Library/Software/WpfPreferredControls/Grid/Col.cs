@@ -14,6 +14,11 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 
         }
 
+        public Col(string field)
+        {
+            this.Field = field;
+        }
+
         public Col(System.Data.DataColumn dcol)
         {
             this.Field = dcol.ColumnName;
@@ -21,6 +26,10 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
         }
 
         public string Field { get; set; }
+
+        /// <summary>
+        /// Null may imply Field will be displayed.
+        /// </summary>
         public string Caption { get; set; }
 
         // maybe Tooltip in the future
