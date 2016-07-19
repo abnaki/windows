@@ -18,7 +18,9 @@
         EditTriggers="BeginEditCommand, ClickOnCurrentCell, SingleClick, ActivationGesture">
         <xcdg:DataGridControl.View>
             <xcdg:TableflowView
-                UseDefaultHeadersFooters="False">
+                UseDefaultHeadersFooters="False"
+                ColumnStretchMode="All"
+                IsAlternatingRowStyleEnabled="False">
                 <xcdg:TableflowView.FixedHeaders>
                     <DataTemplate>
                         <xcdg:ColumnManagerRow />
