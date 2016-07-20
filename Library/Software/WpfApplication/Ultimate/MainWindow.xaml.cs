@@ -73,9 +73,7 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
                     break;
 
                 case SubMenuKey.ReadDefaultPlacement:
-                    fi = AbnakiFile.CombinedFilePath(Preference.ApplicationDefaultDir(),
-                        Preference.ClassPrefsFileOnly<MainWindow>(layoutFileQualifier));
-                    InvokeRestoringPanelLayout(fi);
+                    ReadDefaultLayout();
                     break;
 
                 case SubMenuKey.SaveUserPlacement:
@@ -106,6 +104,14 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             return Preference.ClassPrefsFile<MainWindow>(layoutFileQualifier);
         }
 
+        void ReadDefaultLayout()
+        {
+            FileInfo fi = AbnakiFile.CombinedFilePath(Preference.ApplicationDefaultDir(),
+                 Preference.ClassPrefsFileOnly<MainWindow>(layoutFileQualifier));
+            
+            InvokeRestoringPanelLayout(fi);
+        }
+
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             // but in OnClosed(), note that RestoreBounds is Empty 
@@ -134,7 +140,11 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
                 changed = ReloadBounds();
 
                 FileInfo fi = LayoutFileInfo();
-                InvokeRestoringPanelLayout(fi);
+
+                if (fi.Exists)
+                    InvokeRestoringPanelLayout(fi);
+                else
+                    ReadDefaultLayout();
             }
             catch (Exception ex)
             {
