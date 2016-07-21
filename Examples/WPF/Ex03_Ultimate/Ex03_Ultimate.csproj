@@ -129,13 +129,13 @@
       <Project>{3d6f0fbc-fcbb-4ea2-a139-cf0c86604cf4}</Project>
       <Name>WpfApplication</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Library\Software\WpfBasis\WpfBasis.csproj">
+      <Project>{4b21d9f8-3eaf-4c29-ae6a-8c73c99393ec}</Project>
+      <Name>WpfBasis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Library\Software\WpfPreferredControls\WpfPreferredControls.csproj">
       <Project>{C3C851A0-99CC-4295-B4F6-5085CFD5FD83}</Project>
       <Name>WpfPreferredControls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\WpfBasis\WpfBasis.csproj">
-      <Project>{4b21d9f8-3eaf-4c29-ae6a-8c73c99393ec}</Project>
-      <Name>WpfBasis</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
