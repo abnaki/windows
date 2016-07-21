@@ -70,13 +70,13 @@
     <Compile Include="Starter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\WpfBasis\WpfBasis.csproj">
-      <Project>{4b21d9f8-3eaf-4c29-ae6a-8c73c99393ec}</Project>
-      <Name>WpfBasis</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Commonality\Commonality.csproj">
       <Project>{2c290af1-de15-4b75-8774-c4196f1e213d}</Project>
       <Name>Commonality</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfBasis\WpfBasis.csproj">
+      <Project>{4b21d9f8-3eaf-4c29-ae6a-8c73c99393ec}</Project>
+      <Name>WpfBasis</Name>
     </ProjectReference>
     <ProjectReference Include="..\WpfPreferredControls\WpfPreferredControls.csproj">
       <Project>{c3c851a0-99cc-4295-b4f6-5085cfd5fd83}</Project>
