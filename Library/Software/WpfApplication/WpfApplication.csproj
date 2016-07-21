@@ -51,8 +51,6 @@
     <Compile Include="..\..\..\Abnaki.Windows.AssemblyInfo.cs">
       <Link>Abnaki.Windows.AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Diag\Design.cs" />
-    <Compile Include="Diplomat\Troubleshooter.cs" />
     <Compile Include="NetAid\DialogExtension.cs" />
     <Compile Include="Profile\Preference.cs" />
     <Compile Include="Ultimate\Enums.cs" />
@@ -68,12 +66,14 @@
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="MessageTube.cs" />
-    <Compile Include="Diplomat\Notifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Starter.cs" />
-    <Compile Include="WaitCursor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\WpfBasis\WpfBasis.csproj">
+      <Project>{4b21d9f8-3eaf-4c29-ae6a-8c73c99393ec}</Project>
+      <Name>WpfBasis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Commonality\Commonality.csproj">
       <Project>{2c290af1-de15-4b75-8774-c4196f1e213d}</Project>
       <Name>Commonality</Name>
