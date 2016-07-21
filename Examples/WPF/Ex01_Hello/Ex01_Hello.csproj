@@ -106,7 +106,7 @@
       <Project>{3d6f0fbc-fcbb-4ea2-a139-cf0c86604cf4}</Project>
       <Name>WpfApplication</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\WpfBasis\WpfBasis.csproj">
+    <ProjectReference Include="..\..\..\Library\Software\WpfBasis\WpfBasis.csproj">
       <Project>{4b21d9f8-3eaf-4c29-ae6a-8c73c99393ec}</Project>
       <Name>WpfBasis</Name>
     </ProjectReference>
