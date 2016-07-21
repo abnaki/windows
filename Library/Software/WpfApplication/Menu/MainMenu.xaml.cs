@@ -22,7 +22,7 @@ namespace Abnaki.Windows.Software.Wpf.Menu
     /// </summary>
     /// <remarks>
     /// Because the menu is wrapped in this class, users do not populate it with XAML.
-    /// Menu commands should be sufficiently simple, not needing to much customization;
+    /// Menu commands should be sufficiently simple, not needing much customization;
     /// this public interface allows programmatic possibilities; 
     /// and lets developers avoid time-consuming designer interaction.
     /// In some situations, menu commands are known at run time, not design time.
@@ -93,8 +93,16 @@ namespace Abnaki.Windows.Software.Wpf.Menu
         MenuItem AddItemChild(object parentKey, object childKey, string label, bool? defaultCheck)
         {
             MenuItem parentItem = FindItem(parentKey, this.RootMenu.Items);
-             
-            return AddMenuItem(parentItem, childKey, label, defaultCheck);
+
+            MenuItem itemChild = AddMenuItem(parentItem, childKey, label, defaultCheck);
+
+            // should be unnecessary
+            //itemChild.Background = parentItem.Background;
+            //itemChild.Foreground = parentItem.Foreground;
+            //itemChild.Style = parentItem.Style;
+            //itemChild.Template = parentItem.Template;
+
+            return itemChild;
         }
 
         MenuItem FindItem(object tag, ItemCollection items)
