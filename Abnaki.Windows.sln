@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commonality", "Commonality"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTest", "Testing\Commonality\CommonTest\CommonTest.csproj", "{1E47E0C3-1B6B-4514-9448-2EE5848C2F58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfBasis", "WpfBasis\WpfBasis.csproj", "{4B21D9F8-3EAF-4C29-AE6A-8C73C99393EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfBasis", "Library\Software\WpfBasis\WpfBasis.csproj", "{4B21D9F8-3EAF-4C29-AE6A-8C73C99393EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
