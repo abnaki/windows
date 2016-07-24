@@ -61,9 +61,24 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             AddCommand<Tkey>(new MenuSeed<Tkey>(childKey, label, defaultCheck) { ParentKey = parentKey });
         }
 
+        public void AddExclusiveCommands<TKey>(object parentKey, IEnumerable<MenuSeed<TKey>> seeds)
+        {
+            foreach ( var seed in seeds )
+            {
+                seed.MutuallyExclusive = true;
+                seed.ParentKey = parentKey;
+                AddCommand(seed);
+            }
+        }
+
+
         void CompleteItem<Tkey>(MenuItem item, MenuSeed<Tkey> seed)
         {
-            item.Click += ItemClick<Tkey>;
+            if ( seed.MutuallyExclusive )
+                item.Click += ItemClickExclusive<Tkey>;
+            else
+                item.Click += ItemClick<Tkey>; // usual
+
             item.ToolTip = seed.Tooltip;
 
             if ( seed.Enabled.HasValue )
@@ -83,6 +98,20 @@ namespace Abnaki.Windows.Software.Wpf.Menu
 
             e.Handled = true;  // otherwise, tunnels down through MenuItem hierarchy
             
+        }
+
+        void ItemClickExclusive<Tkey>(object sender, RoutedEventArgs e)
+        {
+            ItemClick<Tkey>(sender, e);
+
+            // turn off sibiling items
+            MenuItem item = (MenuItem)sender;
+            MenuItem parent = (MenuItem)item.Parent;
+            foreach ( MenuItem otherItem in  parent.Items )
+            {
+                if (otherItem != item)
+                    otherItem.IsChecked = false;
+            }
         }
 
         MenuItem AddMenuItem(object key, string label, bool? defaultCheck)
