@@ -36,6 +36,11 @@ namespace Abnaki.Windows.GUI
         /// </summary>
         public bool? DefaultCheck { get; set; }
 
+        /// <summary>
+        /// Of this command or its siblings, only one can be Checked.
+        /// </summary>
+        public bool MutuallyExclusive { get; set; }
+
         public string Tooltip { get; set; }
 
         public bool? Enabled { get; set; }
