@@ -12,5 +12,6 @@ namespace Abnaki.Windows.GUI
 
         void AddCommandChild<Tkey>(object parentKey, Tkey childKey, string label, bool? defaultCheck = null);
 
+        void AddExclusiveCommands<TKey>(object parentKey, IEnumerable<MenuSeed<TKey>> seeds);
     }
 }
