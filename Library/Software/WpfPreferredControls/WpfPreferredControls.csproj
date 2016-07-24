@@ -77,6 +77,9 @@
       <DependentUpon>GridControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Grid\GridVm.cs" />
+    <Compile Include="Primitive\ColorSelector.xaml.cs">
+      <DependentUpon>ColorSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +93,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Grid\GridControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Primitive\ColorSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
