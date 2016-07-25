@@ -54,6 +54,7 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             this.ClientPanel.Children.Add(element);
 
             c.ConfigureMenu(this.TopMenu);
+            this.TopMenu.Completed();
 
             Abnaki.Windows.Software.Wpf.PreferredControls.Docking.Setup.CompleteSetupOfInterfaces(this, c.DockingSystem);
 
@@ -121,6 +122,8 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             try
             {
                 SaveBounds();
+
+                MessageTube.Publish(new FarewellMessage());
 
                 FileInfo fi = LayoutFileInfo();
                 InvokeSavingPanelLayout(fi);
