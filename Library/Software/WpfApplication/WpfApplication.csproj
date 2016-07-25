@@ -54,6 +54,7 @@
     <Compile Include="NetAid\DialogExtension.cs" />
     <Compile Include="Profile\Preference.cs" />
     <Compile Include="Ultimate\Enums.cs" />
+    <Compile Include="Ultimate\FarewellMessage.cs" />
     <Compile Include="Ultimate\MainMenuBus.cs" />
     <Compile Include="Ultimate\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
