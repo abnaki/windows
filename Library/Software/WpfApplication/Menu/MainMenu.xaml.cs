@@ -12,8 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//using CodeRed.Serialization; // SerializableDictionary
 
 using Abnaki.Windows.GUI;
+using Abnaki.Windows.Software.Wpf.Ultimate;
+using Abnaki.Windows.Software.Wpf.Profile;
 
 namespace Abnaki.Windows.Software.Wpf.Menu
 {
@@ -32,6 +35,8 @@ namespace Abnaki.Windows.Software.Wpf.Menu
         public MainMenu()
         {
             InitializeComponent();
+
+            MessageTube.Subscribe<FarewellMessage>(Farewell);
         }
 
         public void AddCommand<Tkey>(MenuSeed<Tkey> seed)
@@ -121,7 +126,7 @@ namespace Abnaki.Windows.Software.Wpf.Menu
 
         MenuItem AddItemChild(object parentKey, object childKey, string label, bool? defaultCheck)
         {
-            MenuItem parentItem = FindItem(parentKey, this.RootMenu.Items);
+            MenuItem parentItem = FindItem(this.RootMenu.Items, parentKey);
 
             MenuItem itemChild = AddMenuItem(parentItem, childKey, label, defaultCheck);
 
@@ -134,14 +139,36 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             return itemChild;
         }
 
-        MenuItem FindItem(object tag, ItemCollection items)
+        public void Completed()
         {
-            MenuItem foundItem = items.Cast<MenuItem>().FirstOrDefault(item => tag.Equals(item.Tag));
+            MenuCheckPreference pref = Preference.ReadClassPrefs<MainMenu, MenuCheckPreference>();
+            if (pref == null)
+                return;
+
+            foreach ( string qualifier in pref.CheckedEnums )
+            {
+                MenuItem item = FindItem(this.RootMenu.Items, tag => qualifier == MenuCheckPreference.QualifierOfTag(tag));
+                if (item != null)
+                {
+                    item.IsChecked = true;
+                    item.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+                }
+            }
+        }
+
+        MenuItem FindItem(ItemCollection items, object tag)
+        {
+            return FindItem(items, othertag => tag.Equals(othertag));
+        }
+
+        MenuItem FindItem(ItemCollection items, Func<object, bool> testTag)
+        {
+            MenuItem foundItem = items.Cast<MenuItem>().FirstOrDefault(item => testTag(item.Tag));
             if (foundItem == null )
             { // recurse
                 foreach ( MenuItem item in items )
                 {
-                    foundItem = FindItem(tag, item.Items);
+                    foundItem = FindItem(item.Items, testTag);
                     if (foundItem != null)
                         break;
                 }
@@ -180,6 +207,51 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             // (int) required for disparate enums via SortDescriptions.
             item.CommandParameter = (int)key; 
         }
+
+        void Farewell(FarewellMessage msg)
+        {
+            MenuCheckPreference pref = new MenuCheckPreference(this.RootMenu.Items);
+            Preference.WriteClassPrefs<MainMenu, MenuCheckPreference>(pref);
+        }
+
+        public class MenuCheckPreference
+        {
+            /// <summary>
+            /// For all checked commands, tag's Type.FullName + enum value.
+            /// Ignore unchecked commands.
+            /// </summary>
+            public readonly List<string> CheckedEnums = new List<string>();
+
+            public MenuCheckPreference() // serializ.
+            {
+
+            }
+
+            public MenuCheckPreference(ItemCollection items)
+            {
+                Descend(items);
+            }
+
+            void Descend(ItemCollection items)
+            {
+                foreach ( MenuItem item in items )
+                {
+                    if ( item.IsChecked &&  item.Tag != null )
+                    {
+                        string qualifier = QualifierOfTag(item.Tag);
+                        CheckedEnums.Add(qualifier);
+                    }
+                    Descend(item.Items);
+                }
+            }
+
+            /// <param name="tag">enum</param>
+            public static string QualifierOfTag(object tag) 
+            {
+                return tag.GetType().FullName + "." + tag;
+            }
+        }
+
     }
 
 }
