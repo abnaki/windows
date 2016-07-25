@@ -18,9 +18,10 @@
         EditTriggers="BeginEditCommand, ClickOnCurrentCell, SingleClick, ActivationGesture">
         <xcdg:DataGridControl.View>
             <xcdg:TableflowView
+                ContainerHeight="20"
                 UseDefaultHeadersFooters="False"
-                ColumnStretchMode="All"
                 IsAlternatingRowStyleEnabled="False">
+                <!-- ColumnStretchMode All forbids user changing any column widths -->
                 <xcdg:TableflowView.FixedHeaders>
                     <DataTemplate>
                         <xcdg:ColumnManagerRow />
