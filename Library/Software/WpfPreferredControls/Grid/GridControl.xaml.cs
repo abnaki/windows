@@ -66,6 +66,8 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 
             SortedSet<int> indices = new SortedSet<int>(Enumerable.Range(0, this.Grid.Columns.Count));
 
+            Dictionary<string, double> colWidths = new Dictionary<string, double>();
+
             foreach ( Col col in columns )
             {
                 ColumnBase cb = this.Grid.Columns[col.Field];
@@ -73,6 +75,7 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 cb.Visible = true;
                 cb.Title = col.Caption ?? col.Field;
                 cb.VisiblePosition = position++;
+                colWidths[cb.FieldName] = cb.GetFittedWidth();
             }
             
             // now remaining indices are unspecified columns:  hide.
@@ -82,6 +85,19 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 cb.Visible = false;
             }
 
+            // tricks
+            //this.Grid.Items.Refresh(); // no effect
+            //this.Grid.UpdateLayout();
+
+            foreach ( var pair in colWidths )
+            {
+                if ( pair.Value > 0 )
+                {
+                    ColumnBase cb = this.Grid.Columns[pair.Key];
+                    cb.Width = pair.Value + 2.0;
+                }
+            }
+            
         }
 
         private void Grid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
