@@ -102,14 +102,22 @@ namespace Abnaki.Windows.Software.Wpf.Profile
             where Tpref : class
         {
             FileInfo fi = ClassPrefsFile<Tclass>();
-            if (false == fi.Exists)
-                return null;
-
-            using (StreamReader sr = new StreamReader(fi.FullName, PrefEncoding))
+            if (fi.Exists)
             {
-                XmlSerializer xs = new XmlSerializer(typeof(Tpref));
-                return (Tpref)xs.Deserialize(sr);
+                try
+                {
+                    using (StreamReader sr = new StreamReader(fi.FullName, PrefEncoding))
+                    {
+                        XmlSerializer xs = new XmlSerializer(typeof(Tpref));
+                        return (Tpref)xs.Deserialize(sr);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    AbnakiLog.Exception(ex);
+                }
             }
+            return null;
         }
 
         static System.Text.Encoding PrefEncoding = System.Text.Encoding.UTF8;
