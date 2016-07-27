@@ -41,12 +41,14 @@
       <Link>Abnaki.Windows.AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AbnakiFile.cs" />
+    <Compile Include="AbnakiReflection.cs" />
     <Compile Include="GUI\IDockSystem.cs" />
     <Compile Include="GUI\IMainControl.cs" />
     <Compile Include="GUI\IMainMenu.cs" />
     <Compile Include="GUI\IWindow.cs" />
     <Compile Include="GUI\MenuSeed.cs" />
     <Compile Include="AbnakiLog.cs" />
+    <Compile Include="LabelAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
