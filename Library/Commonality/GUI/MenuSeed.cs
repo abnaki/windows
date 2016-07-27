@@ -29,6 +29,9 @@ namespace Abnaki.Windows.GUI
         /// </summary>
         public object ParentKey { get; set; }
 
+        /// <summary>
+        /// If unspecified, menu command will show Key enum value's Description attribute or ordinary string
+        /// </summary>
         public string Label { get; set; }
 
         /// <summary>
