@@ -48,10 +48,12 @@ namespace Abnaki.Windows.Software.Wpf.Menu
 #endif
 
             MenuItem item;
+            string label = seed.Label ?? AbnakiReflection.LabelOfEnum(seed.Key);
+
             if (seed.ParentKey == null)
-                item = AddMenuItem(seed.Key, seed.Label, seed.DefaultCheck);
+                item = AddMenuItem(seed.Key, label, seed.DefaultCheck);
             else
-                item = AddItemChild(seed.ParentKey, seed.Key, seed.Label, seed.DefaultCheck);
+                item = AddItemChild(seed.ParentKey, seed.Key, label, seed.DefaultCheck);
 
             CompleteItem<Tkey>(item, seed);
         }
@@ -66,15 +68,15 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             AddCommand<Tkey>(new MenuSeed<Tkey>(childKey, label, defaultCheck) { ParentKey = parentKey });
         }
 
-        public void AddExclusiveCommands<TKey>(object parentKey, IEnumerable<MenuSeed<TKey>> seeds)
-        {
-            foreach ( var seed in seeds )
-            {
-                seed.MutuallyExclusive = true;
-                seed.ParentKey = parentKey;
-                AddCommand(seed);
-            }
-        }
+        //public void AddExclusiveCommands<TKey>(object parentKey, IEnumerable<MenuSeed<TKey>> seeds)
+        //{
+        //    foreach ( var seed in seeds )
+        //    {
+        //        seed.MutuallyExclusive = true;
+        //        seed.ParentKey = parentKey;
+        //        AddCommand(seed);
+        //    }
+        //}
 
 
         void CompleteItem<Tkey>(MenuItem item, MenuSeed<Tkey> seed)
@@ -84,7 +86,9 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             else
                 item.Click += ItemClick<Tkey>; // usual
 
-            item.ToolTip = seed.Tooltip;
+            item.ToolTip = seed.Tooltip ?? AbnakiReflection.DetailOfEnum(item.Tag);
+            //  maybe wrap
+            //  Regex rgx = new Regex("(.{50}\\s)"); string s = rgx.Replace(longMessage,"$1\n"); 
 
             if ( seed.Enabled.HasValue )
                 item.IsEnabled = seed.Enabled.Value;
