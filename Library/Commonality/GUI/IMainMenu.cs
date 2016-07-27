@@ -8,11 +8,11 @@ namespace Abnaki.Windows.GUI
     {
         void AddCommand<Tkey>(MenuSeed<Tkey> seed);
 
-        void AddCommand<Tkey>(Tkey key, string label, bool? defaultCheck = null);
+        void AddCommand<Tkey>(Tkey key, string label = null, bool? defaultCheck = null);
 
-        void AddCommandChild<Tkey>(object parentKey, Tkey childKey, string label, bool? defaultCheck = null);
+        void AddCommandChild<Tkey>(object parentKey, Tkey childKey, string label = null, bool? defaultCheck = null);
 
-        void AddExclusiveCommands<TKey>(object parentKey, IEnumerable<MenuSeed<TKey>> seeds);
+        //void AddExclusiveCommands<TKey>(object parentKey, IEnumerable<MenuSeed<TKey>> seeds);
 
         /// <summary>
         /// All Commands added.  May restore saved Check property to commands.
