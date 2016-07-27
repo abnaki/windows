@@ -18,6 +18,8 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
 
             menu.AddCommandChild(TopMenuKey.File, SubMenuKey.FileExit, "E_xit");
 
+            // FYI some attributes of SubMenuKey enum values will be respected
+
             var seed = new MenuSeed<SubMenuKey>(){ ParentKey = TopMenuKey.Help, Key = SubMenuKey.HelpTroubleshoot, 
             Label = "_Troubleshoot", 
             Tooltip = "Provides information and files for you to seek help or report issues."};
