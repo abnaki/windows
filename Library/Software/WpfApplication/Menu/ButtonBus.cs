@@ -4,6 +4,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using Abnaki.Windows.GUI;
 
 namespace Abnaki.Windows.Software.Wpf.Menu
 {
@@ -47,6 +48,21 @@ namespace Abnaki.Windows.Software.Wpf.Menu
 
         protected virtual void HandleButton(ButtonMessage<Tenum> m)
         {
+        }
+
+        /// <summary>
+        /// First command shall be checked; remainder false.
+        /// </summary>
+        protected void AddExclusiveCommands(IMainMenu menu, object parentKey, IEnumerable<Tenum> keys)
+        {
+            bool chk = true;
+            foreach ( Tenum key in keys )
+            {
+                MenuSeed<Tenum> seed = new MenuSeed<Tenum>() { ParentKey = parentKey, Key = key, DefaultCheck = chk };
+                seed.MutuallyExclusive = true;
+                menu.AddCommand(seed);
+                chk = false;
+            }
         }
     }
 }
