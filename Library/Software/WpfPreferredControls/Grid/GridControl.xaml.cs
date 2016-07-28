@@ -42,6 +42,12 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 
         public event Action<object> DoubleClickedRecord;
 
+        public void Clear()
+        {
+            this.DataContext = null;
+            this.Grid.Items.Refresh();
+        }
+
         /// <summary>
         /// Assign data
         /// </summary>
