@@ -19,7 +19,7 @@ namespace Abnaki.Windows.Software.Wpf
         {
             _previousCursor = Mouse.OverrideCursor;
 
-            Mouse.OverrideCursor = Cursors.Wait;
+            Wait();
         }
 
         #region IDisposable Members
@@ -30,5 +30,20 @@ namespace Abnaki.Windows.Software.Wpf
         }
 
         #endregion
+
+        public static void Wait()
+        {
+            Mouse.OverrideCursor = Cursors.Wait;
+        }
+
+        public static void Default()
+        {
+            Mouse.OverrideCursor = Cursors.Arrow;
+        }
+
+        public static void Progressing()
+        {
+            Mouse.OverrideCursor = Cursors.AppStarting;
+        }
     }
 }
