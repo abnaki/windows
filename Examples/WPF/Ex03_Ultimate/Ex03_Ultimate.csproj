@@ -78,6 +78,9 @@
       <Link>Abnaki.Windows.AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Enums.cs" />
+    <Compile Include="ExGrid.xaml.cs">
+      <DependentUpon>ExGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ShoppingData.cs">
       <DependentUpon>ShoppingData.xsd</DependentUpon>
       <SubType>Component</SubType>
@@ -154,6 +157,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="ExControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
