@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Abnaki.Windows.Software.Wpf.Menu;
+
 namespace Ex03_Ultimate
 {
     /// <summary>
@@ -23,6 +25,35 @@ namespace Ex03_Ultimate
         public Flag()
         {
             InitializeComponent();
+
+            ButtonBus<ExMenuKey>.HookupSubscriber(this.HandleMenuCommand);
+        }
+
+        void HandleMenuCommand(ButtonMessage<ExMenuKey> m)
+        {
+            if (m.Checked == true)
+            {
+                switch (m.Key)
+                {
+                    case ExMenuKey.OptionFlagNed:
+                        ReviseColor(Brushes.Red, Brushes.White, Brushes.Blue);
+                        break;
+                    case ExMenuKey.OptionFlagAustria:
+                        ReviseColor(Brushes.Red, Brushes.White, Brushes.Red);
+                        break;
+                    case ExMenuKey.OptionFlagBulg:
+                        ReviseColor(Brushes.White, Brushes.DarkSeaGreen, Brushes.Red);
+                        break;
+                }
+            }
+        }
+
+        void ReviseColor(Brush top, Brush mid, Brush bottom)
+        {
+            RecTop.Fill = top;
+            RecMid.Fill = mid;
+            RecBot.Fill = bottom;
+            InvalidateVisual();
         }
     }
 }
