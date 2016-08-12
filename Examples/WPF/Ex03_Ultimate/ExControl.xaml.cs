@@ -31,7 +31,6 @@ namespace Ex03_Ultimate
         {
             InitializeComponent();
 
-            ButtonBus<ExMenuKey>.HookupSubscriber(this.HandleMenuCommand);
         }
 
         const int panelVersion = 2;
@@ -44,6 +43,10 @@ namespace Ex03_Ultimate
         public void ConfigureMenu(IMainMenu menu)
         {
             menu.AddCommandChild(TopMenuKey.File, ExMenuKey.FileNew, "_New");
+
+            menu.AddCommandChild(TopMenuKey.Option, ExMenuKey.OptionFlag, "_Flag");
+            ButtonBus<ExMenuKey>.AddExclusiveCommands(menu, ExMenuKey.OptionFlag,
+                new[] { ExMenuKey.OptionFlagAustria, ExMenuKey.OptionFlagBulg, ExMenuKey.OptionFlagNed });
         }
 
         public event Action<string> MainTitle;
@@ -59,33 +62,6 @@ namespace Ex03_Ultimate
 
             Abnaki.Windows.Software.Wpf.Diag.Design.DebugAncestry(this.Flag); // demo, no effect
 
-        }
-
-        void HandleMenuCommand(ButtonMessage<ExMenuKey> m)
-        {
-            switch (m.Key)
-            {
-                case ExMenuKey.FileNew:
-                    BindExample();
-                    break;
-            }
-        }
-
-        void BindExample()
-        {
-            ShoppingData ds = new ShoppingData();
-            var vrow = ds.Vendor.AddVendorRow("Kroger");
-            ds.Item.AddItemRow("Butter", vrow, new DateTime(2030, 1, 1), 4);
-            ds.Item.AddItemRow("Eggs", vrow, new DateTime(2030, 1, 5), 12);
-
-            this.Gridc.BindGrid(ds.Item);
-
-            IEnumerable<Col> cols = new[]{ 
-                new Col(ds.Item.QuantityColumn), 
-                new Col(ds.Item.NameColumn)
-            };
-
-            this.Gridc.ConfigureColumns(cols);
         }
 
     }
