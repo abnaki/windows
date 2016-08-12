@@ -8,7 +8,7 @@
 AppName=Abnaki Example 3
 AppVersion={#AppVer}
 AppCopyright=Copyright (C) 2016- Abnaki Light Industry LLC
-LicenseFile=..\..\..LICENSE
+LicenseFile=..\..\..\LICENSE
 OutputBaseFilename=Abnaki-Example03-{#AppVer}-Setup
 DefaultDirName={pf}\Abnaki\Example03
 DefaultGroupName=Abnaki
@@ -25,4 +25,5 @@ OutputDir=SetupOutput
 Source: "bin\Release\*"; Excludes: "*.pdb,*vshost*"; DestDir: "{app}"; Flags: recursesubdirs
 Source: "Other\OtherLicenses\*"; DestDir: "{app}\OtherLicenses"; Flags: recursesubdirs
 
-; [Icons]
+[Icons]
+Name: "{group}\Example 3"; Filename: "{app}\Ex03_Ultimate.exe"
