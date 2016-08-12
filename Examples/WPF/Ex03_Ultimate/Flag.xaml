@@ -6,9 +6,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="230">
     <StackPanel>
-        <!-- Netherlands flag -->
-        <Rectangle HorizontalAlignment="Stretch" Width="Auto" Height="50" Fill="Red"></Rectangle>
-        <Rectangle HorizontalAlignment="Stretch" Width="Auto" Height="50" Fill="White"></Rectangle>
-        <Rectangle HorizontalAlignment="Stretch" Width="Auto" Height="50" Fill="Blue"></Rectangle>
+        <!-- default is Netherlands flag -->
+        <Rectangle Name="RecTop" HorizontalAlignment="Stretch" Width="Auto" Height="50" Fill="Red"></Rectangle>
+        <Rectangle Name="RecMid" HorizontalAlignment="Stretch" Width="Auto" Height="50" Fill="White"></Rectangle>
+        <Rectangle Name="RecBot" HorizontalAlignment="Stretch" Width="Auto" Height="50" Fill="Blue"></Rectangle>
     </StackPanel>
 </UserControl>
