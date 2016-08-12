@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:menu="clr-namespace:Abnaki.Windows.Software.Wpf.Menu"
-        Title="Main" Height="300" Width="500">
+        Title="Main" Height="500" Width="800">
     <DockPanel>
         <menu:MainMenu DockPanel.Dock="Top" x:Name="TopMenu" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top"/>
         <DockPanel DockPanel.Dock="Bottom" Name="ClientPanel"/>
