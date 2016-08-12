@@ -145,6 +145,8 @@ namespace Abnaki.Windows.Software.Wpf.Menu
 
         public void Completed()
         {
+            RaiseExistingChecks(this.RootMenu.Items);
+
             MenuCheckPreference pref = Preference.ReadClassPrefs<MainMenu, MenuCheckPreference>();
             if (pref == null)
                 return;
@@ -155,7 +157,7 @@ namespace Abnaki.Windows.Software.Wpf.Menu
                 if (item != null)
                 {
                     item.IsChecked = true;
-                    item.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+                    RaiseExistingCheck(item);
                 }
             }
         }
@@ -178,6 +180,22 @@ namespace Abnaki.Windows.Software.Wpf.Menu
                 }
             }
             return foundItem;
+        }
+
+        static void RaiseExistingCheck(MenuItem item)
+        {
+            item.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+        }
+
+        static void RaiseExistingChecks(ItemCollection items)
+        {
+            foreach ( MenuItem item in items )
+            {
+                if (item.IsChecked)
+                    RaiseExistingCheck(item);
+
+                RaiseExistingChecks(item.Items);
+            }
         }
 
         MenuItem AddMenuItem(ItemsControl container, object key, string label, bool? defaultCheck)
