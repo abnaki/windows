@@ -53,7 +53,7 @@ namespace Abnaki.Windows.Software.Wpf.Menu
         /// <summary>
         /// First command shall be checked; remainder false.
         /// </summary>
-        protected void AddExclusiveCommands(IMainMenu menu, object parentKey, IEnumerable<Tenum> keys)
+        public static void AddExclusiveCommands(IMainMenu menu, object parentKey, IEnumerable<Tenum> keys)
         {
             bool chk = true;
             foreach ( Tenum key in keys )
