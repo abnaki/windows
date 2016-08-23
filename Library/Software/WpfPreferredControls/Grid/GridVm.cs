@@ -24,8 +24,9 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
         }
 
         /// <summary>
-        /// Expect Grid to bind to it.
+        /// Expect Grid to bind to it. 
+        /// Inherits System.Windows.Data.CollectionView.
         /// </summary>
-        public CollectionView Data {get; set;}
+        public Xceed.Wpf.DataGrid.DataGridCollectionView Data { get; set; }
     }
 }
