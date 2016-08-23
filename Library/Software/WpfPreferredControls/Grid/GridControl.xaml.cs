@@ -38,7 +38,16 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             //v.FixedHeaders.
         }
 
+        // future reference:
+        // Grid.CurrentContext is interesting
+
         GridVm vm;
+
+        public new GridVm DataContext
+        {
+            set { base.DataContext = value; }
+            get { return base.DataContext as GridVm;  }
+        }
 
         public event Action<object> DoubleClickedRecord;
 
@@ -59,11 +68,14 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             vm = new GridVm(data);
             this.DataContext = vm;
 
+            this.DataContext.Data.EditCommitted += Data_EditCommitted;
         }
 
         public void ConfigureColumns(IEnumerable<Col> columns)
         {
             //this.Grid.Columns.Clear();
+
+            this.Grid.UpdateLayout(); // ?
 
             if (this.Grid.Columns.Count == 0)
                 return;
@@ -81,7 +93,8 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 cb.Visible = true;
                 cb.Title = col.Caption ?? col.Field;
                 cb.VisiblePosition = position++;
-                colWidths[cb.FieldName] = cb.GetFittedWidth();
+                colWidths[cb.FieldName] = BetterFittedWidth(cb);
+                SuitableDefaults(cb);
             }
             
             // now remaining indices are unspecified columns:  hide.
@@ -106,6 +119,52 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             
         }
 
+        double BetterFittedWidth(ColumnBase cb)
+        {
+            IEnumerable<object> sampleValues = ((GridVm)this.Grid.DataContext).Data.Cast<object>()
+                .Select(r => GetField(r, cb))
+                .Where(v => v != null)
+                .Take(5)
+                .ToList();
+
+            double w = cb.GetFittedWidth();
+            if (sampleValues.Any())
+            {
+                double wcalc = 7 * sampleValues.Max(v => Convert.ToString(v).Length);
+                return Math.Max(wcalc, w);
+            }
+            return w;
+        }
+
+        static object GetField(object record, ColumnBase cb)
+        {
+            var prop = record.GetType().GetProperty(cb.FieldName);
+            return prop.GetValue(record);
+        }
+
+        void SuitableDefaults(ColumnBase cb)
+        {
+            var prop = PropertyofColumn(cb);
+
+            // want click on a bool checkbox to work immediately.  see MouseLeftButtonHandler handler and
+            //  https://xceed.com/forums/topic/Single-Click-Editing-Question-CheckBox/
+            if (IsBoolean(prop))
+            {
+                cb.ReadOnly = true; 
+            }
+        }
+
+        DataGridItemPropertyBase PropertyofColumn(ColumnBase cb)
+        {
+            return this.DataContext.Data.ItemProperties.First(p => p.Name == cb.FieldName);
+        }
+
+        static bool IsBoolean(DataGridItemPropertyBase prop)
+        {
+            return prop.DataType == typeof(bool)
+                || prop.DataType.GetGenericArguments().FirstOrDefault() == typeof(bool); // nullable
+        }
+
         private void Grid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // demo
@@ -124,5 +183,32 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 hd(this.Grid.CurrentItem);
             
         }
+
+        /// <summary>
+        /// 3rd arg is current column field name, string.
+        /// </summary>
+        public event Action<object,DataGridItemEventArgs,string> GridEditCommitted;
+
+        void Data_EditCommitted(object sender, DataGridItemEventArgs e)
+        {
+            var h = GridEditCommitted;
+            if (h != null)
+                h(sender, e, this.Grid.CurrentColumn.FieldName);
+        }
+
+        private void CellMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (Grid.CurrentColumn != null && Grid.CurrentItem != null)
+            {
+                var prop = PropertyofColumn(Grid.CurrentColumn);
+                if (IsBoolean(prop))
+                {
+                    bool bold = (bool)(prop.GetValue(Grid.CurrentItem) ?? (object)false);
+                    prop.SetValue(Grid.CurrentItem, !bold); // invert
+                }
+            }
+        }
+
+
     }
 }
