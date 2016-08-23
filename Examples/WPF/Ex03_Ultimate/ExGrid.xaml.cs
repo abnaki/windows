@@ -44,14 +44,15 @@ namespace Ex03_Ultimate
         {
             ShoppingData ds = new ShoppingData();
             var vrow = ds.Vendor.AddVendorRow("Kroger");
-            ds.Item.AddItemRow("Butter", vrow, new DateTime(2030, 1, 1), 4);
-            ds.Item.AddItemRow("Eggs", vrow, new DateTime(2030, 1, 5), 12);
+            ds.Item.AddItemRow("Butter", vrow, new DateTime(2030, 1, 1), 4, false);
+            ds.Item.AddItemRow("Eggs", vrow, new DateTime(2030, 1, 5), 12, true);
 
             this.Gridc.BindGrid(ds.Item);
 
             IEnumerable<Col> cols = new[]{ 
                 new Col(ds.Item.QuantityColumn), 
-                new Col(ds.Item.NameColumn)
+                new Col(ds.Item.NameColumn),
+                new Col(ds.Item.StockColumn)
             };
 
             this.Gridc.ConfigureColumns(cols);
