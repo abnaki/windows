@@ -595,6 +595,8 @@ namespace Ex03_Ultimate {
             
             private global::System.Data.DataColumn columnQuantity;
             
+            private global::System.Data.DataColumn columnStock;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ItemDataTable() {
@@ -662,6 +664,14 @@ namespace Ex03_Ultimate {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn StockColumn {
+                get {
+                    return this.columnStock;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -697,13 +707,14 @@ namespace Ex03_Ultimate {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ItemRow AddItemRow(string Name, VendorRow parentVendorRowByFK_Vendor_Item, System.DateTime Date, double Quantity) {
+            public ItemRow AddItemRow(string Name, VendorRow parentVendorRowByFK_Vendor_Item, System.DateTime Date, double Quantity, bool Stock) {
                 ItemRow rowItemRow = ((ItemRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Name,
                         null,
                         Date,
-                        Quantity};
+                        Quantity,
+                        Stock};
                 if ((parentVendorRowByFK_Vendor_Item != null)) {
                     columnValuesArray[1] = parentVendorRowByFK_Vendor_Item[0];
                 }
@@ -733,6 +744,7 @@ namespace Ex03_Ultimate {
                 this.columnVendor = base.Columns["Vendor"];
                 this.columnDate = base.Columns["Date"];
                 this.columnQuantity = base.Columns["Quantity"];
+                this.columnStock = base.Columns["Stock"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -746,6 +758,8 @@ namespace Ex03_Ultimate {
                 base.Columns.Add(this.columnDate);
                 this.columnQuantity = new global::System.Data.DataColumn("Quantity", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnQuantity);
+                this.columnStock = new global::System.Data.DataColumn("Stock", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStock);
                 this.ExtendedProperties.Add("Generator_RowClassName", "ItemRow");
                 this.ExtendedProperties.Add("Generator_RowEvArgName", "ItemRowChangeEvent");
                 this.ExtendedProperties.Add("Generator_RowEvHandlerName", "ItemRowChangeEventHandler");
@@ -996,6 +1010,22 @@ namespace Ex03_Ultimate {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Stock {
+                get {
+                    try {
+                        return ((bool)(this[this.tableItem.StockColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Stock\' in table \'Item\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableItem.StockColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public VendorRow VendorRow {
                 get {
                     return ((VendorRow)(this.GetParentRow(this.Table.ParentRelations["FK_Vendor_Item"])));
@@ -1051,6 +1081,18 @@ namespace Ex03_Ultimate {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetQuantityNull() {
                 this[this.tableItem.QuantityColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsStockNull() {
+                return this.IsNull(this.tableItem.StockColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetStockNull() {
+                this[this.tableItem.StockColumn] = global::System.Convert.DBNull;
             }
         }
         
