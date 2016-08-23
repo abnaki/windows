@@ -16,6 +16,15 @@
         ItemsSource="{Binding Data}"
         MouseDoubleClick="Grid_MouseDoubleClick"
         EditTriggers="BeginEditCommand, ClickOnCurrentCell, SingleClick, ActivationGesture">
+        <xcdg:DataGridControl.Resources>
+            <Style
+                TargetType="{x:Type xcdg:DataCell}">
+                <!--necessary for one click checkboxes-->
+                <EventSetter
+                    Event="MouseLeftButtonUp"
+                    Handler="CellMouseLeftButtonUp" />
+            </Style>
+        </xcdg:DataGridControl.Resources>
         <xcdg:DataGridControl.View>
             <xcdg:TableflowView
                 ContainerHeight="20"
