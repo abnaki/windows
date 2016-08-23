@@ -189,11 +189,16 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
         /// </summary>
         public event Action<object,DataGridItemEventArgs,string> GridEditCommitted;
 
-        void Data_EditCommitted(object sender, DataGridItemEventArgs e)
+        void OnEditCommit(object sender, DataGridItemEventArgs e)
         {
             var h = GridEditCommitted;
             if (h != null)
                 h(sender, e, this.Grid.CurrentColumn.FieldName);
+        }
+
+        void Data_EditCommitted(object sender, DataGridItemEventArgs e)
+        {
+            OnEditCommit(sender, e);
         }
 
         private void CellMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -205,6 +210,9 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 {
                     bool bold = (bool)(prop.GetValue(Grid.CurrentItem) ?? (object)false);
                     prop.SetValue(Grid.CurrentItem, !bold); // invert
+
+                    DataGridItemEventArgs ecommit = new DataGridItemEventArgs(DataContext.Data, Grid.CurrentItem);
+                    OnEditCommit(sender, ecommit);
                 }
             }
         }
