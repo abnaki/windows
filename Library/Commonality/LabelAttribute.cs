@@ -8,6 +8,11 @@ namespace Abnaki.Windows
     /// </summary>
     public class LabelAttribute : Attribute
     {
+        public LabelAttribute()
+        {
+
+        }
+
         public LabelAttribute(string label)
         {
             this.Label = label;
