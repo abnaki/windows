@@ -12,6 +12,7 @@
     {
         FileExit = 1000, // always last
         HelpTroubleshoot,
+        HelpUpgrade,
         SaveUserPlacement,
         SaveAsPlacement,
         ReadUserPlacement,
