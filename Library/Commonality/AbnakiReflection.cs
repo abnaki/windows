@@ -42,5 +42,18 @@ namespace Abnaki.Windows
             FieldInfo field = enumValue.GetType().GetField(enumValue.ToString());
             return field.GetCustomAttribute<T>();
         }
+
+
+        /// <summary>
+        /// Entry Assembly name, n.n.n version, and Revision (least significant)
+        /// </summary>
+        public static Tuple<string,string,string> ApplicationNameVersionSplit()
+        {
+            var aname = System.Reflection.Assembly.GetEntryAssembly().GetName();
+            var v = aname.Version;
+            string shortVer = string.Format("{0}.{1}.{2}", v.Major, v.Minor, v.Build); // note it's the github fashion
+
+            return new Tuple<string, string, string>(aname.Name, shortVer, v.Revision.ToString());
+        }
     }
 }
