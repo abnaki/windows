@@ -56,9 +56,8 @@ namespace Abnaki.Windows.Software.Wpf.Diplomat
         {
             if (false == string.IsNullOrEmpty(Email))
             {
-                var aname = System.Reflection.Assembly.GetEntryAssembly().GetName();
-                var v = aname.Version;
-                string subject = string.Format("{0}%20{1}.{2}.{3}%20", aname.Name, v.Major, v.Minor, v.Build);
+                var tuple = AbnakiReflection.ApplicationNameVersionSplit();
+                string subject = string.Format("{0}%20{1}%20", tuple.Item1, tuple.Item2);
                 string uri = string.Format("mailto:{0}?subject={1}", Email, subject);
 
                 using ( var p = Process.Start(uri) )
