@@ -27,7 +27,7 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             {
                 var appTuple = AbnakiReflection.ApplicationNameVersionSplit();
 
-                seed = new MenuSeed<SubMenuKey>(SubMenuKey.HelpUpgrade, "Upgrade...")
+                seed = new MenuSeed<SubMenuKey>(SubMenuKey.HelpUpgrade, "_Upgrade...")
                 {
                     ParentKey = TopMenuKey.Help,
                     Tooltip = "Open web browser for upgrade of your current " + appTuple.Item1 + " " + appTuple.Item2
