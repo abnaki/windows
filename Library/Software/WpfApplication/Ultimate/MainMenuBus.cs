@@ -4,6 +4,7 @@ using System.Linq;
 
 using Abnaki.Windows.Software.Wpf.Menu;
 using Abnaki.Windows.GUI;
+using System.Diagnostics;
 
 namespace Abnaki.Windows.Software.Wpf.Ultimate
 {
@@ -11,6 +12,8 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
     {
         public MainMenuBus(MainMenu menu)
         {
+            MenuSeed<SubMenuKey> seed;
+
             menu.AddCommand(TopMenuKey.File, "_File");
             menu.AddCommand(TopMenuKey.Option, "_Option");
             menu.AddCommand(TopMenuKey.Window, "_Window");
@@ -20,10 +23,23 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
 
             // FYI some attributes of SubMenuKey enum values will be respected
 
-            var seed = new MenuSeed<SubMenuKey>(){ ParentKey = TopMenuKey.Help, Key = SubMenuKey.HelpTroubleshoot, 
-            Label = "_Troubleshoot", 
-            Tooltip = "Provides information and files for you to seek help or report issues."};
+            if (UpgradeUri != null)
+            {
+                var appTuple = AbnakiReflection.ApplicationNameVersionSplit();
 
+                seed = new MenuSeed<SubMenuKey>(SubMenuKey.HelpUpgrade, "Upgrade...")
+                {
+                    ParentKey = TopMenuKey.Help,
+                    Tooltip = "Open web browser for upgrade of your current " + appTuple.Item1 + " " + appTuple.Item2
+                };
+                menu.AddCommand(seed);
+            }
+
+            seed = new MenuSeed<SubMenuKey>(SubMenuKey.HelpTroubleshoot, "_Troubleshoot...")
+            {
+                ParentKey = TopMenuKey.Help,
+                Tooltip = "Instructions for you to seek help or report issues."
+            };
             menu.AddCommand(seed);
 
             menu.AddCommandChild(TopMenuKey.Window, SubMenuKey.SaveUserPlacement, "Save Placement");
@@ -32,6 +48,8 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             menu.AddCommandChild(TopMenuKey.Window, SubMenuKey.ReadUserPlacement, "Restore Own Placement");
             menu.AddCommandChild(TopMenuKey.Window, SubMenuKey.ReadDefaultPlacement, "Restore Default Placement");
         }
+
+        public static Uri UpgradeUri { get; set; }
 
         protected override void HandleButton(ButtonMessage<SubMenuKey> m)
         {
@@ -49,6 +67,15 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
                     Diplomat.Troubleshooter.Shoot();
                     break;
 
+                case SubMenuKey.HelpUpgrade:
+                    if ( UpgradeUri != null )
+                    {
+                        using ( var p = Process.Start(UpgradeUri.ToString()))
+                        {
+                            // right
+                        }
+                    }
+                    break;
             }
         }
     }
