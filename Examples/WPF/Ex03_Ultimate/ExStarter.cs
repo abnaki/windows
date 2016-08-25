@@ -9,6 +9,8 @@ namespace Ex03_Ultimate
         [STAThread]
         public static int Main(string[] args)
         {
+            // Abnaki.Windows.Software.Wpf.Diplomat.Troubleshooter.Email = "nobody@nowhere.com";
+
             return UltimateStarter<ExControl>.Start(args);
         }
 
