@@ -11,6 +11,9 @@ namespace Abnaki.Windows.Software.Wpf.Diplomat
 {
     public class Troubleshooter
     {
+        /// <summary>
+        /// Address for feedback on issues
+        /// </summary>
         public static string Email { get; set; }
 
         /// <summary>
