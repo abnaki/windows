@@ -100,6 +100,21 @@ namespace Abnaki.Windows.Software.Wpf
             }
         }
 
+        public static void CommonSettings(System.Configuration.ApplicationSettingsBase settings)
+        {
+            try
+            {
+                Abnaki.Windows.Software.Wpf.Diplomat.Troubleshooter.Email = (string)settings["TroubleShooterEmail"];
 
+                string suri = (string)settings["UpgradeUri"];
+                if ( false == string.IsNullOrEmpty(suri))
+                    Abnaki.Windows.Software.Wpf.Ultimate.MainMenuBus.UpgradeUri = new Uri(suri);
+            }
+            catch (Exception ex)
+            {
+                Abnaki.Windows.AbnakiLog.Exception(ex);
+            }
+
+        }
     }
 }
