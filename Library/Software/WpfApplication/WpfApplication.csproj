@@ -51,7 +51,6 @@
     <Compile Include="..\..\..\Abnaki.Windows.AssemblyInfo.cs">
       <Link>Abnaki.Windows.AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="NetAid\DialogExtension.cs" />
     <Compile Include="Profile\Preference.cs" />
     <Compile Include="Ultimate\Enums.cs" />
     <Compile Include="Ultimate\FarewellMessage.cs" />
