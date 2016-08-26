@@ -15,9 +15,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Data;
+using CodeRed.Serialization; // SerializableDictionary
 
 //using Xceed.Wpf.DataGrid.Views;
 using Xceed.Wpf.DataGrid;
+using Abnaki.Windows.Software.Wpf.Profile;
+using System.Xml.Serialization;
 
 namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 {
@@ -31,6 +34,8 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             InitializeComponent();
 
             Debug.WriteLine("Grid.ReadOnly " + this.Grid.ReadOnly);
+
+            Clear();
 
             //var v = (Xceed.Wpf.DataGrid.Views.TableflowView)this.Grid.View;
             //v.UseDefaultHeadersFooters = false;
@@ -51,7 +56,15 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 
         public event Action<object> DoubleClickedRecord;
 
+        /// <summary>Absolute
+        /// </summary>
         public void Clear()
+        {
+            GridPref = null;
+            ClearData();
+        }
+
+        public void ClearData()
         {
             this.DataContext = null;
             this.Grid.Items.Refresh();
@@ -65,26 +78,37 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
         /// </param>
         public void BindGrid(System.Collections.IEnumerable data)
         {
+            UpdatePref(); // survives from old binding, if any
+
             vm = new GridVm(data);
             this.DataContext = vm;
 
             this.DataContext.Data.EditCommitted += Data_EditCommitted;
         }
 
+        /// <summary>
+        /// Recommended.  Required for GridPrefs to work.
+        /// </summary>
+        /// <param name="columns">sequence of appearance, with Col options
+        /// </param>
         public void ConfigureColumns(IEnumerable<Col> columns)
         {
             //this.Grid.Columns.Clear();
 
-            this.Grid.UpdateLayout(); // ?
+            this.Grid.UpdateLayout();
 
             if (this.Grid.Columns.Count == 0)
                 return;
 
             int position = 0;
 
+            bool prefExisted = GridPref != null;
+            if (!prefExisted)
+                GridPref = new Pref();
+
             SortedSet<int> indices = new SortedSet<int>(Enumerable.Range(0, this.Grid.Columns.Count));
 
-            Dictionary<string, double> colWidths = new Dictionary<string, double>();
+            //Dictionary<string, double> colWidths = new Dictionary<string, double>();
 
             foreach ( Col col in columns )
             {
@@ -92,9 +116,14 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 indices.Remove(cb.Index);
                 cb.Visible = true;
                 cb.Title = col.Caption ?? col.Field;
-                cb.VisiblePosition = position++;
-                colWidths[cb.FieldName] = BetterFittedWidth(cb);
                 SuitableDefaults(cb);
+
+                if (!prefExisted)
+                {
+                    cb.VisiblePosition = position++;
+                    cb.Width = BetterFittedWidth(cb);
+                    GridPref.ColumnPrefs[cb.FieldName] = new ColumnPref(cb.Width, cb.VisiblePosition);
+                }
             }
             
             // now remaining indices are unspecified columns:  hide.
@@ -104,19 +133,69 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 cb.Visible = false;
             }
 
-            // tricks
-            //this.Grid.Items.Refresh(); // no effect
-            //this.Grid.UpdateLayout();
+            if ( prefExisted )
+                EnforceColumnPrefs();
 
-            foreach ( var pair in colWidths )
+        }
+
+        void EnforcePrefs()
+        {
+            EnforceUnboundPrefs();
+            EnforceColumnPrefs();
+        }
+
+        void EnforceUnboundPrefs()
+        {
+            // anything from GridPref that is valid in absence of any columns or records
+        }
+
+        void EnforceColumnPrefs()
+        {
+            try
             {
-                if ( pair.Value > 0 )
+                if (GridPref != null)
                 {
-                    ColumnBase cb = this.Grid.Columns[pair.Key];
-                    cb.Width = pair.Value + 2.0;
+                    foreach (var pair in GridPref.ColumnPrefs.OrderBy(p => p.Value.VisiblePosition) )
+                    {
+                        ColumnPref pref = pair.Value;
+                        ColumnBase cb = this.Grid.Columns[pair.Key];
+                        if (cb == null) // no longer exists
+                            continue;
+
+                        if (pref.Width > 0)
+                            cb.Width = pref.Width;
+
+                        cb.VisiblePosition = pref.VisiblePosition;
+                    }
+
+                    GridPref.Completed = true;
                 }
             }
-            
+            catch ( Exception ex )
+            {
+                AbnakiLog.Exception(ex);
+            }
+        }
+
+        void UpdatePref()
+        {
+            if ( GridPref != null && false == GridPref.Completed )
+            {
+                 // awaiting completion of usage
+            }
+            else if (Grid.Columns.Any()) // or any other data to persist
+            {
+                GridPref = new Pref();
+
+                foreach (ColumnBase cb in this.Grid.Columns)
+                {
+                    GridPref.ColumnPrefs[cb.FieldName] = new ColumnPref(cb.Width, cb.VisiblePosition);
+                }
+            }
+            else
+            {   // unexpected
+                GridPref = null;
+            }
         }
 
         double BetterFittedWidth(ColumnBase cb)
@@ -130,7 +209,7 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             double w = cb.GetFittedWidth();
             if (sampleValues.Any())
             {
-                double wcalc = 7 * sampleValues.Max(v => Convert.ToString(v).Length);
+                double wcalc = 2 + 7 * sampleValues.Max(v => Convert.ToString(v).Length);
                 return Math.Max(wcalc, w);
             }
             return w;
@@ -216,6 +295,54 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 }
             }
         }
+
+        public void RestorePreferences<Towner>()
+        {
+            GridPref = Preference.ReadClassPrefs<Towner, Pref>();
+            EnforceUnboundPrefs();
+        }
+
+        public void SavePreferences<Towner>()
+        {
+            UpdatePref();
+            if (GridPref != null )
+                Preference.WriteClassPrefs<Towner, Pref>(GridPref);
+        }
+
+        Pref GridPref { get; set; }
+
+        public class Pref
+        {
+            [XmlIgnore]
+            public bool Completed { get; set; }
+
+            public SerializableDictionary<string, ColumnPref> ColumnPrefs 
+                = new SerializableDictionary<string, ColumnPref>();
+        }
+
+        /// <summary>Preferences most often desired by user
+        /// </summary>
+        public class ColumnPref
+        {
+            public ColumnPref(double w, int p)
+            {
+                Width = w;
+                VisiblePosition = p;
+            }
+
+            public ColumnPref() // serializ.
+            {
+            }
+
+            public double Width { get; set; }
+            public int VisiblePosition { get; set; }
+
+            public override string ToString()
+            {
+                return GetType().Name + ",Width=" + Width + ",VisiblePosition=" + VisiblePosition;
+            }
+        }
+
 
 
     }
