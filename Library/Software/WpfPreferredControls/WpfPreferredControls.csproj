@@ -37,6 +37,9 @@
       <HintPath>..\..\..\packages\PropertyChanged.Fody.1.51.0\Lib\portable-net4+sl4+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\PropertyChanged.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SerializableDictionary">
+      <HintPath>..\..\..\packages\CodeRed.SerializableDictionary.1.0.0\lib\net40\SerializableDictionary.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml" />
@@ -95,6 +98,10 @@
     <ProjectReference Include="..\..\Commonality\Commonality.csproj">
       <Project>{2c290af1-de15-4b75-8774-c4196f1e213d}</Project>
       <Name>Commonality</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfBasis\WpfBasis.csproj">
+      <Project>{4b21d9f8-3eaf-4c29-ae6a-8c73c99393ec}</Project>
+      <Name>WpfBasis</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
