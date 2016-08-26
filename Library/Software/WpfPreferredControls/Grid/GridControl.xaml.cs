@@ -244,7 +244,7 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 || prop.DataType.GetGenericArguments().FirstOrDefault() == typeof(bool); // nullable
         }
 
-        private void Grid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void RowDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // demo
             //Debug.WriteLine("Grid SelectedItems");
