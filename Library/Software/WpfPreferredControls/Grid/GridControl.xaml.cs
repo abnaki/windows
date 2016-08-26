@@ -304,6 +304,8 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 
         public void SavePreferences<Towner>()
         {
+            // note Community Edition 2.9 does not have SaveUserSettings and LoadUserSettings
+
             UpdatePref();
             if (GridPref != null )
                 Preference.WriteClassPrefs<Towner, Pref>(GridPref);
