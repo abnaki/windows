@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 
 using Abnaki.Windows.Software.Wpf.Menu;
 using Abnaki.Windows.Software.Wpf.PreferredControls.Grid;
+using Abnaki.Windows.Software.Wpf;
+using Abnaki.Windows.Software.Wpf.Ultimate;
 
 namespace Ex03_Ultimate
 {
@@ -28,6 +30,10 @@ namespace Ex03_Ultimate
             InitializeComponent();
 
             ButtonBus<ExMenuKey>.HookupSubscriber(this.HandleMenuCommand);
+
+            MessageTube.Subscribe<FarewellMessage>(Farewell);
+
+            Loaded += ExGrid_Loaded;
         }
 
         void HandleMenuCommand(ButtonMessage<ExMenuKey> m)
@@ -58,6 +64,15 @@ namespace Ex03_Ultimate
             this.Gridc.ConfigureColumns(cols);
         }
 
+        void ExGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Gridc.RestorePreferences<ExGrid>();
+        }
+
+        void Farewell(FarewellMessage msg)
+        {
+            this.Gridc.SavePreferences<ExGrid>();
+        }
 
     }
 }
