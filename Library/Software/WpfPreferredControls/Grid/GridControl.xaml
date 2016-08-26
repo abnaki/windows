@@ -14,7 +14,6 @@
         ScrollViewer.HorizontalScrollBarVisibility="Auto"
         ScrollViewer.VerticalScrollBarVisibility="Auto"
         ItemsSource="{Binding Data}"
-        MouseDoubleClick="Grid_MouseDoubleClick"
         EditTriggers="BeginEditCommand, ClickOnCurrentCell, SingleClick, ActivationGesture">
         <xcdg:DataGridControl.Resources>
             <Style
@@ -23,6 +22,18 @@
                 <EventSetter
                     Event="MouseLeftButtonUp"
                     Handler="CellMouseLeftButtonUp" />
+            </Style>
+            <Style
+                TargetType="{x:Type xcdg:DataRow}">
+                <EventSetter
+                    Event="MouseDoubleClick"
+                    Handler="RowDoubleClick"></EventSetter>
+            </Style>
+            <Style
+                TargetType="{x:Type xcdg:RowSelector}">
+                <EventSetter
+                    Event="MouseDoubleClick"
+                    Handler="RowDoubleClick"></EventSetter>
             </Style>
         </xcdg:DataGridControl.Resources>
         <xcdg:DataGridControl.View>
