@@ -68,27 +68,14 @@ namespace Abnaki.Windows
 
         public static void Write(string filename)
         {
-            // maybe promote generalized writing code
-            using (FileStream fs = File.Open(filename, FileMode.Create, FileAccess.Write))
-            {
-                XmlWriterSettings xset = new XmlWriterSettings();
-                xset.Indent = true;
-
-                using (XmlWriter writer = XmlWriter.Create(fs, xset))
-                {
-                    // important
-                    Type[] subtypes = new Type[] { 
+            // important
+            Type[] subtypes = new Type[] { 
                             typeof(Entry), 
                             typeof(EntryException), 
                             typeof(EntryFile),
                             typeof(EntryObj) };
 
-                    XmlSerializer srlz = new XmlSerializer(entries.GetType(), subtypes);
-                    srlz.Serialize(writer, entries);
-
-                    writer.Close();
-                }
-            }
+            Abnaki.Windows.Xml.AbnakiXml.Write(filename, entries, subtypes);
         }
 
         public class Entry
