@@ -33,6 +33,9 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
         {
             InitializeComponent();
 
+            // https://xceed.com/forums/topic/Add-ToolTip-when-ho-vering-over-Cell/
+            EventManager.RegisterClassHandler(typeof(Cell), Cell.MouseEnterEvent, new RoutedEventHandler(OnCellMouseEnter));
+
             Debug.WriteLine("Grid.ReadOnly " + this.Grid.ReadOnly);
 
             Clear();
@@ -56,6 +59,8 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 
         public event Action<object> DoubleClickedRecord;
 
+        Decoration decoration = new Decoration();
+
         /// <summary>Absolute
         /// </summary>
         public void Clear()
@@ -66,6 +71,7 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 
         public void ClearData()
         {
+            decoration.Clear();
             this.DataContext = null;
             this.Grid.Items.Refresh();
         }
@@ -116,6 +122,10 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 indices.Remove(cb.Index);
                 cb.Visible = true;
                 cb.Title = col.Caption ?? col.Field;
+
+                if (!string.IsNullOrWhiteSpace(col.Tooltip))
+                    decoration.MapColumnTooltip[col.Field] = col.Tooltip;
+
                 SuitableDefaults(cb);
 
                 if (!prefExisted)
@@ -200,7 +210,7 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 
         double BetterFittedWidth(ColumnBase cb)
         {
-            IEnumerable<object> sampleValues = ((GridVm)this.Grid.DataContext).Data.Cast<object>()
+            IEnumerable<object> sampleValues = ((GridVm)cb.DataGridControl.DataContext).Data.Cast<object>()
                 .Select(r => GetField(r, cb))
                 .Where(v => v != null)
                 .Take(5)
@@ -215,9 +225,15 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             return w;
         }
 
-        static object GetField(object record, ColumnBase cb)
+        //static object GetField(object record, ColumnBase cb)
+        //{
+        //    var prop = record.GetType().GetProperty(cb.FieldName);
+        //    return prop.GetValue(record);
+        //}
+
+        object GetField(object record, ColumnBase cb)
         {
-            var prop = record.GetType().GetProperty(cb.FieldName);
+            var prop = PropertyofColumn(cb);
             return prop.GetValue(record);
         }
 
@@ -235,7 +251,8 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 
         DataGridItemPropertyBase PropertyofColumn(ColumnBase cb)
         {
-            return this.DataContext.Data.ItemProperties.First(p => p.Name == cb.FieldName);
+            GridVm vm = (GridVm)cb.DataGridControl.DataContext;
+            return vm.Data.ItemProperties.First(p => p.Name == cb.FieldName);
         }
 
         static bool IsBoolean(DataGridItemPropertyBase prop)
@@ -243,6 +260,52 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             return prop.DataType == typeof(bool)
                 || prop.DataType.GetGenericArguments().FirstOrDefault() == typeof(bool); // nullable
         }
+
+
+        private void OnCellMouseEnter(object sender, RoutedEventArgs e)
+        {
+            Cell cell = (Cell)sender;
+            if (cell == null) 
+                return;
+
+            cell.ToolTip = null;
+            double fitWidth = cell.GetFittedWidth();
+            ColumnBase cb = cell.ParentColumn;
+
+            if (cell.Width < fitWidth)
+            {
+                if (cell is ColumnManagerCell) // header
+                {
+                    ColumnManagerCell column = (ColumnManagerCell)cell;
+
+                    column.ToolTip = column.Content.ToString();
+                }
+                else if (cell is DataCell)
+                {
+                    cell.ToolTip = Convert.ToString(GetField(cell.ParentRow.DataContext, cb));
+
+                    //EntityBase2 enity = cell.DataContext as EntityBase2;
+                    //if (enity != null && cell.Width < fitWidth)
+                    //{
+                    //    cell.ToolTip = enity.Fields[cell.FieldName].CurrentValue.ToString();
+                    //}
+                }
+            }
+
+            string tip = decoration.GetColumnTooltip(cb.FieldName);
+
+            if (false == string.IsNullOrWhiteSpace(tip))
+            {
+                if ( cell.ToolTip != null )
+                    cell.ToolTip += "\n";
+
+                cell.ToolTip += tip;
+            }
+
+            // e.Handled = true;
+
+        }
+
 
         private void RowDoubleClick(object sender, MouseButtonEventArgs e)
         {
