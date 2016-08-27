@@ -58,7 +58,7 @@ namespace Ex03_Ultimate
             IEnumerable<Col> cols = new[]{ 
                 new Col(ds.Item.QuantityColumn), 
                 new Col(ds.Item.NameColumn),
-                new Col(ds.Item.StockColumn)
+                new Col(ds.Item.StockColumn){ Tooltip = "have any in the pantry" }
             };
 
             this.Gridc.ConfigureColumns(cols);
