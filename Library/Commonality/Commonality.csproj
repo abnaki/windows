@@ -50,6 +50,7 @@
     <Compile Include="AbnakiLog.cs" />
     <Compile Include="LabelAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Thread\PayloadTimer.cs" />
     <Compile Include="Xml\AbnakiXml.cs" />
     <Compile Include="Xml\Yuri.cs" />
   </ItemGroup>
