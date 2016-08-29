@@ -79,6 +79,7 @@
       <Link>Abnaki.Windows.AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Docking\AvalonDockSystem.cs" />
+    <Compile Include="Docking\Paneling.cs" />
     <Compile Include="Docking\Setup.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Grid\Col.cs" />
