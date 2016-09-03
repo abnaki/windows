@@ -39,6 +39,11 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             MessageTube.Subscribe<FarewellMessage>(Farewell);
         }
 
+        /// <summary>
+        /// Keys for which value is true imply the menu command has mutually exclusive checking
+        /// </summary>
+        Dictionary<object, bool> mapKeyExclusivity = new Dictionary<object, bool>();
+
         public void AddCommand<Tkey>(MenuSeed<Tkey> seed)
         {
 #if DEBUG
@@ -78,13 +83,21 @@ namespace Abnaki.Windows.Software.Wpf.Menu
         //    }
         //}
 
-
         void CompleteItem<Tkey>(MenuItem item, MenuSeed<Tkey> seed)
         {
-            if ( seed.MutuallyExclusive )
+            if (seed.MutuallyExclusive)
+            {
                 item.Click += ItemClickExclusive<Tkey>;
+            }
             else
+            {
                 item.Click += ItemClick<Tkey>; // usual
+            }
+
+            if ( seed.DefaultCheck.HasValue )
+            {
+                mapKeyExclusivity[seed.Key] = seed.MutuallyExclusive;
+            }
 
             item.ToolTip = seed.Tooltip ?? AbnakiReflection.DetailOfEnum(item.Tag);
             //  maybe wrap
@@ -148,15 +161,22 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             RaiseExistingChecks(this.RootMenu.Items);
 
             MenuCheckPreference pref = Preference.ReadClassPrefs<MainMenu, MenuCheckPreference>();
-            if (pref == null)
-                return;
+            if (pref != null)
+            {
+                RaiseExistingChecks(pref.CheckedEnums, true);
+                RaiseExistingChecks(pref.UncheckedEnums, false);
+            }
 
-            foreach ( string qualifier in pref.CheckedEnums )
+        }
+
+        void RaiseExistingChecks(IEnumerable<string> qualifiers, bool chk)
+        {
+            foreach (string qualifier in qualifiers)
             {
                 MenuItem item = FindItem(this.RootMenu.Items, tag => qualifier == MenuCheckPreference.QualifierOfTag(tag));
                 if (item != null)
                 {
-                    item.IsChecked = true;
+                    item.IsChecked = chk;
                     RaiseExistingCheck(item);
                 }
             }
@@ -232,7 +252,10 @@ namespace Abnaki.Windows.Software.Wpf.Menu
 
         void Farewell(FarewellMessage msg)
         {
-            MenuCheckPreference pref = new MenuCheckPreference(this.RootMenu.Items);
+            Func<object, bool> allowUncheck = key => mapKeyExclusivity.ContainsKey(key) && !mapKeyExclusivity[key];
+
+            MenuCheckPreference pref = new MenuCheckPreference(this.RootMenu.Items, allowUncheck);
+
             Preference.WriteClassPrefs<MainMenu, MenuCheckPreference>(pref);
         }
 
@@ -244,26 +267,39 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             /// </summary>
             public readonly List<string> CheckedEnums = new List<string>();
 
+            /// <summary>
+            /// Same style as CheckedEnums, but for independent items that are consciously unchecked.
+            /// </summary>
+            public readonly List<string> UncheckedEnums = new List<string>();
+
             public MenuCheckPreference() // serializ.
             {
 
             }
 
-            public MenuCheckPreference(ItemCollection items)
+            public MenuCheckPreference(ItemCollection items, Func<object,bool> allowUncheck)
             {
-                Descend(items);
+                Descend(items, allowUncheck);
             }
 
-            void Descend(ItemCollection items)
+            void Descend(ItemCollection items, Func<object, bool> allowUncheck)
             {
-                foreach ( MenuItem item in items )
+                foreach (MenuItem item in items)
                 {
-                    if ( item.IsChecked &&  item.Tag != null )
+                    if (item.Tag != null)
                     {
                         string qualifier = QualifierOfTag(item.Tag);
-                        CheckedEnums.Add(qualifier);
+
+                        if (item.IsChecked)
+                        {
+                            CheckedEnums.Add(qualifier);
+                        }
+                        else if (allowUncheck(item.Tag))
+                        {
+                            UncheckedEnums.Add(qualifier);
+                        }
                     }
-                    Descend(item.Items);
+                    Descend(item.Items, allowUncheck);
                 }
             }
 
