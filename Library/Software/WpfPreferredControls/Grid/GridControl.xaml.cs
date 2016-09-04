@@ -21,6 +21,7 @@ using CodeRed.Serialization; // SerializableDictionary
 using Xceed.Wpf.DataGrid;
 using Abnaki.Windows.Software.Wpf.Profile;
 using System.Xml.Serialization;
+using System.ComponentModel;
 
 namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 {
@@ -357,6 +358,12 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                     OnEditCommit(sender, ecommit);
                 }
             }
+        }
+
+        public void Refresh()
+        {
+            //this.Grid.Items.DeferRefresh();
+            this.DataContext.Refresh();
         }
 
         public void RestorePreferences<Towner>()
