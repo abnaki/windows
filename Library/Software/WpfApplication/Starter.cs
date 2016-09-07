@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Abnaki.Windows.Software.Wpf
 {
@@ -47,6 +48,12 @@ namespace Abnaki.Windows.Software.Wpf
                 AbnakiLog.Comment("Start", starta.Location);
                 AbnakiLog.Comment("Version", starta.GetName().Version);
                 AbnakiLog.Comment("Operating System", Environment.OSVersion);
+
+                // reconcile FrameworkElement Language with CurrentCulture, which is independent by default
+                FrameworkElement.LanguageProperty.OverrideMetadata(
+                            typeof(FrameworkElement),
+                            new FrameworkPropertyMetadata(
+                                System.Windows.Markup.XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
                 System.AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
 
