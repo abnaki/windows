@@ -33,5 +33,7 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
         public string Caption { get; set; }
 
         public string Tooltip { get; set; }
+
+        public string Format { get; set; }
     }
 }
