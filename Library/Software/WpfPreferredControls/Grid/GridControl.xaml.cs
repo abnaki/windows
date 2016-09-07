@@ -129,6 +129,8 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 
                 SuitableDefaults(cb);
 
+                SetColumnFormat(cb, col.Format);
+
                 if (!prefExisted)
                 {
                     cb.VisiblePosition = position++;
@@ -147,6 +149,40 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             if ( prefExisted )
                 EnforceColumnPrefs();
 
+        }
+
+        void SetColumnFormat(ColumnBase cb, string format)
+        {
+            if (string.IsNullOrEmpty(format))
+                return;
+
+            RelativeSource rs = null;
+            PropertyPath path = new PropertyPath(cb.FieldName);
+
+            var prop = PropertyofColumn(cb);
+            if (prop.DataType.IsGenericType)
+            {
+                // workaround of behavior of DataGridControl 2.9
+                rs = new RelativeSource(RelativeSourceMode.Self);
+                path = new PropertyPath("(0)", CellContentPresenter.DataContextProperty);
+            }
+
+            FrameworkElementFactory fe = new FrameworkElementFactory(typeof(TextBlock));
+            Binding textBind = new Binding()
+            {
+                Path = path,
+                RelativeSource = rs
+            };
+            // b.StringFormat = "{0:" + format + "}"; // valid in some simple cases
+            textBind.StringFormat = format;
+            fe.SetBinding(TextBlock.TextProperty, textBind);
+
+            //Style formStyle = new Style(typeof(TextBlock));
+            //formStyle.Setters.Add(new Setter(TextBlock.TextProperty, textBind)); 
+            //// but will not apply format to Nullables.
+            //fe.SetValue(TextBlock.StyleProperty, formStyle);
+
+            cb.CellContentTemplate = new DataTemplate() { VisualTree = fe };            
         }
 
         void EnforcePrefs()
@@ -363,7 +399,9 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
         public void Refresh()
         {
             //this.Grid.Items.DeferRefresh();
-            this.DataContext.Refresh();
+
+            if (this.DataContext != null)
+                this.DataContext.Refresh();
         }
 
         public void RestorePreferences<Towner>()
