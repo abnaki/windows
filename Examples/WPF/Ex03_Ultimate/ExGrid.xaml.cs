@@ -58,7 +58,11 @@ namespace Ex03_Ultimate
             IEnumerable<Col> cols = new[]{ 
                 new Col(ds.Item.QuantityColumn), 
                 new Col(ds.Item.NameColumn),
-                new Col(ds.Item.StockColumn){ Tooltip = "have any in the pantry" }
+                new Col(ds.Item.StockColumn){ Tooltip = "have any in the pantry" },
+                new Col(ds.Item.DateColumn)
+                {
+                    Format = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.LongDatePattern
+                }
             };
 
             this.Gridc.ConfigureColumns(cols);
