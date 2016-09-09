@@ -19,16 +19,17 @@ namespace Abnaki.Windows.Software.Wpf.Diplomat
         /// <summary>
         /// Effective if Email exists
         /// </summary>
-        public static IList<string> AdvisorLines { get; set; }
+        public static Func<IList<string>> AdvisorLines { get; set; }
 
         static Troubleshooter()
         {
-            AdvisorLines = new[]
-                {
+            AdvisorLines = () =>
+                new[] {
                     "If you need to report an important issue, please follow these instructions.",
-                    "Hit the Email button.   In the Subject, add a few descriptive words.", 
-                    "Discuss what you did, what you saw, and what you expected.",
-                    "To capture an image, focus in this software, Alt-PrtSc, and paste in email.",
+                    "Hit the Email button, or draft an email to " + Email,
+                    "In the Subject, add a few descriptive words.", 
+                    "In the message, discuss what you did, what you saw, and what you expected.",
+                    "To capture an image, focus in this software, Alt-PrtSc, and paste in message.",
                     "",
                     "Hit Save Log and create a file.",
                     "Optionally, review it and replace private information with ##.",
@@ -41,6 +42,9 @@ namespace Abnaki.Windows.Software.Wpf.Diplomat
                 };
         }
 
+        /// <summary>
+        /// Dialogs.  Remaining steps are up to the user.
+        /// </summary>
         public static void Shoot()
         {
             if (string.IsNullOrEmpty(Email))
@@ -59,7 +63,7 @@ namespace Abnaki.Windows.Software.Wpf.Diplomat
             else
             {
                 if (AdvisorLines != null)
-                    advisorWindow.Value.Advice = string.Join("\n", AdvisorLines);
+                    advisorWindow.Value.Advice = string.Join("\n", AdvisorLines() );
 
                 // Need a more sophisiticated control. Some users will upload wrong file and you will spend time discovering the confusion.
 
