@@ -6,8 +6,8 @@
     IsVisibleChanged="Window_IsVisibleChanged"
     WindowStartupLocation="CenterOwner"
     Closing="Window_Closing"
-    Height="286.4"
-    Width="488.8">
+    Height="300"
+    Width="490">
     <DockPanel
         LastChildFill="True">
         <StackPanel
@@ -23,14 +23,14 @@
                 <Button
                     Name="bemail"
                     Content="_Email..."
-                    Width="50"
-                    Margin="15"
+                    Width="60"
+                    Margin="12"
                     Click="bemail_Click" />
                 <Button
                     Name="bsavelog"
                     Content="_Save Log..."
-                    Width="60"
-                    Margin="15"
+                    Width="70"
+                    Margin="12"
                     Click="bsavelog_Click" />
             </StackPanel>
             <StackPanel
@@ -41,8 +41,8 @@
                 <Button
                     Content="_OK"
                     Name="bok"
-                    Width="50"
-                    Margin="15"
+                    Width="55"
+                    Margin="12"
                     RenderTransformOrigin="0.504,0.5"
                     Click="bok_Click" />
             </StackPanel>
@@ -50,10 +50,14 @@
         <!--by nature of LastChildFill, it belongs here: -->
         <ScrollViewer
             VerticalScrollBarVisibility="Auto">
-            <TextBlock
+            <TextBox
                 Name="AdviceBlock"
-                Margin="5"
-                TextWrapping="Wrap" />
+                Foreground="{x:Static SystemColors.ControlTextBrush}"
+                Background="{x:Static SystemColors.ControlLightBrush}"
+                IsReadOnly="True"
+                Padding="8"
+                TextWrapping="Wrap"
+                BorderThickness="0" />
         </ScrollViewer>
     </DockPanel>
 </Window>
