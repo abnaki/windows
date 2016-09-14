@@ -42,6 +42,7 @@
     </Compile>
     <Compile Include="AbnakiFile.cs" />
     <Compile Include="AbnakiReflection.cs" />
+    <Compile Include="Compare.cs" />
     <Compile Include="GUI\IDockSystem.cs" />
     <Compile Include="GUI\IMainControl.cs" />
     <Compile Include="GUI\IMainMenu.cs" />
