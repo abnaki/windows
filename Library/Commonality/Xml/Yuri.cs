@@ -8,7 +8,7 @@ namespace Abnaki.Windows.Xml
     /// <summary>
     /// URI that can be serialized
     /// </summary>
-    public class Yuri : IXmlSerializable
+    public class Yuri : IXmlSerializable, IComparable<Yuri>
     {
         public Yuri() // for serialization
         {
@@ -40,6 +40,11 @@ namespace Abnaki.Windows.Xml
         public override string ToString()
         {
             return this.Uri.ToString();
+        }
+
+        public int CompareTo(Yuri other)
+        {
+            return this.Uri.ToString().CompareTo(other.Uri.ToString());
         }
     }
 }
