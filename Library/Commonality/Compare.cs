@@ -10,7 +10,7 @@ namespace Abnaki.Windows
     public static class Compare
     {
         /// <summary>
-        /// Uses CompareTo(), defines null as less than non-null, and null equal to null.
+        /// Uses thing.CompareTo(other), defines null as less than non-null, and null equal to null.
         /// </summary>
         /// <typeparam name="T">IComparable of T</typeparam>
         /// <param name="thing"></param>
@@ -20,11 +20,11 @@ namespace Abnaki.Windows
         {
             if (thing == null)
             {
-                return other == null ? 0 : 1;
+                return other == null ? 0 : -1;
             }
             else if ( other == null )
             {
-                return -1;
+                return 1;
             }
 
             return thing.CompareTo(other);
