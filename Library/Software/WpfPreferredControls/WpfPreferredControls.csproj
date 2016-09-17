@@ -84,6 +84,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Grid\Col.cs" />
     <Compile Include="Grid\Decoration.cs" />
+    <Compile Include="Grid\Event\RecordCellEventArgs.cs" />
     <Compile Include="Grid\GridControl.xaml.cs">
       <DependentUpon>GridControl.xaml</DependentUpon>
     </Compile>
