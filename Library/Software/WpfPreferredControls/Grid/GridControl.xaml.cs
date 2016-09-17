@@ -134,7 +134,7 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 if (!prefExisted)
                 {
                     cb.VisiblePosition = position++;
-                    cb.Width = BetterFittedWidth(cb);
+                    cb.Width = BetterFittedWidth(cb) ?? cb.Width;
                     GridPref.ColumnPrefs[cb.FieldName] = new ColumnPref(cb.Width, cb.VisiblePosition);
                 }
             }
@@ -245,7 +245,7 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             }
         }
 
-        double BetterFittedWidth(ColumnBase cb)
+        double? BetterFittedWidth(ColumnBase cb)
         {
             IEnumerable<object> sampleValues = ((GridVm)cb.DataGridControl.DataContext).Data.Cast<object>()
                 .Select(r => GetField(r, cb))
@@ -257,9 +257,12 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             if (sampleValues.Any())
             {
                 double wcalc = 2 + 7 * sampleValues.Max(v => Convert.ToString(v).Length);
-                return Math.Max(wcalc, w);
+                w = Math.Max(wcalc, w);
             }
-            return w;
+            if ( w > 0)
+                return w;
+
+            return null;
         }
 
         //static object GetField(object record, ColumnBase cb)
@@ -363,16 +366,14 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             
         }
 
-        /// <summary>
-        /// 3rd arg is current column field name, string.
-        /// </summary>
-        public event Action<object,DataGridItemEventArgs,string> GridEditCommitted;
+        public event Action<object,Event.RecordCellEventArgs> GridEditCommitted;
 
         void OnEditCommit(object sender, DataGridItemEventArgs e)
         {
+            var erec = new Event.RecordCellEventArgs(){ItemArgs = e,  Field = this.Grid.CurrentColumn.FieldName};
             var h = GridEditCommitted;
             if (h != null)
-                h(sender, e, this.Grid.CurrentColumn.FieldName);
+                h(sender, erec);
         }
 
         void Data_EditCommitted(object sender, DataGridItemEventArgs e)
