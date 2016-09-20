@@ -143,5 +143,41 @@ namespace Abnaki.Windows
             else
                 throw new ArgumentException("GetParent cannot take " + fi);
         }
+
+        #region BinaryWriter and Reader
+
+        public static void WriteNullable(DateTime? d, BinaryWriter bw)
+        {
+            bw.Write(d.HasValue);
+            if (d.HasValue)
+                bw.Write((Int64)d.Value.ToBinary());
+        }
+
+        public static void WriteNullable(decimal? d, BinaryWriter bw)
+        {
+            bw.Write(d.HasValue);
+            if (d.HasValue)
+                bw.Write(d.Value);
+        }
+
+        public static DateTime? ReadNullableDateTime(BinaryReader br)
+        {
+            bool exist = br.ReadBoolean();
+            if (exist)
+                return DateTime.FromBinary(br.ReadInt64());
+
+            return null;
+        }
+
+
+        public static decimal? ReadNullableDecimal(BinaryReader br)
+        {
+            bool exist = br.ReadBoolean();
+            if (exist)
+                return br.ReadDecimal();
+            return null;
+        }
+
+        #endregion
     }
 }
