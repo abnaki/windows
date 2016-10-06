@@ -3,7 +3,7 @@
 Small framework for Windows applications developed in C#, .NET 4.5, Visual Studio 2013.    Provides useful
 necessities and conventions.   Follows MVVM as far as MVVM makes design sense.
 
-Users are expected to build Abnaki's source code.  Perhaps reference Abnaki's project file(s) within your solution.  No binaries here.  Not on NuGet.  No keyfiles.
+Users are expected to reference and build Abnaki's source project files or reference the */bin/Release/*.dll files.  Not on NuGet.  No keyfiles.
 
 These libraries, however small, save you developer(s) from application-specific code bloat, or consulting the Internet for answers to previously solved problems.  Any code necessary to seed new applications is reduced to the bare essence.  Improvements in these components will benefit all applications developed upon them.   
 
