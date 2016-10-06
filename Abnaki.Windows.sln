@@ -30,6 +30,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTest", "Testing\Commo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfBasis", "Library\Software\WpfBasis\WpfBasis.csproj", "{4B21D9F8-3EAF-4C29-AE6A-8C73C99393EC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{D29BF644-52AC-478C-8549-99DEB7394262}"
+	ProjectSection(SolutionItems) = preProject
+		Abnaki.Windows.AssemblyInfo.cs = Abnaki.Windows.AssemblyInfo.cs
+		Build\release.csh = Build\release.csh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
