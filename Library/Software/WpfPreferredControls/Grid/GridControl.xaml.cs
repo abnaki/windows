@@ -58,6 +58,14 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             get { return base.DataContext as GridVm;  }
         }
 
+        public bool EnableOptionalGridControls
+        {
+            set
+            {
+                this.GridOptionalPanel.Height = value ? 30 : 0;
+            }
+        }
+
         public event Action<object> DoubleClickedRecord;
 
         Decoration decoration = new Decoration();
