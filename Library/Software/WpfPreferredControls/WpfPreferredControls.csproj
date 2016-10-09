@@ -83,6 +83,9 @@
     <Compile Include="Docking\Setup.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Grid\Col.cs" />
+    <Compile Include="Grid\Command\CmdAddRecords.cs" />
+    <Compile Include="Grid\Command\CmdDeleteRecords.cs" />
+    <Compile Include="Grid\Command\CmdOnRecords.cs" />
     <Compile Include="Grid\Decoration.cs" />
     <Compile Include="Grid\Event\RecordCellEventArgs.cs" />
     <Compile Include="Grid\GridControl.xaml.cs">
