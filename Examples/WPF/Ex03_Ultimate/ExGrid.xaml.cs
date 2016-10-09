@@ -29,6 +29,8 @@ namespace Ex03_Ultimate
         {
             InitializeComponent();
 
+            //this.Gridc.EnableOptionalGridControls = false;
+
             ButtonBus<ExMenuKey>.HookupSubscriber(this.HandleMenuCommand);
 
             MessageTube.Subscribe<FarewellMessage>(Farewell);
