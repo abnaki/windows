@@ -587,6 +587,8 @@ namespace Ex03_Ultimate {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class ItemDataTable : global::System.Data.TypedTableBase<ItemRow> {
             
+            private global::System.Data.DataColumn columnIgnored;
+            
             private global::System.Data.DataColumn columnName;
             
             private global::System.Data.DataColumn columnVendor;
@@ -628,6 +630,14 @@ namespace Ex03_Ultimate {
             protected ItemDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IgnoredColumn {
+                get {
+                    return this.columnIgnored;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -707,16 +717,17 @@ namespace Ex03_Ultimate {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ItemRow AddItemRow(string Name, VendorRow parentVendorRowByFK_Vendor_Item, System.DateTime Date, double Quantity, bool Stock) {
+            public ItemRow AddItemRow(string Ignored, string Name, VendorRow parentVendorRowByFK_Vendor_Item, System.DateTime Date, double Quantity, bool Stock) {
                 ItemRow rowItemRow = ((ItemRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        Ignored,
                         Name,
                         null,
                         Date,
                         Quantity,
                         Stock};
                 if ((parentVendorRowByFK_Vendor_Item != null)) {
-                    columnValuesArray[1] = parentVendorRowByFK_Vendor_Item[0];
+                    columnValuesArray[2] = parentVendorRowByFK_Vendor_Item[0];
                 }
                 rowItemRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowItemRow);
@@ -740,6 +751,7 @@ namespace Ex03_Ultimate {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
+                this.columnIgnored = base.Columns["Ignored"];
                 this.columnName = base.Columns["Name"];
                 this.columnVendor = base.Columns["Vendor"];
                 this.columnDate = base.Columns["Date"];
@@ -750,6 +762,8 @@ namespace Ex03_Ultimate {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
+                this.columnIgnored = new global::System.Data.DataColumn("Ignored", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIgnored);
                 this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnName);
                 this.columnVendor = new global::System.Data.DataColumn("Vendor", typeof(string), null, global::System.Data.MappingType.Element);
@@ -760,6 +774,7 @@ namespace Ex03_Ultimate {
                 base.Columns.Add(this.columnQuantity);
                 this.columnStock = new global::System.Data.DataColumn("Stock", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnStock);
+                this.columnIgnored.Caption = "Ignored only supports Xceed Datagrid community edition";
                 this.ExtendedProperties.Add("Generator_RowClassName", "ItemRow");
                 this.ExtendedProperties.Add("Generator_RowEvArgName", "ItemRowChangeEvent");
                 this.ExtendedProperties.Add("Generator_RowEvHandlerName", "ItemRowChangeEventHandler");
@@ -946,6 +961,22 @@ namespace Ex03_Ultimate {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Ignored {
+                get {
+                    try {
+                        return ((string)(this[this.tableItem.IgnoredColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Ignored\' in table \'Item\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableItem.IgnoredColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string Name {
                 get {
                     if (this.IsNameNull()) {
@@ -1033,6 +1064,18 @@ namespace Ex03_Ultimate {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_Vendor_Item"]);
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIgnoredNull() {
+                return this.IsNull(this.tableItem.IgnoredColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIgnoredNull() {
+                this[this.tableItem.IgnoredColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
