@@ -20,7 +20,7 @@ namespace Abnaki.Windows.Software.Wpf.NetAid
         public static void SetFilters(this FileDialog dialog, params object[] extensions)
         {
             dialog.Filter = string.Join(",",
-                extensions.Select(x => x.ToString().ToUpper() + "|." + x).ToArray());
+                extensions.Select(x => x.ToString().ToUpper() + "|*." + x).ToArray());
 
             dialog.DefaultExt = extensions.First().ToString(); // they ignore leading dot
         }
