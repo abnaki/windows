@@ -61,6 +61,8 @@ namespace Abnaki.Windows.Software.Wpf
 
                 app.DispatcherUnhandledException += Current_DispatcherUnhandledException;
 
+                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
                 Twindow mw;
                 if (initWindow == null)
                     mw = new Twindow();
@@ -91,21 +93,38 @@ namespace Abnaki.Windows.Software.Wpf
             AbnakiLog.FileInfo(filepath, "Load " + args.LoadedAssembly.GetName());
         }
 
+        static void SafeNotify(Exception ex)
+        {
+            if (ex == null)
+                return;
+
+            try  // of all code, must be particularly robust
+            {
+                Diplomat.Notifier.Error(ex);
+            }
+            catch (Exception nex)
+            {
+                Debug.WriteLine(nex);
+            }
+        }
+
         private static void Current_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             try  // of all code, must be particularly robust
             {
-                Diplomat.Notifier.Error(e.Exception);
-            }
-            catch ( Exception ex )
-            {
-                Debug.WriteLine(ex);
+                SafeNotify(e.Exception);
             }
             finally
             {
                 e.Handled = true; // but main window could have died, leaving app hanging
             }
         }
+
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            SafeNotify(e.ExceptionObject as Exception);
+        }
+
 
         public static void CommonSettings(System.Configuration.ApplicationSettingsBase settings)
         {
