@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Threading;
 using System.Linq;
 using System.Diagnostics;
 
@@ -11,16 +12,34 @@ namespace Abnaki.Windows.Software.Wpf.Diplomat
     /// </summary>
     public class Notifier
     {
+        static Notifier()
+        {
+            rootDispatcher = Dispatcher.CurrentDispatcher;
+        }
+
+        static Dispatcher rootDispatcher;
+
         public static void Notify(string message)
         {
-            MessageBox.Show(Application.Current.MainWindow, message, "Note", MessageBoxButton.OK, MessageBoxImage.Information);
+            
+            ShowMessage(message, "Note", MessageBoxImage.Information);
         }
 
         public static void Error(string message)
         {
-            MessageBox.Show(Application.Current.MainWindow, message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            
+            ShowMessage(message, "Error", MessageBoxImage.Error);
 
             // wish to prompt to use Troubleshooter for situation when no menu is available.
+        }
+
+        static void ShowMessage(string caption, string message, MessageBoxImage image)
+        {
+            rootDispatcher.BeginInvoke(new Action(() =>
+                {
+                    MessageBox.Show(Application.Current.MainWindow, message, caption, MessageBoxButton.OK, image);
+                }));
+
         }
 
         static Queue<string> recentErrors = new Queue<string>();
