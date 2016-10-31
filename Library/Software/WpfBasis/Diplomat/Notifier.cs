@@ -22,13 +22,13 @@ namespace Abnaki.Windows.Software.Wpf.Diplomat
         public static void Notify(string message)
         {
             
-            ShowMessage(message, "Note", MessageBoxImage.Information);
+            ShowMessage("Note", message, MessageBoxImage.Information);
         }
 
         public static void Error(string message)
         {
-            
-            ShowMessage(message, "Error", MessageBoxImage.Error);
+
+            ShowMessage("Error", message, MessageBoxImage.Error);
 
             // wish to prompt to use Troubleshooter for situation when no menu is available.
         }
