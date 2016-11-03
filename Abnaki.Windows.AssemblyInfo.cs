@@ -8,5 +8,5 @@ using System.Reflection;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("2.0.36.0")]
-[assembly: AssemblyFileVersion("2.0.36.0")]
+[assembly: AssemblyVersion("2.0.38.0")]
+[assembly: AssemblyFileVersion("2.0.38.0")]
