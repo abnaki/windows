@@ -7,6 +7,8 @@ namespace Ex03_Ultimate
     {
         FileNew,
 
+        FileDemoKey,
+
         OptionFlag,
 
         [Label("Netherlands")]
