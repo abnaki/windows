@@ -85,23 +85,42 @@ namespace Abnaki.Windows.Software.Wpf.Menu
 
         void CompleteItem<Tkey>(MenuItem item, MenuSeed<Tkey> seed)
         {
+            RoutedEventHandler handler = null;
             if (seed.MutuallyExclusive)
             {
-                item.Click += ItemClickExclusive<Tkey>;
+                handler = ItemClickExclusive<Tkey>;
             }
             else
             {
-                item.Click += ItemClick<Tkey>; // usual
+                handler = ItemClick<Tkey>; // usual
             }
+
+            item.Click += handler;
 
             if ( seed.DefaultCheck.HasValue )
             {
                 mapKeyExclusivity[seed.Key] = seed.MutuallyExclusive;
             }
 
-            item.ToolTip = seed.Tooltip ?? AbnakiReflection.DetailOfEnum(item.Tag);
+            string tip = seed.Tooltip ?? AbnakiReflection.DetailOfEnum(item.Tag);
             //  maybe wrap
             //  Regex rgx = new Regex("(.{50}\\s)"); string s = rgx.Replace(longMessage,"$1\n"); 
+
+            if ( seed.ShortcutKey != Key.None )
+            {
+                NHotkey.Wpf.HotkeyManager.Current.AddOrReplace(seed.Key.ToString(), seed.ShortcutKey, seed.ShortcutModifier,
+                    (sender, e) => HandleShortcutKey(handler, item, sender, e));
+
+                if (!string.IsNullOrWhiteSpace(seed.Tooltip))
+                    tip += " ";
+
+                tip += "(";
+                if (seed.ShortcutModifier != ModifierKeys.None)
+                    tip += seed.ShortcutModifier + "-";
+
+                tip += seed.ShortcutKey + ")";
+            }
+            item.ToolTip = tip;
 
             if ( seed.Enabled.HasValue )
                 item.IsEnabled = seed.Enabled.Value;
@@ -110,7 +129,7 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             item.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("CommandParameter", System.ComponentModel.ListSortDirection.Ascending));
         }
 
-        void ItemClick<Tkey>(object sender, RoutedEventArgs e)
+        static void ItemClick<Tkey>(object sender, RoutedEventArgs e)
         {
             MenuItem item = (MenuItem)sender;
             Tkey key = (Tkey)item.Tag;
@@ -122,7 +141,7 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             
         }
 
-        void ItemClickExclusive<Tkey>(object sender, RoutedEventArgs e)
+        static void ItemClickExclusive<Tkey>(object sender, RoutedEventArgs e)
         {
             ItemClick<Tkey>(sender, e);
 
@@ -134,6 +153,11 @@ namespace Abnaki.Windows.Software.Wpf.Menu
                 if (otherItem != item)
                     otherItem.IsChecked = false;
             }
+        }
+
+        static void HandleShortcutKey(RoutedEventHandler h, MenuItem item, object sender, NHotkey.HotkeyEventArgs e)
+        {
+            h(item, new RoutedEventArgs(MenuItem.ClickEvent));
         }
 
         MenuItem AddMenuItem(object key, string label, bool? defaultCheck)
