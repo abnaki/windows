@@ -2,7 +2,7 @@
 # working directory should be root of module
 # other products may have a script calling this
 
-source Build/subrelease.csh interim/v2.0.34 \
+source Build/subrelease.csh interim/v2.0.36 \
  ./Library/Commonality/bin/Release/Abnaki.Windows.Commonality.dll \
  ./Library/Software/WpfApplication/bin/Release/Abnaki.Windows.Software.Wpf.Application.dll \
  ./Library/Software/WpfBasis/bin/Release/Abnaki.Windows.Software.Wpf.Basis.dll \
