@@ -34,6 +34,10 @@ namespace Abnaki.Windows.GUI
         /// </summary>
         public string Label { get; set; }
 
+        public System.Windows.Input.Key ShortcutKey { get; set; }
+
+        public System.Windows.Input.ModifierKeys ShortcutModifier { get; set; }
+
         /// <summary>
         /// Null by default means no check exists.
         /// </summary>
