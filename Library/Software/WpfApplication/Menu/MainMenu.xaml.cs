@@ -157,7 +157,10 @@ namespace Abnaki.Windows.Software.Wpf.Menu
 
         static void HandleShortcutKey(RoutedEventHandler h, MenuItem item, object sender, NHotkey.HotkeyEventArgs e)
         {
-            h(item, new RoutedEventArgs(MenuItem.ClickEvent));
+            if (item.IsEnabled)
+            {
+                h(item, new RoutedEventArgs(MenuItem.ClickEvent));
+            }
         }
 
         MenuItem AddMenuItem(object key, string label, bool? defaultCheck)
