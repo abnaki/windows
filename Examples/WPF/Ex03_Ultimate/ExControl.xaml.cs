@@ -44,6 +44,12 @@ namespace Ex03_Ultimate
         {
             menu.AddCommandChild(TopMenuKey.File, ExMenuKey.FileNew, "_New");
 
+            MenuSeed<ExMenuKey> seed = new MenuSeed<ExMenuKey>(ExMenuKey.FileDemoKey, "Demo");
+            seed.ParentKey = TopMenuKey.File;
+            seed.ShortcutKey = Key.D; seed.ShortcutModifier = ModifierKeys.Control;
+            seed.Tooltip = "Uses keyboard shortcut to invoke something.";
+            menu.AddCommand(seed);
+
             menu.AddCommandChild(TopMenuKey.Option, ExMenuKey.OptionFlag, "_Flag");
             ButtonBus<ExMenuKey>.AddExclusiveCommands(menu, ExMenuKey.OptionFlag,
                 new[] { ExMenuKey.OptionFlagAustria, ExMenuKey.OptionFlagBulg, ExMenuKey.OptionFlagNed });
