@@ -45,6 +45,10 @@ namespace Ex03_Ultimate
                 case ExMenuKey.FileNew:
                     BindExample();
                     break;
+
+                case ExMenuKey.FileDemoKey:
+                    Abnaki.Windows.Software.Wpf.Diplomat.Notifier.Notify("You hit " + m.Key); // does not need to be in ExGrid
+                    break;
             }
         }
 
