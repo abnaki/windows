@@ -34,6 +34,8 @@ namespace Abnaki.Windows.GUI
         /// </summary>
         public string Label { get; set; }
 
+        // maybe generalize ShortcutKey+ShortcutModifier into InputGesture (inherited by KeyGesture) from PresentationCore.dll
+
         public System.Windows.Input.Key ShortcutKey { get; set; }
 
         public System.Windows.Input.ModifierKeys ShortcutModifier { get; set; }
