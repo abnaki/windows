@@ -17,4 +17,4 @@ $WG -P PropertyChanged.Fody https://opensource.org/licenses/mit-license.php
 
 $WG https://github.com/micdenny/WpfScreenHelper/raw/master/LICENSE
 
-$WG https://github.com/thomaslevesque/NHotkey/raw/master/LICENSE.md
+
