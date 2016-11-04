@@ -66,16 +66,33 @@ namespace Abnaki.Windows
             }
         }
 
+        static IEnumerable<Type> EntrySubtypes() // important
+        {
+            yield return typeof(Entry);
+            yield return typeof(EntryException);
+            yield return typeof(EntryFile);
+            yield return typeof(EntryObj);
+            yield return typeof(EntryOfEntries);
+        }
+
         public static void Write(string filename)
         {
-            // important
-            Type[] subtypes = new Type[] { 
-                            typeof(Entry), 
-                            typeof(EntryException), 
-                            typeof(EntryFile),
-                            typeof(EntryObj) };
+            Abnaki.Windows.Xml.AbnakiXml.Write(filename, entries, EntrySubtypes().ToArray());
+        }
 
-            Abnaki.Windows.Xml.AbnakiXml.Write(filename, entries, subtypes);
+        /// <summary>
+        /// Add content of another log
+        /// </summary>
+        /// <param name="filename">previously created by Write()</param>
+        public static void Incorporate(string filename)
+        {
+            FileInfo fi = new System.IO.FileInfo(filename);
+            if ( false == fi.Exists )
+                throw new FileNotFoundException(typeof(AbnakiLog).Name + " cannot Incoporate nonexistent " + filename);
+
+            EntryOfEntries entry = new EntryOfEntries() { Comment = filename };
+            entry.Entries = Abnaki.Windows.Xml.AbnakiXml.Read<List<Entry>>(fi, EntrySubtypes().ToArray());
+            AddEntry(entry);
         }
 
         public class Entry
@@ -238,6 +255,16 @@ namespace Abnaki.Windows
             {
                 return string.Join(Environment.NewLine, base.ToString(), ExceptionMessage, ExceptionStack);
             }
+        }
+
+        public class EntryOfEntries : Entry
+        {
+            public EntryOfEntries()
+            {
+                Entries = new List<Entry>();
+            }
+
+            public List<Entry> Entries { get; set; }
         }
     }
 }
