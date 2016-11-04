@@ -25,5 +25,23 @@ namespace CommonTest
             Debug.WriteLine(rdir); // should be ..\..
 
         }
+
+        [TestMethod]
+        public void TestEntryOfEntries()
+        {
+            string f1 = "log1.xml";
+
+            AbnakiLog.Comment("Vote Labour");
+            AbnakiLog.Comment("Vote Tory");
+            AbnakiLog.Write(f1);
+
+            AbnakiLog.Comment("Should be followed by EntryOfEntries");
+            AbnakiLog.Incorporate(f1);
+
+            string f2 = "log2.xml";
+            AbnakiLog.Write(f2);
+
+            Debug.WriteLine("Wrote logs in " + Environment.CurrentDirectory);
+        }
     }
 }
