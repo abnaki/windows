@@ -22,6 +22,7 @@ using Xceed.Wpf.DataGrid;
 using Abnaki.Windows.Software.Wpf.Profile;
 using System.Xml.Serialization;
 using System.ComponentModel;
+using Xceed.Wpf.DataGrid.Views;
 
 namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 {
@@ -40,6 +41,8 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             Debug.WriteLine("Grid.ReadOnly " + this.Grid.ReadOnly);
 
             Clear();
+
+            RowFontRatio = 2; // better while editing
 
             //var v = (Xceed.Wpf.DataGrid.Views.TableflowView)this.Grid.View;
             //v.UseDefaultHeadersFooters = false;
@@ -63,6 +66,23 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             set
             {
                 this.GridOptionalPanel.Height = value ? 30 : 0;
+            }
+        }
+
+        /// <summary>
+        /// Ratio of row height to FontSize.  Default 2.
+        /// </summary>
+        public double RowFontRatio
+        {
+            get
+            {
+                var view = (TableflowView)this.Grid.View;
+                return view.ContainerHeight / this.FontSize;
+            }
+            set
+            {
+                var view = (TableflowView)this.Grid.View;
+                view.ContainerHeight = value * this.FontSize;
             }
         }
 
