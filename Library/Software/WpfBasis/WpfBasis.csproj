@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="Diplomat\Troubleshooter.cs" />
     <Compile Include="NetAid\DialogExtension.cs" />
+    <Compile Include="NetAid\Dragging.cs" />
     <Compile Include="Profile\Preference.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WaitCursor.cs" />
