@@ -32,21 +32,23 @@
                 Height="20"
                 Width="50" />
             <Canvas
-                Width="60" />
-            <Button
-                Name="BuDelete"
-                Command="{Binding DeleteRecords}"
-                Content="Delete"
-                ToolTip="Delete current row"
-                Width="60"
-                Height="20"></Button>
+                Width="30" />
+            <Image
+                Source="..\Icon\trash.ico"
+                ToolTip="Drag and drop selected row(s) here to delete."
+                AllowDrop="True"
+                DragOver="Image_DragOver"
+                Drop="Image_Drop">
+                <!-- ico file has Build Action = Resource and Do not copy. --> 
+            </Image>
         </StackPanel>
         <xcdg:DataGridControl
             Name="Grid"
             ScrollViewer.HorizontalScrollBarVisibility="Auto"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             ItemsSource="{Binding Data}"
-            EditTriggers="BeginEditCommand, ClickOnCurrentCell, SingleClick, ActivationGesture">
+            EditTriggers="BeginEditCommand, ClickOnCurrentCell, SingleClick, ActivationGesture"
+            MouseMove="Grid_MouseMove">
             <xcdg:DataGridControl.Resources>
                 <Style
                 TargetType="{x:Type xcdg:DataCell}">

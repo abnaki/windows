@@ -433,6 +433,48 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 this.DataContext.Refresh();
         }
 
+        IEnumerable<System.Data.DataRow> DraggedRows(DragEventArgs e)
+        {
+            //DataTable dt = this.DataContext.Data.SourceCollection as DataTable;
+
+            List<object> selectList = NetAid.Dragging.Extract<List<object>>(e);
+            if ( selectList != null )
+            {
+                return selectList.OfType<System.Data.DataRow>();
+            }
+            return Enumerable.Empty<System.Data.DataRow>();
+        }
+
+        private void Image_DragOver(object sender, DragEventArgs e)
+        {
+            if ( DraggedRows(e).Any() )
+            {
+                e.Effects = e.AllowedEffects;
+            }
+        }
+
+        private void Image_Drop(object sender, DragEventArgs e)
+        {
+            var rows = DraggedRows(e);
+            foreach ( var dr in rows )
+            {
+                //Debug.WriteLine("Want to delete " + dr);
+                dr.Table.Rows.Remove(dr);
+            }
+
+            if (rows.Any())
+                Refresh();
+        }
+
+        private void Grid_MouseMove(object sender, MouseEventArgs e)
+        {
+            if ( Mouse.LeftButton == MouseButtonState.Pressed )
+            {
+                List<object> selectList = this.Grid.SelectedItems.Cast<object>().ToList();
+                DragDrop.DoDragDrop(this.Grid, selectList, DragDropEffects.All);
+            }
+        }
+
         public void RestorePreferences<Towner>()
         {
             GridPref = Preference.ReadClassPrefs<Towner, Pref>();
@@ -444,7 +486,7 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             // note Community Edition 2.9 does not have SaveUserSettings and LoadUserSettings
 
             UpdatePref();
-            if (GridPref != null )
+            if (GridPref != null)
                 Preference.WriteClassPrefs<Towner, Pref>(GridPref);
         }
 
@@ -455,7 +497,7 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             [XmlIgnore]
             public bool Completed { get; set; }
 
-            public SerializableDictionary<string, ColumnPref> ColumnPrefs 
+            public SerializableDictionary<string, ColumnPref> ColumnPrefs
                 = new SerializableDictionary<string, ColumnPref>();
         }
 
@@ -481,7 +523,6 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 return GetType().Name + ",Width=" + Width + ",VisiblePosition=" + VisiblePosition;
             }
         }
-
 
 
     }
