@@ -275,11 +275,13 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
 
         double? BetterFittedWidth(ColumnBase cb)
         {
-            IEnumerable<object> sampleValues = ((GridVm)cb.DataGridControl.DataContext).Data.Cast<object>()
+            List<object> sampleValues = ((GridVm)cb.DataGridControl.DataContext).Data.Cast<object>()
                 .Select(r => GetField(r, cb))
                 .Where(v => v != null)
                 .Take(5)
                 .ToList();
+
+            sampleValues.Add(cb.Title);
 
             double w = cb.GetFittedWidth();
             if (sampleValues.Any())
