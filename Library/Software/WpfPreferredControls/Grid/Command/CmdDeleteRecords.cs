@@ -7,6 +7,9 @@ using System.Data;
 
 namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid.Command
 {
+    /// <summary>
+    /// Unused because viewmodel does not know about multiple selected records.
+    /// </summary>
     class CmdDeleteRecords : CmdOnRecords
     {
         public CmdDeleteRecords(Xceed.Wpf.DataGrid.DataGridCollectionView dcv) : base(dcv)
