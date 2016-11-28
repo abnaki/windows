@@ -3,6 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex01_Hello", "Examples\WPF\Ex01_Hello\Ex01_Hello.csproj", "{0EBFE08A-F0B1-4530-990B-1A890FB60F3B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3D6F0FBC-FCBB-4EA2-A139-CF0C86604CF4} = {3D6F0FBC-FCBB-4EA2-A139-CF0C86604CF4}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{FEE6E293-424C-4DE8-8647-55E0F1139D7B}"
 EndProject
@@ -13,6 +16,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Software", "Software", "{8D08CBBD-4CB3-49B6-80BB-D808971B0D5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApplication", "Library\Software\WpfApplication\WpfApplication.csproj", "{3D6F0FBC-FCBB-4EA2-A139-CF0C86604CF4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C3C851A0-99CC-4295-B4F6-5085CFD5FD83} = {C3C851A0-99CC-4295-B4F6-5085CFD5FD83}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commonality", "Library\Commonality\Commonality.csproj", "{2C290AF1-DE15-4B75-8774-C4196F1E213D}"
 EndProject
