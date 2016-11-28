@@ -20,7 +20,7 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
             this.Data = new Xceed.Wpf.DataGrid.DataGridCollectionView(data);
 
             this.AddRecords = new Command.CmdAddRecords(this.Data);
-            this.DeleteRecords = new Command.CmdDeleteRecords(this.Data);
+            //this.DeleteRecords = new Command.CmdDeleteRecords(this.Data);
         }
 
         public void Refresh()
@@ -35,6 +35,6 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
         public Xceed.Wpf.DataGrid.DataGridCollectionView Data { get; set; }
 
         public ICommand AddRecords { get; set; }
-        public ICommand DeleteRecords { get; set; }
+        //public ICommand DeleteRecords { get; set; }
     }
 }
