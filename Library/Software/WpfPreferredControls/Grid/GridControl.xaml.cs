@@ -472,10 +472,43 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
         {
             if ( Mouse.LeftButton == MouseButtonState.Pressed )
             {
-                List<object> selectList = this.Grid.SelectedItems.Cast<object>().ToList();
-                DragDrop.DoDragDrop(this.Grid, selectList, DragDropEffects.All);
+                object ehit = HitGridObject(e);
+                //Debug.WriteLine("Hit " + ehit);
+
+                if (ehit is Row || ehit is Cell)
+                {
+                    List<object> selectList = this.Grid.SelectedItems.Cast<object>().ToList();
+                    if (selectList.Count > 0)
+                    {
+                        DragDrop.DoDragDrop(this.Grid, selectList, DragDropEffects.All);
+                    }
+                }
             }
         }
+
+        IInputElement HitElement(MouseEventArgs e)
+        {
+            Point p = e.GetPosition(this.Grid);
+            IInputElement ehit = this.Grid.InputHitTest(p);
+            return ehit;
+        }
+
+        object HitGridObject(MouseEventArgs e)
+        {
+            DependencyObject x = HitElement(e) as DependencyObject;
+            while ( x != null )
+            {
+                if (x is Cell)
+                    return (Cell)x;
+
+                if (x is Row)
+                    return (Row)x;
+
+                x = VisualTreeHelper.GetParent(x);
+            }
+            return null;
+        }
+
 
         public void RestorePreferences<Towner>()
         {
