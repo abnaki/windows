@@ -247,6 +247,11 @@ namespace Abnaki.Windows.Software.Wpf.Menu
                 RaiseExistingChecks(pref.UncheckedEnums, false);
             }
 
+            // hide empty unused commands
+            foreach (MenuItem item in this.RootMenu.Items)
+            {
+                item.Visibility = (item.Items.Count > 0) ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
 
         void RaiseExistingChecks(IEnumerable<string> qualifiers, bool chk)
