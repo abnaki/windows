@@ -52,8 +52,8 @@ namespace Abnaki.Windows.Software.Wpf
         /// to pass a supertype action it is possible to use the other overload,
         /// i.e. contravariance.
         /// <code>
-        /// Action<Tsuper> weakact;
-        /// Subscribe<Tsub>(weakact as Action<Tsub>);
+        /// Action &lt; Tsuper &gt;  weakact;
+        /// Subscribe &lt; Tsub &gt; (weakact as Action &lt; Tsub &gt; );
         /// </code>
         /// </remarks>
         public static void Subscribe<Tsuper,Tsub>(Action<Tsub> act)
