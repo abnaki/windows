@@ -16,7 +16,12 @@
             <typeparam name="Tenum">designed for related buttons
             </typeparam>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Abnaki.Windows.Software.Wpf.Menu.ButtonBus`1.HandleButton(System.Object,System.Windows.RoutedEventArgs)" -->
+        <member name="M:Abnaki.Windows.Software.Wpf.Menu.ButtonBus`1.HandleButton(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Button Click handlers would call this method, and Button CommandParameter
+            is the string of an enum value
+            </summary>
+        </member>
         <member name="M:Abnaki.Windows.Software.Wpf.Menu.ButtonBus`1.AddExclusiveCommands(Abnaki.Windows.GUI.IMainMenu,System.Object,System.Collections.Generic.IEnumerable{`0})">
             <summary>
             First command shall be checked; remainder false.
@@ -137,7 +142,23 @@
             <param name="act">assumed potentially slow
             </param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Abnaki.Windows.Software.Wpf.MessageTube.Subscribe``2(System.Action{``1})" -->
+        <member name="M:Abnaki.Windows.Software.Wpf.MessageTube.Subscribe``2(System.Action{``1})">
+            <summary>
+            Subscribe to subtype of published event
+            </summary>
+            <typeparam name="Tsuper">was associated with Publish</typeparam>
+            <typeparam name="Tsub">desired subtype</typeparam>
+            <param name="act"></param>
+            <remarks>
+            Conversely, if Tsub rather than Tsuper was associated with Publish, 
+            to pass a supertype action it is possible to use the other overload,
+            i.e. contravariance.
+            <code>
+            Action &lt; Tsuper &gt;  weakact;
+            Subscribe &lt; Tsub &gt; (weakact as Action &lt; Tsub &gt; );
+            </code>
+            </remarks>
+        </member>
         <member name="T:Abnaki.Windows.Software.Wpf.Starter">
             <summary>
             Starts Application with suitable preliminaries
@@ -152,6 +173,19 @@
             <typeparam name="Twindow">class of window
             </typeparam>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Abnaki.Windows.Software.Wpf.Starter.Start``2(System.String[],System.Func{``0})" -->
+        <member name="M:Abnaki.Windows.Software.Wpf.Starter.Start``2(System.String[],System.Func{``0})">
+            <summary>
+            Starts Application having Twindow as first thing user sees.
+            </summary>
+            <typeparam name="Tapp">System.Windows.Application, or subclass if necessary</typeparam>
+            <typeparam name="Twindow">class of window</typeparam>
+            <example>
+            <code>
+            [STAThread]
+            public static int Main(string[] args)
+            {  return Starter.Start &lt; YourApp,YourWin &gt;(args); }
+            </code>
+            </example>
+        </member>
     </members>
 </doc>
