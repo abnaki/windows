@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Abnaki.Windows.Software.Wpf.Basis</name>
+    </assembly>
+    <members>
+        <member name="T:Abnaki.Windows.Software.Wpf.Diag.Design">
+            <summary>
+            Investigate design of WPF controls
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.Diplomat.Notifier">
+            <summary>
+            UI notifications
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.Diplomat.Notifier.Error(System.Exception)">
+            <summary>
+            Log and show to user
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.Diplomat.Notifier.AppendMessage(System.String)">
+            <returns>true if errorMsg is different from recent messages
+            </returns>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.Diplomat.TroubleAdvisor">
+            <summary>
+            Dialog for reporting an issue
+            </summary>
+            <summary>
+            TroubleAdvisor
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.Diplomat.TroubleAdvisor.bcancel_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            unused
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.Diplomat.TroubleAdvisor.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.Software.Wpf.Diplomat.TroubleAdvisor.Accept">
+            <summary>True implies OK
+            </summary>
+            <remarks>
+            DialogResult is beyond our control as Visibility changes
+            </remarks>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.Diplomat.Troubleshooter.Shoot">
+            <summary>
+            Dialogs.  Remaining steps are up to the user.
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.Software.Wpf.Diplomat.Troubleshooter.Email">
+            <summary>
+            Address for feedback on issues
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.Software.Wpf.Diplomat.Troubleshooter.AdvisorLines">
+            <summary>
+            Effective if Email exists
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.NetAid.DialogExtension.SetFilters(System.Windows.Forms.FileDialog,System.Object[])">
+            <summary>
+            Suitably simple way to set FileDialog.Filter.
+            DefaultExt is the first.
+            </summary>
+            <param name="dialog"></param>
+            <param name="extensions">filename extensions without dots
+            </param>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.NetAid.DialogExtension.ShowDialogAndOK(System.Windows.Forms.CommonDialog)">
+            <summary>
+            Less ugly than enum in your code.
+            </summary>
+            <param name="dialog"></param>
+            <returns>
+            true if OK
+            </returns>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.NetAid.Dragging">
+            <summary>
+            Assists with Drag/Drop
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.NetAid.Dragging.Extract``1(System.Windows.DragEventArgs)">
+            <summary>
+            Data that was passed to System.Windows.DragDrop.DoDragDrop()
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="e"></param>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.Profile.Preference">
+            <summary>
+            Manages storage of preferences.
+            Will assume that any type can have one instance of some class containing preferences,
+            and the type will have logic responsible for timely saving/restoring, by calling methods below.
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.Profile.Preference.ClassPrefsFile``1(System.String)">
+            <summary>
+            In a profile subdirectory
+            </summary>
+            <typeparam name="T">type of most-responsible consumer class</typeparam>
+            <param name="qualifier">can distinguish or clarify a special purpose file; be sure it's valid within filenames</param>
+            <returns></returns>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.Profile.Preference.ClassPrefsFileOnly``1(System.String)">
+            <summary>
+            Filename only.
+            Like ClassPrefsFile() minus directory.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="qualifier"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.Profile.Preference.WriteClassPrefs``2(``1)">
+            <summary>
+            </summary>
+            <typeparam name="Tclass"></typeparam>
+            <typeparam name="Tpref">contains preferences.  Must be public.</typeparam>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.WaitCursor">
+            <summary>
+            Common pattern to reversibly toggle mouse to WaitCursor
+            </summary>
+            <example>
+            <code>
+            using ( new WaitCursor() ) {  /* consume time /*  }
+            </code>
+            </example>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.WaitCursor.InProgress(System.Boolean)">
+            <summary>
+            Hybrid of pointer and hourglass, while background processing happens
+            </summary>
+            <param name="enable"></param>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.WaitCursor.#ctor(System.Windows.Input.Cursor,System.Boolean)">
+            <summary>
+            </summary>
+            <param name="cursor">default null implies most common houglass</param>
+            <param name="enable"></param>
+        </member>
+    </members>
+</doc>

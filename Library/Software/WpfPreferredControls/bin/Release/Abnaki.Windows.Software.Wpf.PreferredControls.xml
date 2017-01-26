@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Abnaki.Windows.Software.Wpf.PreferredControls</name>
+    </assembly>
+    <members>
+        <member name="T:Abnaki.Windows.Software.Wpf.PreferredControls.Docking.AvalonDockSystem">
+            <summary>
+            IDockSystem depending on AvalonDock
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.PreferredControls.Docking.Setup.CompleteSetupOfInterfaces(Abnaki.Windows.GUI.IWindow,Abnaki.Windows.GUI.IDockSystem)">
+            <summary>
+            </summary>
+            <param name="mainWindow"></param>
+            <param name="dockingSystem"></param>
+            <remarks>Do not want to pollute all dependent projects with references to Xceed and make replacement difficult.
+            </remarks>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.Col">
+            <summary>
+            Prescribes display of a column of a grid
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.Col.Caption">
+            <summary>
+            Null may imply Field will be displayed.
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.Command.CmdDeleteRecords">
+            <summary>
+            Unused because viewmodel does not know about multiple selected records.
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.Event.RecordCellEventArgs">
+            <summary>
+            Cell of a Field within a record or row
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.Event.RecordCellEventArgs.Field">
+            <summary>
+            Name of property of Record
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.Event.RecordCellEventArgs.Record">
+            <summary>
+            Preferred
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.GridControl">
+            <summary>
+            Wraps a data grid.
+            </summary>
+            <summary>
+            GridControl
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.GridControl.Clear">
+            <summary>Absolute
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.GridControl.BindGrid(System.Collections.IEnumerable)">
+            <summary>
+            Assign data
+            </summary>
+            <param name="data">
+            System.Data.DataTable or other object that can typically go into a CollectionView
+            </param>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.GridControl.ConfigureColumns(System.Collections.Generic.IEnumerable{Abnaki.Windows.Software.Wpf.PreferredControls.Grid.Col})">
+            <summary>
+            Recommended.  Required for GridPrefs to work.
+            </summary>
+            <param name="columns">sequence of appearance, with Col options
+            </param>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.GridControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.GridControl.RowFontRatio">
+            <summary>
+            Ratio of row height to FontSize.  Default 2.
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.GridControl.ColumnPref">
+            <summary>Preferences most often desired by user
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.GridVm">
+            <summary>
+            ViewModel for Grid
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.Software.Wpf.PreferredControls.Grid.GridVm.Data">
+            <summary>
+            Expect Grid to bind to it. 
+            Inherits System.Windows.Data.CollectionView.
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.PreferredControls.Primitive.ColorSelector">
+            <summary>
+            
+            </summary>
+            <summary>
+            ColorSelector
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.PreferredControls.Primitive.ColorSelector.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+    </members>
+</doc>

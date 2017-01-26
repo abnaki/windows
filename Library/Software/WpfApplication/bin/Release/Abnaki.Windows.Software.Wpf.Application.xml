@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Abnaki.Windows.Software.Wpf.Application</name>
+    </assembly>
+    <members>
+        <member name="T:Abnaki.Windows.Software.Wpf.Ultimate.FarewellMessage">
+            <summary>
+            Occurs when application is shutting down
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.Menu.ButtonBus`1">
+            <summary>
+            Controller base class
+            </summary>
+            <typeparam name="Tenum">designed for related buttons
+            </typeparam>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Abnaki.Windows.Software.Wpf.Menu.ButtonBus`1.HandleButton(System.Object,System.Windows.RoutedEventArgs)" -->
+        <member name="M:Abnaki.Windows.Software.Wpf.Menu.ButtonBus`1.AddExclusiveCommands(Abnaki.Windows.GUI.IMainMenu,System.Object,System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            First command shall be checked; remainder false.
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.Ultimate.MainWindow">
+            <summary>
+            
+            </summary>
+            <remarks>
+            MS does not support inheriting XAML properly across assemblies.  XAML is used for this class,
+            and you will not have a subclass.   You can use public functionality.  Also see UltimateStarter.
+            </remarks>
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.Ultimate.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.Ultimate.UltimateStarter`1">
+            <summary>
+            Starts Ultimate MainWindow where a Tcontrol occupies all the useful space
+            </summary>
+            <typeparam name="Tcontrol">
+            </typeparam>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.ViewModels.AbnakiViewModel">
+            <summary>
+            Base class
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.ViewModels.AbnakiViewModel.SubscribeEvents">
+            <summary>
+            Add methods of this to MessageTube.Subscribe() per type T
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.Menu.ButtonMessage">
+            <summary>
+            Supports messaging about buttons/commands clicked
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.Software.Wpf.Menu.ButtonMessage.Checked">
+            <summary>
+            Null in the absence of any check option.
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.Menu.ButtonMessage`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="Tenum">contains keys of related buttons
+            </typeparam>
+        </member>
+        <member name="P:Abnaki.Windows.Software.Wpf.Menu.ButtonMessage`1.Key">
+            <summary>
+            Unique to the button, for logical comparisons
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.Menu.MainMenu">
+            <summary>
+            A control for a customary main menu to populate programmatically
+            </summary>
+            <remarks>
+            Because the menu is wrapped in this class, users do not populate it with XAML.
+            Menu commands should be sufficiently simple, not needing much customization;
+            this public interface allows programmatic possibilities; 
+            and lets developers avoid time-consuming designer interaction.
+            In some situations, menu commands are known at run time, not design time.
+            </remarks>
+            <summary>
+            MainMenu
+            </summary>
+        </member>
+        <member name="F:Abnaki.Windows.Software.Wpf.Menu.MainMenu.mapKeyExclusivity">
+            <summary>
+            Keys for which value is true imply the menu command has mutually exclusive checking
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.Menu.MainMenu.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.Software.Wpf.Menu.MainMenu.RichTag.Tag">
+            <summary>
+            Enum value
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.Software.Wpf.Menu.MainMenu.RichTag.TagInteger">
+            <summary>
+            required for disparate enums via SortDescriptions
+            </summary>
+        </member>
+        <member name="F:Abnaki.Windows.Software.Wpf.Menu.MainMenu.MenuCheckPreference.CheckedEnums">
+            <summary>
+            For all checked commands, tag's Type.FullName + enum value.
+            Ignore unchecked commands.
+            </summary>
+        </member>
+        <member name="F:Abnaki.Windows.Software.Wpf.Menu.MainMenu.MenuCheckPreference.UncheckedEnums">
+            <summary>
+            Same style as CheckedEnums, but for independent items that are consciously unchecked.
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Software.Wpf.MessageTube">
+            <summary>
+            A message bus
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.MessageTube.SubscribeCostly``1(System.Action{``0})">
+            <summary>
+            Uses WaitCursor while handling
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="act">assumed potentially slow
+            </param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Abnaki.Windows.Software.Wpf.MessageTube.Subscribe``2(System.Action{``1})" -->
+        <member name="T:Abnaki.Windows.Software.Wpf.Starter">
+            <summary>
+            Starts Application with suitable preliminaries
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Software.Wpf.Starter.Start``1(System.String[],System.Func{``0})">
+            <summary>
+            Starts Application having Twindow.
+            Does not need any subclass of Application.
+            Also see other Start overload.
+            </summary>
+            <typeparam name="Twindow">class of window
+            </typeparam>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Abnaki.Windows.Software.Wpf.Starter.Start``2(System.String[],System.Func{``0})" -->
+    </members>
+</doc>

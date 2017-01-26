@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Abnaki.Windows.Commonality</name>
+    </assembly>
+    <members>
+        <member name="T:Abnaki.Windows.AbnakiFile">
+            <summary>
+            Helps with System.IO
+            </summary>
+            <remarks>
+            Encourages FileInfo and DirectoryInfo usage.
+            In Combined methods where arguments are weakly typed path parts, they are allowed to be class or string, at your discretion;
+            e.g. if given a FileInfo or DirectoryInfo, its FullName is used.
+            </remarks>
+        </member>
+        <member name="M:Abnaki.Windows.AbnakiFile.DirectorySequence(System.IO.FileSystemInfo)">
+            <summary>
+            Sequence of top-down DirectoryInfo(s), ending in last DirectoryInfo equal to or containing fi.
+            </summary>
+            <param name="fi"></param>
+        </member>
+        <member name="M:Abnaki.Windows.AbnakiFile.FindPathDifference(System.IO.DirectoryInfo,System.IO.FileSystemInfo,System.Collections.Generic.List{System.IO.FileSystemInfo})">
+            <summary></summary>
+            <param name="dibase">null implies root</param>
+            <param name="fidescendant"></param>
+            <param name="paths"></param>
+        </member>
+        <member name="T:Abnaki.Windows.AbnakiReflection">
+            <summary>
+            Reflection - querying Types
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.AbnakiReflection.LabelOfEnum(System.Object)">
+            <summary>
+            Label attribute of enum, or by default the ordinary string
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.AbnakiReflection.DetailOfEnum(System.Object)">
+            <summary>
+            LabelAttribute Detail of enum, or else null
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.AbnakiReflection.AttributeOfEnum``1(System.Object)">
+            <returns>null if no T exists
+            </returns>
+        </member>
+        <member name="M:Abnaki.Windows.AbnakiReflection.ApplicationNameVersionSplit">
+            <summary>
+            Entry Assembly name, n.n.n version, and Revision (least significant)
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Compare">
+            <summary>
+            Supports IComparables
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.Compare.CompareNullPossible``1(``0,``0)">
+            <summary>
+            Uses thing.CompareTo(other), defines null as less than non-null, and null equal to null.
+            </summary>
+            <typeparam name="T">IComparable of T</typeparam>
+            <param name="thing"></param>
+            <param name="other"></param>
+        </member>
+        <member name="T:Abnaki.Windows.GUI.IDockSystem">
+            <summary>
+            Important related objects/values, in terms of panel/docking
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.GUI.IDockSystem.DockSystem">
+            <summary>
+            Usually a third party panel-management component
+            </summary>
+            <remarks>
+            The intent of object is to keep fundamental code free from many obscure freeware types, 
+            avoiding cluttered references of projects.
+            </remarks>
+        </member>
+        <member name="P:Abnaki.Windows.GUI.IDockSystem.Version">
+            <summary>
+            Increases with development progress of panel layouts.
+            Necessary for a new programmatic layout to have precedence over a conflicting old saved layout.
+            </summary>
+            <remarks>
+            If there is an inheritance hierarchy of Control classes that contribute panels to one DockSystem, 
+            the classes could each contribute an increment, for example 8, to a summation that will be passed to Version.  
+            When the developer lets a particular class add/remove a panel, that class increases 8 to 9.
+            </remarks>
+        </member>
+        <member name="T:Abnaki.Windows.GUI.IMainControl">
+            <summary>
+            Supports general initialization.
+            Expected to be implemented widely.
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.GUI.IMainControl.EmplacedInWindow">
+            <summary>
+            After this becomes a descendant of main window
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.GUI.IMainControl.DockingSystem">
+            <summary>
+            Manages panels.  Can be null.
+            </summary>
+        </member>
+        <member name="E:Abnaki.Windows.GUI.IMainControl.MainTitle">
+            <summary>
+            Change main window Title
+            </summary>
+        </member>
+        <member name="M:Abnaki.Windows.GUI.IMainMenu.Completed">
+            <summary>
+            All Commands added.  May restore saved Check property to commands.
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.GUI.IWindow">
+            <summary>
+            Supports general initialization.
+            Not expected to be implemented widely by consumers.
+            </summary>
+        </member>
+        <member name="E:Abnaki.Windows.GUI.IWindow.SavingPanelLayout">
+            <summary>
+            Raised when panel/docking layout should be saved to file
+            </summary>
+        </member>
+        <member name="E:Abnaki.Windows.GUI.IWindow.RestoringPanelLayout">
+            <summary>
+            Raised when panel/docking layout should be restored from file
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.GUI.MenuSeed`1">
+            <summary>
+            Describes a menu command to create
+            </summary>
+            <typeparam name="Tkey"></typeparam>
+        </member>
+        <member name="P:Abnaki.Windows.GUI.MenuSeed`1.ParentKey">
+            <summary>
+            Can be null
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.GUI.MenuSeed`1.Label">
+            <summary>
+            If unspecified, menu command will show Key enum value's Description attribute or ordinary string
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.GUI.MenuSeed`1.DefaultCheck">
+            <summary>
+            Null by default means no check exists.
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.GUI.MenuSeed`1.MutuallyExclusive">
+            <summary>
+            Of this command or its siblings, only one can be Checked.
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.AbnakiLog">
+            <summary>
+            Logs application information and things that happen.
+            </summary>
+            <remarks>
+            Log is required to result in data that developers can view appropriately, 
+            with the fields they need.
+            
+            Designed to log Entry, and subclasses, in memory and will be possible to save in a file later.
+            Does not aspire to be like feature-rich logging frameworks such as NLog.
+            Not designed to write to a file/DB/service continuously.
+            Not designed for configurable "levels of detail".
+            Recommended usage is coarse information, not frequent programmatic log entries. 
+            Too many entries would slow down a sophisticated application, on the main thread or a 
+            logging thread, and it could collect astronomical amounts of data (...big files) that aren't very portable
+            and aren't feasible to diagnose.  Instead, when the utmost detail is needed, debug.
+            </remarks>
+        </member>
+        <member name="M:Abnaki.Windows.AbnakiLog.Incorporate(System.String)">
+            <summary>
+            Add content of another log
+            </summary>
+            <param name="filename">previously created by Write()</param>
+        </member>
+        <member name="M:Abnaki.Windows.AbnakiLog.Entry.DebuggingMessage">
+            <summary>
+            May be much more verbose than ToString()
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.AbnakiLog.Entry.Timeu">
+            <summary>Universal time
+            </summary>
+            <remarks>Machine timezone can be doubtful, and should be eliminated from comparisons across different clocks.
+            </remarks>
+        </member>
+        <member name="P:Abnaki.Windows.AbnakiLog.Entry.Scope">
+            <summary>
+            May categorize by class, project, etc.
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.AbnakiLog.EntryFile.Length">
+            <summary>
+            bytes, thousand-delimited
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.AbnakiLog.EntryFile.DateMod">
+            <summary>
+            Universal
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.LabelAttribute">
+            <summary>
+            Labels and documents types, such as enum values
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.LabelAttribute.Label">
+            <summary>
+            Shown on a control, button, and such things
+            </summary>
+        </member>
+        <member name="P:Abnaki.Windows.LabelAttribute.Detail">
+            <summary>
+            Exhaustive explanation
+            </summary>
+        </member>
+        <member name="T:Abnaki.Windows.Thread.PayloadTimer`1">
+            <summary>
+            Raises Expire event once
+            </summary>
+            <typeparam name="T">of payload
+            </typeparam>
+        </member>
+        <member name="T:Abnaki.Windows.Xml.Yuri">
+            <summary>
+            URI that can be serialized
+            </summary>
+        </member>
+    </members>
+</doc>
