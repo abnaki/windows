@@ -18,6 +18,7 @@ namespace Abnaki.Windows.Software.Wpf.Menu
         /// <summary>
         /// Button Click handlers would call this method, and Button CommandParameter
         /// is the string of an enum value
+        /// </summary>
         public static void HandleButton(Object sender, RoutedEventArgs e)
         {
             Button bu = (Button)sender;
