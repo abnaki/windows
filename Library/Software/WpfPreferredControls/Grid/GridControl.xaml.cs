@@ -475,7 +475,7 @@ namespace Abnaki.Windows.Software.Wpf.PreferredControls.Grid
                 object ehit = HitGridObject(e);
                 //Debug.WriteLine("Hit " + ehit);
 
-                if (ehit is Row || ehit is Cell)
+                if (ehit is Row || ehit is DataCell)
                 {
                     List<object> selectList = this.Grid.SelectedItems.Cast<object>().ToList();
                     if (selectList.Count > 0)
