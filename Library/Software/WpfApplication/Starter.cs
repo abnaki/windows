@@ -33,7 +33,7 @@ namespace Abnaki.Windows.Software.Wpf
         /// <code>
         /// [STAThread]
         /// public static int Main(string[] args)
-        /// {  return Starter.Start<YourApp,YourWin>(args); }
+        /// {  return Starter.Start &lt; YourApp,YourWin &gt;(args); }
         /// </code>
         /// </example>
         public static int Start<Twindow, Tapp>(string[] args, Func<Twindow> initWindow = null)
