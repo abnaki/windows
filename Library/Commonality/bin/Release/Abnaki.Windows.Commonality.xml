@@ -68,14 +68,22 @@
             Important related objects/values, in terms of panel/docking
             </summary>
         </member>
-        <member name="P:Abnaki.Windows.GUI.IDockSystem.DockSystem">
+        <member name="M:Abnaki.Windows.GUI.IDockSystem.Defaults">
             <summary>
-            Usually a third party panel-management component
+            Single place for most useful default settings
             </summary>
-            <remarks>
-            The intent of object is to keep fundamental code free from many obscure freeware types, 
-            avoiding cluttered references of projects.
-            </remarks>
+        </member>
+        <member name="M:Abnaki.Windows.GUI.IDockSystem.SerializeLayout(System.IO.FileInfo)">
+            <summary>
+            Create file
+            </summary>
+            <param name="fi"></param>
+        </member>
+        <member name="M:Abnaki.Windows.GUI.IDockSystem.DeserializeLayout(System.IO.FileInfo)">
+            <summary>
+            Read file
+            </summary>
+            <param name="fi"></param>
         </member>
         <member name="P:Abnaki.Windows.GUI.IDockSystem.Version">
             <summary>

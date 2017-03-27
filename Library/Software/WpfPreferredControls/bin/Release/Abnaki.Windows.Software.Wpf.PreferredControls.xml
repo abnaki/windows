@@ -4,6 +4,12 @@
         <name>Abnaki.Windows.Software.Wpf.PreferredControls</name>
     </assembly>
     <members>
+        <member name="T:Abnaki.Windows.Software.Wpf.PreferredControls.Docking.AbnakiDockSystem">
+            <summary>
+            Commonalities often needed by different panel docking systems.
+            Layout files can be versioned, and ignored if their version is outdated.
+            </summary>
+        </member>
         <member name="T:Abnaki.Windows.Software.Wpf.PreferredControls.Docking.AvalonDockSystem">
             <summary>
             IDockSystem depending on AvalonDock
