@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Abnaki.Windows.GUI
 {
@@ -8,13 +9,21 @@ namespace Abnaki.Windows.GUI
     public interface IDockSystem
     {
         /// <summary>
-        /// Usually a third party panel-management component
+        /// Single place for most useful default settings
         /// </summary>
-        /// <remarks>
-        /// The intent of object is to keep fundamental code free from many obscure freeware types, 
-        /// avoiding cluttered references of projects.
-        /// </remarks>
-        object DockSystem { get; }
+        void Defaults();
+
+        /// <summary>
+        /// Create file
+        /// </summary>
+        /// <param name="fi"></param>
+        void SerializeLayout(FileInfo fi);
+
+        /// <summary>
+        /// Read file
+        /// </summary>
+        /// <param name="fi"></param>
+        void DeserializeLayout(FileInfo fi);
 
         /// <summary>
         /// Increases with development progress of panel layouts.
