@@ -35,10 +35,17 @@ namespace Abnaki.Windows.Software.Wpf.Diplomat
 
         static void ShowMessage(string caption, string message, MessageBoxImage image)
         {
-            rootDispatcher.BeginInvoke(new Action(() =>
-                {
-                    MessageBox.Show(Application.Current.MainWindow, message, caption, MessageBoxButton.OK, image);
-                }));
+            Window win = Application.Current.Windows.Cast<Window>().FirstOrDefault(w => w.IsLoaded);
+
+            if (win == null || rootDispatcher == null)
+            {
+                MessageBox.Show(message, caption, MessageBoxButton.OK, image);
+            }
+            else
+            {
+                Action showit = () => MessageBox.Show(win, message, caption, MessageBoxButton.OK, image);
+                rootDispatcher.BeginInvoke(showit);
+            }
 
         }
 
