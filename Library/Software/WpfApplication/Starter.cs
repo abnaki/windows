@@ -48,6 +48,7 @@ namespace Abnaki.Windows.Software.Wpf
                 AbnakiLog.Comment("Start", starta.Location);
                 AbnakiLog.Comment("Version", starta.GetName().Version);
                 AbnakiLog.Comment("Operating System", Environment.OSVersion);
+                AbnakiLog.Comment("Culture", System.Globalization.CultureInfo.CurrentCulture);
 
                 // reconcile FrameworkElement Language with CurrentCulture, which is independent by default
                 FrameworkElement.LanguageProperty.OverrideMetadata(
@@ -74,6 +75,7 @@ namespace Abnaki.Windows.Software.Wpf
             catch ( Exception ex )
             {
                 Diplomat.Notifier.Error(ex);
+                Diplomat.Troubleshooter.DialogSaveLog();
             }
             return 1; // failed
         }
