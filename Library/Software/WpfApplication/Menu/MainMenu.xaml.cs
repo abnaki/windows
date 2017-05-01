@@ -129,7 +129,7 @@ namespace Abnaki.Windows.Software.Wpf.Menu
             item.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("Tag", System.ComponentModel.ListSortDirection.Ascending));
         }
 
-        class RichTag : IComparable<RichTag>, IComparable
+        internal class RichTag : IComparable<RichTag>, IComparable
         {
             public RichTag(MenuItem item, object tag)
             {
@@ -330,7 +330,7 @@ namespace Abnaki.Windows.Software.Wpf.Menu
 
         void Farewell(FarewellMessage msg)
         {
-            Func<object, bool> allowUncheck = key => mapKeyExclusivity.ContainsKey(key) && !mapKeyExclusivity[key];
+            Func<RichTag, bool> allowUncheck = rt => mapKeyExclusivity.ContainsKey(rt.Tag) && !mapKeyExclusivity[rt.Tag];
 
             MenuCheckPreference pref = new MenuCheckPreference(this.RootMenu.Items, allowUncheck);
 
@@ -355,7 +355,7 @@ namespace Abnaki.Windows.Software.Wpf.Menu
 
             }
 
-            public MenuCheckPreference(ItemCollection items, Func<object,bool> allowUncheck)
+            internal MenuCheckPreference(ItemCollection items, Func<RichTag,bool> allowUncheck)
             {
                 Descend(items, allowUncheck);
             }
