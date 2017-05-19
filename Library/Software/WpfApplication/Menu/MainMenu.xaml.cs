@@ -297,7 +297,7 @@ namespace Abnaki.Windows.Software.Wpf.Menu
         {
             foreach ( MenuItem item in items )
             {
-                if (item.IsChecked)
+                if (item.IsCheckable)
                     RaiseExistingCheck(item);
 
                 RaiseExistingChecks(item.Items);
