@@ -176,7 +176,12 @@ namespace Abnaki.Windows.Software.Wpf.Ultimate
             {
                 var h = RestoringPanelLayout;
                 if (h != null)
-                    h(fi);
+                {
+                    using (new WaitCursor())
+                    {
+                        h(fi);
+                    }
+                }
             }
             else
             {
